@@ -1,0 +1,5 @@
+matplotlib
+opencv-python
+decimer
+jupyter
+selfies
