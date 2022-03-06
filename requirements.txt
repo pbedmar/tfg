@@ -3,3 +3,4 @@ opencv-python
 decimer
 jupyter
 selfies
+rdkit-pypi
