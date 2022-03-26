@@ -1,0 +1,11 @@
+Creamos un nuevo entorno conda con python 3.8
+Instalamos:
+    - pytorch-lightning==1.0.8
+    - omegaconf==2.0.0
+    - einops==0.3.0
+    - pillow
+    - torchvision==0.8.1
+    - test-tube
+
+
+se instalan automáticamente todas las dependencias necesaras.

@@ -4,3 +4,8 @@ decimer
 jupyter
 selfies
 rdkit-pypi
+omegaconf==2.0.0
+pytorch-lightning==1.0.8
+einops==0.3.0
+torch==1.7.0
+yaml

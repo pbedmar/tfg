@@ -1,0 +1,10 @@
+pytorch-lightning==1.0.8
+torch==1.7.0
+torchvision==0.8.1
+torchtext==0.8.0
+omegaconf==2.0.0
+einops>=0.3.0
+transformers
+test-tube
+sklearn
+albumentations

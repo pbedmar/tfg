@@ -33,11 +33,11 @@ data:
     train:
       target: taming.data.custom.CustomTrain
       params:
-        training_images_list_file: /content/drive/MyDrive/4_ING_INFORMATICA/tfg/datasets/negev/articles_molecules/preprocess/aug/xx_train.txt
+        training_images_list_file: ../../../datasets/negev/articles_molecules/preprocess/aug/xx_train.txt
         size: 192
     validation:
       target: taming.data.custom.CustomTest
       params:
-        test_images_list_file: /content/drive/MyDrive/4_ING_INFORMATICA/tfg/datasets/negev/articles_molecules/preprocess/aug/xx_test.txt
+        test_images_list_file: ../../../datasets/negev/articles_molecules/preprocess/aug/xx_test.txt
         size: 192
 
