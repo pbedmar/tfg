@@ -5,8 +5,10 @@ torchtext==0.8.0
 omegaconf==2.0.0
 einops>=0.3.0
 transformers
+pillow
 test-tube
 sklearn
 albumentations
 jupyter
 imgaug
+imagemagick

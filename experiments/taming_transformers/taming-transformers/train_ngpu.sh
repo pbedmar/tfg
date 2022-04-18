@@ -3,6 +3,7 @@
 #SBATCH --job-name taming-train   # Nombre del proceso
 #SBATCH --partition dios          # Cola para ejecutar
 #SBATCH --gres=gpu:2             # Numero de gpus a usar
+#SBATCH --nodelist=hera
 
 export PATH="/opt/anaconda/anaconda3/bin:$PATH"
 export PATH="/opt/anaconda/bin:$PATH"
@@ -15,6 +16,9 @@ export TFHUB_CACHE_DIR=.
 
 cd /mnt/homeGPU1/pbedmar/pycharm/experiments/taming_transformers/taming-transformers/
 
-python3 main.py --max_epochs 70 --base configs/custom_vqgan_aug_3.yaml -t True --gpus 0,1,
+EPOCHS=70
+CONFIG=configs/custom_vqgan_256_aug_2.yaml
 
-mail -A "slurm-$SLURM_JOBID.out" -s "$SLURM_JOBID 70ep ha terminado" vicyped@gmail.com <<< "El proceso de ejecución de train_ngpu.sh ha finalizado con los resultados adjuntos"
+python3 main.py --max_epochs $EPOCHS --base $CONFIG -t True --gpus 0,1,
+
+mail -A "slurm-$SLURM_JOBID.out" -s "$SLURM_JOBID $CONFIG $EPOCHS ep ha terminado" vicyped@gmail.com <<< "El proceso de ejecución de train_ngpu.sh ha finalizado con los resultados adjuntos"
