@@ -17,7 +17,7 @@ export TFHUB_CACHE_DIR=.
 cd /mnt/homeGPU1/pbedmar/pycharm/experiments/taming_transformers/taming-transformers/
 
 EPOCHS=85
-CONFIG=configs/custom_vqgan_256_aug_2.yaml
+CONFIG=configs/custom_vqgan_512_aug_2.yaml
 
 python3 main.py --max_epochs $EPOCHS --base $CONFIG -t True --gpus 0,1,
 
