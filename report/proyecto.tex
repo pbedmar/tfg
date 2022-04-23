@@ -28,6 +28,17 @@
 
 \usepackage[pdfborder={000}]{hyperref} %referencia
 
+\usepackage[backend=biber, style=numeric, sorting=ynt]{biblatex}
+\renewbibmacro{in:}{}
+
+% \usepackage[
+%     a4paper,
+%     left=2.8cm,
+%     right=2.7cm,
+%     top=4cm,
+%     bottom=3cm
+% ]{geometry}
+
 % ********************************************************************
 % Re-usable information
 % ********************************************************************
@@ -172,6 +183,11 @@ pdfproducer = {pdflatex}
 \makeatother
 
 \usepackage{pdfpages}
+
+
+\addbibresource{bibliografia/bibliografia.bib}
+\addbibresource{bibliografia/webs.bib}
+
 \begin{document}
 \input{portada/portada}
 \input{prefacios/prefacio}
@@ -203,9 +219,16 @@ pdfproducer = {pdflatex}
 %
 %
 
+\printbibliography[nottype=online, title={Bibliografía}]
+\printbibliography[type=online, title={Otras fuentes}]
+
+% \printbibheading
+% \printbibliography{nottype=misc, heading=subbibliography, title={Citas}}
+% \printbibliography{type=misc, heading=subbibliography, title={Otras fuentes}}
+
 % \nocite{*}
-\bibliography{bibliografia/bibliografia}{}
-\bibliographystyle{ieeetr}
+% \bibliography{bibliografia/bibliografia}{}
+% \bibliographystyle{ieeetr}
 % \addcontentsline{toc}{chapter}{Bibliografía}
 % \bibliographystyle{miunsrturl}
 %
