@@ -9,3 +9,5 @@ pytorch-lightning==1.0.8
 einops==0.3.0
 torch==1.7.0
 yaml
+torchvision
+scikit-learn
