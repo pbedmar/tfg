@@ -1,11 +1,10 @@
-import glob
+import os
 
 import torch
-from torch.utils.data import Dataset
+from torch.utils.data import Dataset, DataLoader
 from torchvision.io import read_image
 from functions import gen_metadata
-from torchvision.transforms import ToTensor
-import os
+
 
 class CompoundDataset(Dataset):
     def __init__(self, dir_pos, dir_neg, set_name, transform=None, target_transform=None):
@@ -33,11 +32,11 @@ class CompoundDataset(Dataset):
         return len(self.filenames)
 
     def __getitem__(self, index):
-        image = read_image(self.filenames[index])
+        image = read_image(self.filenames[index]).float()
         if index < len(self.filenames_pos):
-            label = torch.tensor([1])
+            label = torch.tensor([1], dtype=torch.float32)
         else:
-            label = torch.tensor([0])
+            label = torch.tensor([0], dtype=torch.float32)
 
         if self.transform:
             image = self.transform(image)
@@ -46,11 +45,3 @@ class CompoundDataset(Dataset):
 
         return image, label
 
-
-dataset = CompoundDataset("../../datasets/negev/articles_molecules/preprocess256",
-                          "../../datasets/negev/not_molecules/preprocess256",
-                          "train",
-                          )
-datapoint, label = dataset[4]
-print(datapoint, label)
-print(torch.zeros(2,5))

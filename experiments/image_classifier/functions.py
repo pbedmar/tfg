@@ -1,10 +1,9 @@
-from torch.utils.data import DataLoader
-from torchvision import datasets, transforms
-
 import glob
-from sklearn.model_selection import train_test_split
-from os.path import exists
 
+import torch
+from torch import optim
+
+from sklearn.model_selection import train_test_split
 
 def gen_metadata(directory):
     directory = directory+"/"
@@ -22,16 +21,26 @@ def gen_metadata(directory):
         f.write(test[-1])
 
 
-def load_data(dir_true, dir_false, normalize=True):
-    train_true = datasets.ImageFolder(dir_true)
-    train_true_loader = DataLoader(train_true)
+def train(dataloader, model, criterion, nb_epochs, lr, device):
+    optimizer = optim.Adam(model.parameters(), lr)
 
-    return train_true_loader
+    acc_losses_by_epoch = torch.zeros(nb_epochs)
 
+    for epoch in range(nb_epochs):
+        print("Epoch nb.",epoch)
+        acc_loss = 0
 
-# data = load_data("../../datasets/negev/articles_molecules", "../../datasets/negev/not_molecules")
-# print(data[0][1])
+        for batch_x, batch_y in dataloader:
+            batch_x, batch_y = batch_x.to(device), batch_y.to(device)
+            output = model(batch_x)
+            loss = criterion(output, batch_y)
+            acc_loss = acc_loss + loss.item()
+            model.zero_grad()
+            loss.backward()
+            optimizer.step()
 
-# def train(model, n_epochs, eta, train_x, train_y, eta):
-#
-#     for epoch in range(n_epochs):
+        acc_losses_by_epoch[epoch] = acc_loss
+        print("loss=", acc_loss)
+        print()
+
+    return acc_losses_by_epoch
