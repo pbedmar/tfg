@@ -21,7 +21,7 @@ test_dataset = CompoundDataset(
 test_dataloader = DataLoader(test_dataset, batch_size=64)
 
 model = models.VGG16()
-model.load_state_dict(torch.load("saved_models/try2.pt"))
+model.load_state_dict(torch.load("saved_models/small_lr_0.005.pt"))
 model.to(device)
 
 zeros=0

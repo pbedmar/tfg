@@ -16,6 +16,6 @@ export TFHUB_CACHE_DIR=.
 
 cd /mnt/homeGPU1/pbedmar/pycharm/experiments/image_classifier/
 
-python3 sample.py
+python3 train.py
 
 mail -A "slurm-$SLURM_JOBID.out" -s "ha terminado" vicyped@gmail.com <<< "El proceso de ejecución de train_ngpu.sh ha finalizado con los resultados adjuntos"

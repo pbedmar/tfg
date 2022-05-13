@@ -27,14 +27,14 @@ test_dataset = CompoundDataset(
 train_dataloader = DataLoader(train_dataset, batch_size=32, shuffle=True)
 test_dataloader = DataLoader(test_dataset, batch_size=32)
 
-model = models.VGG16()
+model = models.AlexNet()
 model.to(device)
 criterion = torch.nn.CrossEntropyLoss()
-nb_epochs = 300
-lr = 0.005
+nb_epochs = 50
+lr = 1e-4
 
 train(train_dataloader, model, criterion, nb_epochs, lr, device)
-torch.save(model.state_dict(), "saved_models/lr_0.005.pt")
+torch.save(model.state_dict(), "saved_models/alexnet_lr_0.005.pt")
 
 nb_errors = test(test_dataloader, model, device)
 
