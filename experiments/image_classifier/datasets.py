@@ -1,8 +1,10 @@
 import os
+from PIL import Image
 
 import torch
 from torch.utils.data import Dataset, DataLoader
 from torchvision.io import read_image
+
 from functions import gen_metadata
 
 
@@ -32,11 +34,11 @@ class CompoundDataset(Dataset):
         return len(self.filenames)
 
     def __getitem__(self, index):
-        image = read_image(self.filenames[index]).float()
+        image = Image.open(self.filenames[index])
         if index < len(self.filenames_pos):
-            label = torch.tensor([1], dtype=torch.float32)
+            label = 1
         else:
-            label = torch.tensor([0], dtype=torch.float32)
+            label = 0
 
         if self.transform:
             image = self.transform(image)

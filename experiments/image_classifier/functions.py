@@ -53,9 +53,12 @@ def test(dataset, model, device):
         batch_x, batch_y = batch_x.to(device), batch_y.to(device)
         output = model(batch_x)
 
-        for real_y, predicted_y in zip(batch_y, output):
-            print(real_y, predicted_y)
-            if real_y != predicted_y:
+        _, predicted_classes = output.max(1)
+
+        for predicted_class, y in zip(predicted_classes, batch_y):
+            print(predicted_class.item(), y.item(), output)
+            print()
+            if predicted_class != y:
                 nb_errors = nb_errors + 1
 
     return nb_errors
