@@ -44,3 +44,18 @@ def train(dataloader, model, criterion, nb_epochs, lr, device):
         print()
 
     return acc_losses_by_epoch
+
+
+def test(dataset, model, device):
+    nb_errors = 0
+
+    for batch_x, batch_y in dataset:
+        batch_x, batch_y = batch_x.to(device), batch_y.to(device)
+        output = model(batch_x)
+
+        for real_y, predicted_y in zip(batch_y, output):
+            print(real_y, predicted_y)
+            if real_y != predicted_y:
+                nb_errors = nb_errors + 1
+
+    return nb_errors
