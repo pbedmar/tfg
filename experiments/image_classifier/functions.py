@@ -27,7 +27,6 @@ def train(dataloader, model, criterion, nb_epochs, lr, device):
     acc_losses_by_epoch = torch.zeros(nb_epochs)
 
     for epoch in range(nb_epochs):
-        print("Epoch nb.",epoch)
         acc_loss = 0
 
         for batch_x, batch_y in dataloader:
@@ -40,8 +39,8 @@ def train(dataloader, model, criterion, nb_epochs, lr, device):
             optimizer.step()
 
         acc_losses_by_epoch[epoch] = acc_loss
-        print("loss=", acc_loss)
-        print()
+        if epoch % 10 == 0:
+            print("Epoch nb.", epoch, "-> loss=",acc_loss)
 
     return acc_losses_by_epoch
 
@@ -56,8 +55,6 @@ def test(dataset, model, device):
         _, predicted_classes = output.max(1)
 
         for predicted_class, y in zip(predicted_classes, batch_y):
-            print(predicted_class.item(), y.item(), output)
-            print()
             if predicted_class != y:
                 nb_errors = nb_errors + 1
 
