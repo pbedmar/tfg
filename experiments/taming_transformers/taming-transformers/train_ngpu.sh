@@ -16,9 +16,12 @@ export TFHUB_CACHE_DIR=.
 
 cd /mnt/homeGPU1/pbedmar/pycharm/experiments/taming_transformers/taming-transformers/
 
-EPOCHS=70
-CONFIG=configs/custom_vqgan_384_aug_2.yaml
+CONFIG=configs/custom_vqgan_negative256.yaml
 
-python3 main.py --max_epochs $EPOCHS --base $CONFIG -t True --gpus 0,1,
+for EPOCHS in {70..20..170}
+do
+    python3 main.py --name negative256_$EPOCHS --max_epochs $EPOCHS --base $CONFIG -t True --gpus 0,1,
+done
+
 
 mail -A "slurm-$SLURM_JOBID.out" -s "$SLURM_JOBID $CONFIG $EPOCHS ep ha terminado" vicyped@gmail.com <<< "El proceso de ejecución de train_ngpu.sh ha finalizado con los resultados adjuntos"

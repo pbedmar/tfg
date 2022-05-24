@@ -1,6 +1,6 @@
 from datasets import CompoundDataset
 from functions import train, test
-from models import VGG16, AlexNet
+from models import LeNet5, AlexNet, VGG16
 
 import torch
 from torch.utils.data import DataLoader
@@ -8,13 +8,13 @@ from torchvision import transforms
 
 
 nb_epochs = 100
-batch_size = 64
+batch_size = 32
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 criterion = torch.nn.CrossEntropyLoss()
 
-models = ["AlexNet", "VGG16"]
+models = ["LeNet5", "AlexNet", "VGG16"]
 lrs = [1e-1, 5e-2, 1e-2, 5e-3, 1e-3, 5e-4, 1e-4, 5e-5, 1e-5]
-seeds = [1, 2 ,3]
+seeds = [1, 2, 3]
 
 
 train_dataset = CompoundDataset(
@@ -32,13 +32,15 @@ test_dataset = CompoundDataset(
                           )
 
 for model_s in models:
-    model = eval(model_s+"()")
-    model.to(device)
 
+    print("")
     for lr in lrs:
 
         for seed in seeds:
             print("---- Model:", model_s, " LR:", lr, " Seed:", seed, "----")
+
+            model = eval(model_s + "()")
+            model.to(device)
 
             torch.manual_seed(seed)
 
