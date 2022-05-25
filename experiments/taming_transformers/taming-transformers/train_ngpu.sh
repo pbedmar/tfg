@@ -18,7 +18,7 @@ cd /mnt/homeGPU1/pbedmar/pycharm/experiments/taming_transformers/taming-transfor
 
 CONFIG=configs/custom_vqgan_negative256.yaml
 
-for EPOCHS in {70..20..170}
+for EPOCHS in {70..170..20}
 do
     python3 main.py --name negative256_$EPOCHS --max_epochs $EPOCHS --base $CONFIG -t True --gpus 0,1,
 done

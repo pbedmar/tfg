@@ -8,7 +8,7 @@ from sklearn.model_selection import train_test_split
 def gen_metadata(directory):
     directory = directory+"/"
     filenames = glob.glob(directory+"*.jpg")
-    train, test = train_test_split(filenames, test_size=0.25, random_state=42)
+    train, test = train_test_split(filenames, test_size=0.2, random_state=0)
 
     with open(directory+"imclass_train.txt", "w") as f:
         for filename in train[:-1]:
@@ -39,7 +39,7 @@ def train(dataloader, model, criterion, nb_epochs, lr, device):
             optimizer.step()
 
         acc_losses_by_epoch[epoch] = acc_loss
-        if epoch % 10 == 0:
+        if epoch % 5 == 0:
             print("Epoch nb.", epoch, "-> loss=",acc_loss)
 
     return acc_losses_by_epoch
