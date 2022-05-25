@@ -1,7 +1,48 @@
 \chapter*{Estado del arte}
 Para poder organizar este proyecto, debemos conocer el estado del arte en su ámbito. Como comentamos en la introducción, cheminformatics es un tema muy amplio y engloba subtópicos diferentes. Muchos de ellos surgieron en la década de 1960 y principios de 1970, y desde esa época muchos grupos de investigación siguen trabajando en ellos y nuevos grupos han surgido para aplicar nuevas tecnologías en nuevos ámbitos. A continuación discutimos algunos de los temas que históricamente han sido de interés para esta ciencia. \cite{doi:10.1021/ci600234z}
 
-\section*{Representación de compuestos y reacciones químicas}
+\section*{Compuestos orgánicos y su representación}
+Un compuesto orgánico es un compuesto químico que contiene átomos de carbono, formando enlaces carbono-carbono y carbono-hidrógeno \cite{comporganico}. En este TFG, vamos a trabajar concretamente con la clasificación de compuestos organometálicos, donde los átomos de carbono forman enlaces covalentes con átomos metálicos \cite{comporganometalico}.
+
+En las publicaciones de química encontramos numerosas representaciones gráficas de estos compuestos, lo que se conocen como fórmulas estructurales. Éstas muestran la disposición en el espacio de los átomos que forman el compuesto. Un ejemplo es la siguiente figura:
+
+\begin{figure}[H]
+\centering
+    \fbox{\includegraphics[scale=0.7]{imagenes/caffeine.png}}  
+    \caption{Estructura de la cafeína} \label{fig:figura1}
+\end{figure}
+
+\noindent En ellas pueden aparecer multitud de elementos, apareciendo siempre:
+\begin{itemize}
+    \item \textbf{Átomos:} Se sitúan en los extremos de los enlaces. Representados con letras que indican el elemento químico del que se trata, tal y como aparece en la tabla periódica.
+    \item \textbf{Enlaces:} Unen dos átomos entre sí. 
+\end{itemize}
+
+ En algunas ocasiones, sobre los átomos pueden mostrarse cargas positivas o negativas representando iones. Aparte, puede mostrarse lo que se conoce como información estereoquímica, que indica la disposición de los átomos en el espacio. Ésta es importante ya que afecta a las propiedades y reactividad de las moléculas \cite{estereoquimica,structrep}.
+
+ \begin{figure}[H]
+\centering
+    \fbox{\includegraphics[scale=0.5]{imagenes/methane.jpg}}  
+    \caption{Estructura del metano} \label{fig:figura2}
+\end{figure}
+
+\begin{itemize}
+    \item Las líneas sólidas representan enlaces en el plano.
+    \item Las discontinuas representan enlaces que están más alejados.
+    \item Aquellas con forma de cuña indican que uno de los átomos se encuentra más cerca del espectador. 
+\end{itemize}
+
+Además, un mismo compuesto se puede representar de distintas formas:
+\begin{figure}[H]
+\centering
+    \fbox{\includegraphics[scale=0.5]{imagenes/skeletal.png}}  
+    \caption{Dos formas de representar el butano} \label{fig:figura2}
+\end{figure}
+
+A la izquierda se detalla la definición de todos los átomos, en cambio a la derecha encontramos lo que se conoce como fórmula de esqueleto, donde se omiten los átomos de carbono e hidrógeno. Se sabe que hay un átomo de carbono en los vértices que quedan libres en la intersección de dos enlaces o en las terminaciones donde no aparece ningún otro elemento. Se supone a la vez que cada átomo de carbono tiene cuatro enlaces, por tanto el número de enlaces que faltan por indicar explícitamente se corresponden con enlaces a moléculas de hidrógeno \cite{formestructural,structrep}.
+
+
+\section*{Representación en el ordenador}
 El poder almacenar representaciones de compuestos químicos de manera eficiente en un ordenador requiere de la creación de métodos y formatos específicos para ello. Además, hay que tener en cuenta qué datos vamos a codificar, si solo la estructura básica del compuesto, si también queremos guardar información estereoquímica o si queremos añadir notas auxiliares sobre los compuestos. Es importante tener esto claro, ya que la complejidad de la representación influirá en la cantidad de almacenamiento que ocupe en disco y en los recursos necesarios para procesarla.
 
 Utilizando notación lineal, representamos la estructura del compuesto como una secuencia lineal de caracteres y números. Esta es una codificación adecuada para las computadoras, ya que la pueden procesar con facilidad. Algunos formatos que utilizan esta notación son WLN (Wiswesser Line Notation), ROSDAL (Rp) o SMILES (Simplified Molecular Input Line Entry Specification). Aunque WLN y ROSDAL han quedado obsoletos, SMILES se sigue utilizando con mucha frecuencia en la actualidad. \cite{doi:10.1021/ci600234z}
