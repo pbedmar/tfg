@@ -12,7 +12,7 @@ En las publicaciones de química encontramos numerosas representaciones gráfica
 \begin{figure}[H]
 \centering
     \fbox{\includegraphics[scale=0.7]{imagenes/caffeine.png}}  
-    \caption{Estructura de la cafeína} \label{fig:figura1}
+    \caption{Estructura de la cafeína}
 \end{figure}
 
 \noindent En ellas pueden aparecer multitud de elementos, apareciendo siempre:
@@ -26,7 +26,7 @@ En las publicaciones de química encontramos numerosas representaciones gráfica
  \begin{figure}[H]
 \centering
     \fbox{\includegraphics[scale=0.5]{imagenes/methane.jpg}}  
-    \caption{Estructura del metano} \label{fig:figura2}
+    \caption{Estructura del metano} 
 \end{figure}
 
 \begin{itemize}
@@ -39,7 +39,7 @@ Además, un mismo compuesto se puede representar de distintas formas:
 \begin{figure}[H]
 \centering
     \fbox{\includegraphics[scale=0.5]{imagenes/skeletal.png}}  
-    \caption{Dos formas de representar el butano} \label{fig:figura2}
+    \caption{Dos formas de representar el butano} 
 \end{figure}
 
 A la izquierda se detalla la definición de todos los átomos, en cambio a la derecha encontramos lo que se conoce como fórmula de esqueleto, donde se omiten los átomos de carbono e hidrógeno. Se sabe que hay un átomo de carbono en los vértices que quedan libres en la intersección de dos enlaces o en las terminaciones donde no aparece ningún otro elemento. Se supone a la vez que cada átomo de carbono tiene cuatro enlaces, por tanto el número de enlaces que faltan por indicar explícitamente se corresponden con enlaces a moléculas de hidrógeno \cite{formestructural,structrep}.
@@ -53,7 +53,7 @@ Utilizando notación lineal, representamos la estructura del compuesto como una 
 \begin{figure}[H]
 \centering
     \fbox{\includegraphics[scale=0.25]{imagenes/smiles_melatonina.png}}  
-    \caption{Dos posibles codificaciones de la melatonina en SMILES \cite{smiles_wikipedia}} \label{fig:figura2}
+    \caption{Dos posibles codificaciones de la melatonina en SMILES \cite{smiles_wikipedia}}
 \end{figure}
 
 Aunque no vamos a entrar en detalle de cómo funciona, ya que para ello hay que tener nociones avanzadas de química, diremos que utiliza las siglas de cada elemento de la tabla periódica para representar los átomos. La primera letra del elemento se escribe en mayúscula, a no ser que se trate de un átomo perteneciente a un anillo aromático\footnote{La aromaticidad es una propiedad presente en enlaces dobles de moléculas cíclicas, donde sus electrones pueden circular libremente. Esto mejora la estabilidad del compuesto. \cite{aromaticidad, aromaticidad_wikipedia}}, ya que en ese caso se escribe en minúscula. Si el elemento tiene dos caracteres, el segundo se escribe siempre en minúscula. Además, se pueden representar cargas.
@@ -63,7 +63,7 @@ Los enlaces se representan con -, =, \# y :, según el tipo. Bajo algunas circun
 \begin{figure}[H]
 \centering
     \fbox{\includegraphics[scale=0.35]{imagenes/smiles_cycle.png}}  
-    \caption{Ciclos en SMILES} \label{fig:figura2}
+    \caption{Ciclos en SMILES} 
 \end{figure}
 
 Otras características como la aromaticidad o estructuras inconectas también pueden ser representadas. Entre las ventajas de esta codificación, destaca su facilidad de comprensión por los humanos. Cualquier químico puede aprender sus reglas de codificación fácilmente y diseñar sus propios compuestos. Un problema que tiene SMILES es que un mismo elemento se puede representar de diferentes formas. Pero sobre todo, el mayor problema es que un porcentaje significativo de las cadenas no se corresponden con moléculas válidas, ya sea porque son sintácticamente inválidas, no se corresponden con un grafo molecular o no cumplen reglas químicas básicas. \cite{weininger1988smiles}
@@ -75,7 +75,7 @@ Además de estos formatos de notación lineal, es necesario mencionar otros. El 
 \begin{figure}[H]
 \centering
     \fbox{\includegraphics[scale=0.3]{imagenes/molfile.png}}  
-    \caption{Contenido de un archivo MOL \cite{molfile_example}} \label{fig:figura2}
+    \caption{Contenido de un archivo MOL \cite{molfile_example}} 
 \end{figure}
 
 
@@ -130,7 +130,7 @@ Casi todos los algoritmos de deep learning son una adaptación particular de un 
 
 Siendo esta la estrategia que se utiliza en otras muchas técnicas de aprendizaje automático. La diferencia entre el deep learning y estas otras es la capacidad de abstracción que tiene el primero, que viene dada por la capacidad de jerarquizar la información en distintas capas utilizando múltiples niveles de representación. Esta abstracción permite separar la esencia de lo prescindible, de forma que los modelos pueden aprender qué relaciones entre los datos son importantes y cuáles son simples accidentes, y consecuentemente generalizar de forma adecuada.
 
-\subsection*{Redes neuronales}
+\subsection*{Redes neuronales multicapa}
 Nuestro cerebro contiene un tipo especial de células llamadas neuronas. Estas reciben impulsos eléctricos que son capaces de atenuar o amplificar para posteriormente enviarlos a otras neuronas. La unión de millones de estas crea una estructura neuronal que es la que nos permite pensar y actuar como seres inteligentes.
 
 En la informática se ha intentado emular este comportamiento, creando lo que se conoce como redes neuronales artificiales. Las neuronas artificiales omiten muchas características que definen a las biológicas, como su localización espacial, los retardos en la propagación de señales o los mecanismos químicos de sodio y potasio que permiten la transmisión de potenciales eléctricos. Al final, un modelo es una representación de la realidad, y por tanto contiene información más limitada que esta. El modelo de integración y disparo define la base de la neurona que se utiliza habitualmente en Inteligencia Artificial:
@@ -138,7 +138,7 @@ En la informática se ha intentado emular este comportamiento, creando lo que se
 \begin{figure}[H]
 \centering
     \fbox{\includegraphics[scale=0.4]{imagenes/integracion_disparo.png}}  
-    \caption{Modelo de integración y disparo en las neuronas artificiales} \label{fig:figura2}
+    \caption{Modelo de integración y disparo en las neuronas artificiales} 
 \end{figure}
 
 En la fase de integración se unifican todas las señales $x_i$ entrantes a la neurona $j$, cada una influyendo en mayor o menor medida según el peso $w_{ij}$, peso de la conexión de la neurona $i$ hasta la neurona $j$:
@@ -151,7 +151,7 @@ Además, en muchas ocasiones se añade la componente $b_j$ que actúa como sesgo
 
 Pero esta fase de integración no es suficiente para simular el comportamiento del cerebro humano, su resultado es lineal. Una red neuronal se genera encadenando capas de estas neuronas, donde la salida de las neuronas de una capa actúan de entrada a las neuronas de la siguiente capa. La combinación de funciones lineales es una función lineal, y por tanto el resultado final de la red seguiría siendo una función lineal de las entradas. En definitiva, tener $n$ capas equivaldría a utilizar una única capa.
 
-Es por ello que existe una segunda fase en este proceso, la fase de activación. Al resultado de integración se le aplica una función de activación no lineal ($\sigma$). A partir de ahora, nuestra neurona podrá aproximar funciones no lineales: cuantas más capas se utilicen en una red, con mayor precisión se podrá llevar a cabo esta aproximación.
+Es por ello que existe una segunda fase en este proceso, la fase de activación. Al resultado de integración en cada neurona se le aplica una función de activación no lineal ($\sigma$). A partir de ahora, nuestra red podrá aproximar funciones no lineales: cuantas más capas se utilicen en una red, con mayor precisión se podrá llevar a cabo esta aproximación.
 
 \begin{equation}
     f_j = \sigma(z_j) = \sigma(b_j + \sum_{i=1}^{n} x_iw_{ij})
@@ -159,9 +159,32 @@ Es por ello que existe una segunda fase en este proceso, la fase de activación.
 
 \noindent $f_j$ es la salida final de la neurona.
 
-\subsubsection*{Funciones de activación}
-
 \subsection*{Redes neuronales convolutivas}
 Si hay una técnica del aprendizaje profundo que funcione especialmente bien en la práctica, son las redes neuronales convolutivas o convolutional neural networks (CNN). Estas se utilizan para procesar señales, como son las imágenes.
+
+Una ventaja frente a las redes multicapa reside en que pueden trabajar con entradas y salidas estructuradas. Esto supone que, en vez de recibir un vector de entradas correspondientes a diferentes variables, pueden trabajar directamente con un vector 1D, una matriz 2D o con un tensor con múltiples dimensiones. 
+
+En estas redes, las capas realizan la operación de convolución en vez de la multiplicación de las entradas por pesos. En el caso de imágenes (señal 2D), esta operación se define como:
+
+\begin{equation}
+    S(i,j) = (I*K)(i,j) = \sum_m \sum_n I(m,n)K(i-m,j-n)
+\end{equation}
+
+Donde $I$ representa una imagen y $K$ un kernel de dos dimensiones. El tipo de convolución que describimos aquí es la discreta y por ello en la fórmula aparecen sumatorias, en vez de las integrales típicas de dominios continuos. En la siguiente figura se puede observar un ejemplo de convolución:
+
+\begin{figure}[H]
+\centering
+    \fbox{\includegraphics[scale=0.4]{imagenes/convolution.png}}  
+    \caption{Resultado de convolucionar la entrada I con el kernel K}
+\end{figure}
+
+El kernel se va desplazando por la imagen, solapándose sobre cierta área de esta. En cada una de las posiciones que toma genera un valor de salida, fruto de la multiplicación del valor de los píxeles de la imagen sobre los que se encuentra por los pesos del kernel. Todos estos valores de salida forman el resultado final, que mantiene la misma estructura 2D (aunque normalmente con un menor tamaño). 
+
+Así es como funcionan las redes neuronales convolutivas, donde cada capa de la red aplica este operador a la entrada que recibe. Con ellas:
+\begin{itemize}
+    \item Se reduce el número de parámetros necesarios. Este depende del tamaño de los kernel utilizados, que suele ser muy inferior al de las imágenes de entrada.
+    \item Se mantienen las relaciones espaciales/temporales de las señales. Muy beneficioso en análisis de imágenes, donde dos pixeles cercanos contendrán información similar. Los capas convolutivas son capaces de interpretar estas relaciones y mantenerlas para las siguientes fases del modelo.
+\end{itemize}
+
 
 \subsection*{Redes generativas con adversario}
