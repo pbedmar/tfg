@@ -20,17 +20,17 @@ train_dataset = CompoundDataset(
 test_dataset = CompoundDataset(
                             "../../datasets/negev/articles_molecules/preprocess256/aug2",
                             "../../datasets/negev/not_molecules/preprocess256",
-                            "test",
+                            "val",
                             transform=transforms.ToTensor()
                           )
 
-train_dataloader = DataLoader(train_dataset, batch_size=32, shuffle=True)
-test_dataloader = DataLoader(test_dataset, batch_size=32)
+train_dataloader = DataLoader(train_dataset, batch_size=2, shuffle=False)
+test_dataloader = DataLoader(test_dataset, batch_size=2)
 
-model = models.AlexNet()
+model = models.LeNet5()
 model.to(device)
 criterion = torch.nn.CrossEntropyLoss()
-nb_epochs = 50
+nb_epochs = 150
 lr = 1e-4
 
 train(train_dataloader, model, criterion, nb_epochs, lr, device)

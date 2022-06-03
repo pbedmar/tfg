@@ -187,4 +187,23 @@ Así es como funcionan las redes neuronales convolutivas, donde cada capa de la 
 \end{itemize}
 
 
-\subsection{Redes generativas con adversario}
+\subsection{Redes generativas antagónicas}
+En inglés conocidas como Generative Adversarial Networks (GANs), son un tipo de modelos utilizados para generar datos sintéticas, que por ejemplo pueden servir para ampliar nuestro dataset. Contienen dos módulos que trabajan simultáneamente, cada uno de ellos intentando ser mejor que el otro. Estos dos módulos son el generador G y el discriminador D: el generador intenta crear datos sintéticos parecidos a los reales y el discriminador actuará de juez, tendrá que decidir si dado un dato este es real o sintético.
+
+Estamos en un juego en el que el generador intentará mejorar todo lo posible para generar imágenes indistinguibles a ojos del discriminador, desarrollándose en dos escenarios:
+
+\begin{itemize}
+    \item Se muestrean datos x del conjunto de entrenamiento y se introducen en D. En este caso, D(x) será un valor cercano a 1, ya que las muestras son datos reales.
+    \item Se introduce en G una muestra z generada aleatoriamente de acuerdo a una distribución de probabilidad, siendo G(z) una muestra sintética. D(G(z)) deberá tomar un valor cercano a 0, detectando que no se trata de una muestra real. Sin embargo, aunque el discriminador actúa para que D(G(z)) sea cercano a 0, el generador hace todo lo contrario y pretende que D(G(z)) se aproxime a 1.
+\end{itemize}
+
+El entrenamiento se lleva a cabo simultáneamente en G y D, actualizando los pesos de ambos en cada iteración. Este termina cuando se ha alcanzado un equilibrio en el que ni al generador ni al discriminador les interesa modificar sus pesos, llamado equilibrio de Nash.
+
+Las GANs son muy populares actualmente y se pueden utilizar con diferentes tipos de datos, entre ellos las imágenes. Originalmente las GANs se presentaron utilizando capas completamente conectadas (fully connected layers), pero la técnica de las redes neuronales convolutivas también se aplicó a las GANs dando lugar a las Deep Convolutional GAN (DCGAN). 
+
+\subsection{Transformers}
+En los últimos años, se han desarrollado diferentes estrategias que permiten el modelado de secuencias. Algunas de ellas son las Redes Neuronales Recurrentes (RNN), los LSTM o modelos basados en redes convolutivas, como Wavenet. Aunque han dado buenos resultados en campos como la generación de texto, son mejorables, ya que las técnicas de memoria que implementan solo les permiten recordar los últimos datos de la secuencia. Así, en sucesiones de mayor longitud, no podrán mantener en memoria datos alejados del punto actual.
+
+Para resolver este problema, los investigadores han creado lo que se conoce como mecanismos de atención. En ellos, el modelo es capaz de comprender qué datos de la secuencia son importantes para la tarea que estamos desarrollando. Estos datos son los que memoriza, descartando el resto. Funcionan de forma similar a nuestro cerebro: cuando vemos una imagen, aunque parece que estamos contemplando todos sus detalles, solo estamos prestando atención a fragmentos concretos de esta y obviando los detalles en el resto de áreas.
+
+Algunos autores aplicaron esta técnica a arquitecturas ya existentes. Pero en 2017, Vaswani et al. propone un modelo basado únicamente en mecanismos de atención, prescindiendo de técnicas como la recurrencia o las convoluciones. A esta arquitectura la llamó el Transformer. Este modelo está formado por dos partes, el codificador y el decodificador. Cada una de estas secciones de divide en 6 capas, y cada una de ellas a su vez tiene varias subcapas. Actualmente son los modelos más efectivos en tareas como la generación de lenguaje natural, y también se han aplicado a generación de imágenes.

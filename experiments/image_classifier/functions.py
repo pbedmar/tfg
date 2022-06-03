@@ -15,7 +15,7 @@ def gen_metadata(directory):
             f.write(filename+"\n")
         f.write(train[-1])
 
-    with open(directory+"imclass_test.txt", "w") as f:
+    with open(directory+"imclass_val.txt", "w") as f:
         for filename in test[:-1]:
             f.write(filename+"\n")
         f.write(test[-1])
