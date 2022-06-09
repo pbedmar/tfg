@@ -13,10 +13,22 @@ En la literatura existen diferentes definiciones para este término, discutidas 
 ``Chem(o)informatics es un término genérico que encompasa el diseño, creación, gestión, recuperación, análisis, diseminación, visualización y el uso de información química'' es una de las definiciones recogidas. Otra más abierta es ``La aplicación de métodos informáticos para resolver problemas de química''. 
 
 % TODO: para qué necesitan los científicos de Negev un clasificador de imágenes?
-Desde la Universidad de Granada, mi tutora Rocío trabaja en este ámbito. Colabora con químicos de la Universidad de Negev y es consciente de los problemas que tienen para manejar la gran cantidad de datos que aparecen en publicaciones científicas. Un tipo de datos muy valioso son las imágenes, pero clasificarlas no es trivial: pueden ser sobre cualquier temática, algunas pueden referirse a esquemas explicando cómo funciona un modelo, otras pueden contener resultados de algún experimento, pueden ser representaciones de compuestos químicos, etc. Clasificarlas manualmente por un operario no es una opción viable.
+Desde la Universidad de Granada, la tutora de este TFG trabaja en este ámbito. Colabora con químicos de la Universidad de Negev y es consciente de los problemas que tienen para manejar la gran cantidad de datos que aparecen en publicaciones científicas. Un tipo de datos muy valioso son las imágenes, pero clasificarlas no es trivial: pueden ser sobre cualquier temática, algunas pueden referirse a esquemas explicando cómo funciona un modelo, otras pueden contener resultados de algún experimento, pueden ser representaciones de compuestos químicos, etc. Clasificarlas manualmente por un operario no es una opción viable, ya que se consumirían demasiados recursos en una tarea que actualmente se puede automatizar.
 
 Otra necesidad que tienen estos científicos es la de conseguir más imágenes: etiquetarlas de forma manual es una tarea tediosa.
 
 Es por ello que en este Trabajo de Fin de Grado vamos a crear dos utilidades, un generador de imágenes sintéticas (tanto de imágenes de moléculas como de ejemplos negativos) y un modelo que permita clasificar imágenes. En concreto, aquellas que son representaciones de moléculas organometálicas, del resto.
 
 Aunque existen diferentes opiniones sobre el alcance de las cheminformatics, se puede considerar que este proyecto está dentro de sus fronteras, ya que vamos a crear una herramienta de clasificación de imágenes químicas, es decir, una herramienta que procesa y analiza este tipo de información.
+
+\section{Objetivos}
+El proyecto tiene como fin cumplir los siguientes objetivos:
+
+\begin{itemize}
+    \item \textbf{[OBJ1]} Crear un conjunto de datos para clasificar compuestos organometálicos.
+    \begin{itemize}
+        \item \textbf{[OBJ1.1]} Generar imágenes sintéticas de compuestos químicos.
+        \item \textbf{[OBJ1.2]} Generar imágenes sintéticas de compuestos no químicos.
+    \end{itemize}
+    \item \textbf{[OBJ2]} Clasificar imágenes que presentan compuestos organometálicos de aquellas que no.
+\end{itemize}

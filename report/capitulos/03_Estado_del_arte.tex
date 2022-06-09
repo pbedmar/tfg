@@ -38,11 +38,11 @@ En las publicaciones de química encontramos numerosas representaciones gráfica
 Además, un mismo compuesto se puede representar de distintas formas:
 \begin{figure}[H]
 \centering
-    \fbox{\includegraphics[scale=0.5]{imagenes/skeletal.png}}  
+    \fbox{\includegraphics[scale=0.3]{imagenes/skeletal.png}}  
     \caption{Dos formas de representar el butano} 
 \end{figure}
 
-A la izquierda se detalla la definición de todos los átomos, en cambio a la derecha encontramos lo que se conoce como fórmula de esqueleto, donde se omiten los átomos de carbono e hidrógeno. Se sabe que hay un átomo de carbono en los vértices que quedan libres en la intersección de dos enlaces o en las terminaciones donde no aparece ningún otro elemento. Se supone a la vez que cada átomo de carbono tiene cuatro enlaces, por tanto el número de enlaces que faltan por indicar explícitamente se corresponden con enlaces a moléculas de hidrógeno \cite{formestructural,structrep}.
+En a) se detalla la definición de todos los átomos, en cambio en b) encontramos lo que se conoce como fórmula de esqueleto, donde se omiten los átomos de carbono e hidrógeno. Se sabe que hay un átomo de carbono en los vértices que quedan libres en la intersección de dos enlaces o en las terminaciones donde no aparece ningún otro elemento. Se supone a la vez que cada átomo de carbono tiene cuatro enlaces, por tanto el número de enlaces que faltan por indicar explícitamente se corresponden con enlaces a moléculas de hidrógeno \cite{formestructural,structrep}.
 
 
 \subsection{Representación en el ordenador}
@@ -70,7 +70,7 @@ Otras características como la aromaticidad o estructuras inconectas también pu
 
 Uno de los principales objetivos de la química computacional es el diseño de nuevas moléculas. Para ello, la utilización de modelos generativos puede ayudar a los investigadores, pero si el espacio de estados de SMILES no es completamente válido se dificulta la tarea. Para ello han surgido otras codificaciones como SELFIES con un espacio 100\% robusto. \cite{Krenn_2020}
 
-Además de estos formatos de notación lineal, es necesario mencionar otros. El lanzamiento en 1982 de MDL Molfile llevó a su aceptación como principal formato para representar datasets químicos. Se han realizado distintas adaptaciones de este para añadir información extra a las moléculas, dando lugar a SDfile, RGfile, Rxnfile, etc. El formato PDB se utiliza principalmente para almacenar información 3D de macromoléculas biológicas, como son las proteínas o los polinucleótidos. CIF también es un formato para almacenar información 3D. En espectroscopia encontramos JCAMP. Finalmente, CML (chemical markup language), una extensión de XML, es una propuesta que intenta aglutinar toda la información disponible. Es compatible con moléculas, reacciones, espectroscopia y otra información. \cite{doi:10.1021/ci600234z}
+Además de estos formatos de notación lineal, es necesario mencionar otros. El lanzamiento en 1982 de MDL MOLfile llevó a su aceptación como principal formato para codificar compuestos químicos. Se han realizado distintas adaptaciones de este para añadir información extra a las moléculas, dando lugar a SDfile (puede agrupar más de un MOLfile y almacenar información estructural), RXNfile (anota los reactivos y productos de una única reacción química), etc. El formato PDB se utiliza principalmente para almacenar información 3D de macromoléculas biológicas, como son las proteínas o los polinucleótidos. CIF también es un formato para almacenar información 3D. En espectroscopia encontramos JCAMP. Finalmente, CML (chemical markup language), una extensión de XML, es una propuesta que intenta aglutinar toda la información disponible. Es compatible con moléculas, reacciones, espectroscopia y otra información. \cite{doi:10.1021/ci600234z}
 
 \begin{figure}[H]
 \centering
@@ -83,7 +83,7 @@ Además de estos formatos de notación lineal, es necesario mencionar otros. El 
 
 El gran número de facetas que presenta la información química necesita sistemas de almacenamiento a la altura. La química fue una de las primeras ramas científicas en utilizar bases de datos para almacenar: la cantidad de datos que se generaba creció rápidamente, y sigue creciendo hoy en día. 
 
-Aunque es muy complicado clasificarlas, vamos a separarlas en tres grandes grupos según el tipo de información que almacenan: \cite{doi:10.1021/ci600234z}
+Aunque es complicado clasificarlas, vamos a separarlas en tres grandes grupos según el tipo de información que almacenan: \cite{doi:10.1021/ci600234z}
 \begin{itemize}
     \item \textbf{Bases de datos de publicaciones:} Pueden ser bibliográficas, guardando solamente los metadatos y la referencia a la publicación, o de texto completo, donde recogen la publicación de forma íntegra. %TODO: Qué son las publicaciones primarias?
     \item \textbf{Bases de datos fácticas:} Al contrario que las anteriores, que almacenan publicaciones de la literatura primaria, estas pueden guardar propiedades físicas de compuestos, información de espectroscopia, información legal, etc.
@@ -111,13 +111,13 @@ Este TFG se desarrolla dentro de este ámbito, ya que, como describiremos más a
 
 \newpage
 \section{Deep learning}
-En las últimas décadas, la Inteligencia Artificial ha vivido un periodo de crecimiento brutal. Dentro del ámbito de la I.A. se engloban técnicas muy diferentes que tienen como objetivo simular el comportamiento inteligente de los seres vivos, siendo uno de sus rasgos la capacidad de aprendizaje. Los sistemas expertos fueron su primer éxito comercial. En ellos se codificaban una serie de reglas manualmente, emulando el razonamiento de un experto en un problema específico.
+En las últimas décadas, la Inteligencia Artificial (I.A) ha vivido un periodo de crecimiento brutal. Dentro del ámbito de la I.A. se engloban técnicas muy diferentes que tienen como objetivo simular el comportamiento inteligente de los seres vivos, siendo uno de sus rasgos la capacidad de aprendizaje. Los sistemas expertos fueron su primer éxito comercial. En ellos se codificaban una serie de reglas manualmente, emulando el razonamiento de un experto en un problema específico.
 
 El aprendizaje automático es un subconjunto dentro de la Inteligencia Artificial. Aglutina aquellas técnicas que permiten a un ordenador construir modelos a partir de conjuntos de datos, aprendiendo con la experiencia. No hace falta definir reglas de forma explícita. Pero tiene un inconveniente, y es que en muchos casos un especialista humano tiene que elegir manualmente que características de los datos son relevantes en el problema.
 
 El aprendizaje profundo o deep learning va un paso más allá. Es un subconjunto del aprendizaje automático, pero en las técnicas que engloba no es necesario indicar al modelo  las características útiles, ya que él mismo las descubre automáticamente. Y no se queda ahí, va un paso más allá, puede generar nuevas características a partir de las existentes.
 
-El desarrollo temporal de estas técnicas coincide con el orden en el que las menciono. Como se puede apreciar, el proceso de aprendizaje consta de diferentes fases, de las que cada vez se encuentra automatizado un mayor número.
+El desarrollo temporal de estas técnicas coincide con el orden en el que las menciono. Como se puede apreciar, el proceso de aprendizaje consta de diferentes fases, de las que cada vez se encuentra automatizado un mayor número. \cite{berzal2018redes}
 
 Casi todos los algoritmos de deep learning son una adaptación particular de un proceso que se puede resumir en los siguientes cuatro pasos:
 
@@ -186,10 +186,42 @@ Así es como funcionan las redes neuronales convolutivas, donde cada capa de la 
     \item Se mantienen las relaciones espaciales/temporales de las señales. Muy beneficioso en análisis de imágenes, donde dos pixeles cercanos contendrán información similar. Los capas convolutivas son capaces de interpretar estas relaciones y mantenerlas para las siguientes fases del modelo.
 \end{itemize}
 
+\subsection{Autocodificadores}
+Los autocodificadores o autoencoders son un modelo de aprendizaje no supervisado que permite encontrar una representación latente no lineal para una distribución de datos dada.
+
+Para comprenderlos correctamente, definamos primero lo que es una representación latente. Esta es una representación subyacente para una determinada distribución de datos, es decir, una forma ``comprimida" de representar la distribución que siguen estos datos. En esta representación, se reduce el número de dimensiones necesarias para definir la distribución.
+
+Existe un algoritmo conocido como análisis de componentes principales (Principal Component Analysis, PCA) que encuentra una transformación lineal de la representación original a otra latente. Pero tiene un problema, y es que como su definición indica esta transformación es lineal. \cite{vqvae}
+
+Los autocodificadores realizan esta tarea pero encontrando una transformación no lineal, por lo que pueden trabajar con datos más complejos. Para ello constan de dos partes, el codificador y el decodificador:
+
+\begin{figure}[H]
+\centering
+    \fbox{\includegraphics[scale=0.18]{imagenes/autoencoder.png}}  
+    \caption{Secciones en las que se divide un autocodificador \cite{vqvae}}
+\end{figure}
+
+El objetivo tras el entrenamiento del modelo es que los datos reconstruidos por el decodificador sean lo más parecidos posible a los de entrada.
+
+Un tipo especial de autocodificador es el autocodificador variacional (Variational Autoencoder, VAE). La principal diferencia viene dada por la estructura que sigue la representación latente, donde se fuerza al autocodificador a organizarla de forma que puntos de datos similares se encuentren cerca en la representación latente y puntos diferentes se encuentren separados. En un autocodificador regular esto no se exige, por lo que no podríamos desplazarnos por el espacio latente y observar cambios graduales que se corresponden con cambios graduales en la representación original. \cite{vqvae}
+
+\begin{figure}[H]
+\centering
+    \fbox{\includegraphics[scale=0.23]{imagenes/vae.png}}  
+    \caption{Espacio latente en un autocodificador regular vs en VAE \cite{vqvae}}
+\end{figure}
+
+\subsubsection{Vector Quantized Variational Autoencoder}
+La representación latente por defecto en los VAE es continua. Pero existe una variante en la que se discretiza esta representación. Esto es útil cuando trabajamos con datos como imágenes: podría utilizarse una variable discreta para el color, otra para el tipo de objeto, su tamaño, etc. Muchos otros elementos del mundo real son susceptibles de representarse de forma discreta. Hay modelos como los transformers, que vamos a estudiar más adelante, que están diseñados para trabajar sobre datos con esta codificación.
+
+Los Vector Quantized Variational Autoencoders (VQVAE) utilizan este tipo de codificación, donde la representación latente consiste en lo que se conoce como libro de código (codebook). Este codebook no deja de ser un conjunto de vectores discretos asociados a un índice.
+
+Cuando el codificador recibe un dato, este se transforma a la representación latente. A continuación, se introduce al decodificador el vector del codebook con el que existe una menor distancia euclídea. Este vector es procesado por el decodificador devolviendo la salida final. Dicho esto, se podría pensar que la potencia expresiva del autoencoder es muy baja, ya que el número de vectores del codebook es mucho más pequeño que el conjunto de posibles datos de entrada, y siempre que se introdujese el mismo vector al decodificador obtendríamos la misma salida.
+
+Esto no es así, ya que normalmente no se utiliza un único vector: en datos como imágenes, es probable que se escoja un conjunto de vectores que se introducen en el decodificador. Estos son procesados conjuntamente y finalmente se devuelve la imagen sintética. De esta forma, el número de posibilidades crece enormemente. \cite{vqvae}
 
 \subsection{Redes generativas antagónicas}
-En inglés conocidas como Generative Adversarial Networks (GANs), son un tipo de modelos utilizados para generar datos sintéticas, que por ejemplo pueden servir para ampliar nuestro dataset. Contienen dos módulos que trabajan simultáneamente, cada uno de ellos intentando ser mejor que el otro. Estos dos módulos son el generador G y el discriminador D: el generador intenta crear datos sintéticos parecidos a los reales y el discriminador actuará de juez, tendrá que decidir si dado un dato este es real o sintético.
-
+En inglés conocidas como Generative Adversarial Networks (GANs), son un tipo de modelos utilizados para generar datos sintéticos, que por ejemplo pueden servir para ampliar nuestro dataset. Contienen dos módulos que trabajan simultáneamente, cada uno de ellos intentando ser mejor que el otro. Estos dos módulos son el generador G y el discriminador D: el generador intenta crear datos sintéticos parecidos a los reales y el discriminador actuará de juez, tendrá que decidir si dado un dato este es real o sintético.
 Estamos en un juego en el que el generador intentará mejorar todo lo posible para generar imágenes indistinguibles a ojos del discriminador, desarrollándose en dos escenarios:
 
 \begin{itemize}
@@ -199,11 +231,82 @@ Estamos en un juego en el que el generador intentará mejorar todo lo posible pa
 
 El entrenamiento se lleva a cabo simultáneamente en G y D, actualizando los pesos de ambos en cada iteración. Este termina cuando se ha alcanzado un equilibrio en el que ni al generador ni al discriminador les interesa modificar sus pesos, llamado equilibrio de Nash.
 
-Las GANs son muy populares actualmente y se pueden utilizar con diferentes tipos de datos, entre ellos las imágenes. Originalmente las GANs se presentaron utilizando capas completamente conectadas (fully connected layers), pero la técnica de las redes neuronales convolutivas también se aplicó a las GANs dando lugar a las Deep Convolutional GAN (DCGAN). 
+Las GANs son muy populares actualmente y se pueden utilizar con diferentes tipos de datos, entre ellos las imágenes. Originalmente las GANs se presentaron utilizando capas completamente conectadas (fully connected layers), pero la técnica de las redes neuronales convolutivas también se aplicó a las GANs dando lugar a las Deep Convolutional GAN (DCGAN). \cite{berzal2018redes}
 
 \subsection{Transformers}
 En los últimos años, se han desarrollado diferentes estrategias que permiten el modelado de secuencias. Algunas de ellas son las Redes Neuronales Recurrentes (RNN), los LSTM o modelos basados en redes convolutivas, como Wavenet. Aunque han dado buenos resultados en campos como la generación de texto, son mejorables, ya que las técnicas de memoria que implementan solo les permiten recordar los últimos datos de la secuencia. Así, en sucesiones de mayor longitud, no podrán mantener en memoria datos alejados del punto actual.
 
-Para resolver este problema, los investigadores han creado lo que se conoce como mecanismos de atención. En ellos, el modelo es capaz de comprender qué datos de la secuencia son importantes para la tarea que estamos desarrollando. Estos datos son los que memoriza, descartando el resto. Funcionan de forma similar a nuestro cerebro: cuando vemos una imagen, aunque parece que estamos contemplando todos sus detalles, solo estamos prestando atención a fragmentos concretos de esta y obviando los detalles en el resto de áreas.
+Para resolver este problema, los investigadores han creado lo que se conoce como mecanismos de atención. En ellos, el modelo es capaz de comprender qué datos de la secuencia son importantes para la tarea que estamos desarrollando. Estos datos son los que memoriza, descartando el resto. Funcionan de forma similar a nuestro cerebro: cuando vemos una imagen, aunque parece que estamos contemplando todos sus detalles, solo estamos prestando atención a fragmentos concretos de esta y obviando los detalles en el resto de áreas. 
 
-Algunos autores aplicaron esta técnica a arquitecturas ya existentes. Pero en 2017, Vaswani et al. propone un modelo basado únicamente en mecanismos de atención, prescindiendo de técnicas como la recurrencia o las convoluciones. A esta arquitectura la llamó el Transformer. Este modelo está formado por dos partes, el codificador y el decodificador. Cada una de estas secciones de divide en 6 capas, y cada una de ellas a su vez tiene varias subcapas. Actualmente son los modelos más efectivos en tareas como la generación de lenguaje natural, y también se han aplicado a generación de imágenes.
+Algunos autores aplicaron esta técnica a arquitecturas ya existentes. Pero en 2017, Vaswani et al. propone un modelo basado únicamente en mecanismos de atención, prescindiendo de técnicas como la recurrencia o las convoluciones. A esta arquitectura la llamó el Transformer. Este modelo está formado por dos partes, el codificador y el decodificador. Cada una de estas secciones de divide en 6 capas, y cada una de ellas a su vez tiene varias subcapas. Actualmente son los modelos más efectivos en tareas como la generación de lenguaje natural, y también se han aplicado a generación de imágenes. Los transformers son capaces de memorizar datos de cualquier punto de la secuencia, al contrario que otros modelos recurrentes o convolutivos que sólo almacenan las interacciones locales.
+
+\newpage
+\section{Bibliotecas y paquetes}
+En el estado del arte encontramos productos desarrollados por investigadores que nos van a facilitar cumplir nuestro objetivo. 
+
+\subsection{Taming Transformers for High-Resolution Image Synthesis}
+Científicos de la Universidad de Heidelberg (Alemania) publicaron a finales de 2020 un modelo capaz de generar imágenes sintéticas de alta resolución utilizando transformers. En publicaciones previas ya se habían expuesto modelos generativos basados en transformers \cite{chen2020generative}, pero estos solo podían funcionar con imágenes de pequeño tamaño. El coste computacional de un transformer aplicado directamente en imágenes crece cuadráticamente con el tamaño de esta, así que no es viable utilizarlos en imágenes de más de 100x100 píxeles, y mucho menos en aquellas del orden del megapixel.
+
+P. Esser et al. \cite{esser2021taming} desarrolla un método capaz de combinar la potencia generativa de los transformers con la eficiencia que aportan las redes convolutivas. 
+
+\begin{figure}[H]
+\centering
+    \fbox{\includegraphics[scale=0.5]{imagenes/taming.png}}  
+    \caption{Modelo propuesto por P. Esser et al. \cite{esser2021taming}}
+\end{figure}
+
+La arquitectura convolutiva de la que hablamos es un Vector Quantized Generative Adversarial Network (VQGAN), una variante de VQVAE propuesta por los autores de la publicación donde la estructura codificador-decodificador del VAE se entrena mediante un procedimiento adversarial, utilizando un discriminador.
+
+Tras entrenar el modelo, se habrá generado un codebook que comprime la información de las imágenes. Será sobre este codebook sobre el que se entrene el transformer que posteriormente nos permitirá sintetizar imágenes sintéticas. Ahora tendremos un modelo que es capaz de aprovechar la gran capacidad generativa de los transformers, manteniendo tiempos de entrenamiento razonables gracias a VQGAN.
+
+En la publicación original los autores muestran ejemplos de los resultados que se pueden obtener dada una imagen condicional de entrada:
+
+\begin{figure}[H]
+\centering
+    \fbox{\includegraphics[scale=0.9]{imagenes/taming_examples.png}}  
+    \caption{Ejemplos generados utilizando el modelo basado en transformer}
+\end{figure}
+
+Se observa que funciona correctamente en diversas situaciones, por lo que puede ser una buena opción para nuestra tarea de síntesis de imágenes.
+
+\subsection{Pytorch}
+PyTorch es una biblioteca basada en tensores optimizada para crear modelos de aprendizaje profundo que se entrenen y ejecuten tanto en GPUs como en CPUs.
+
+\begin{figure}[H]
+    \centering
+        \fbox{\includegraphics[scale=0.2]{imagenes/pytorch.jpeg}}  
+        \caption{Logo de PyTorch}
+    \end{figure}
+
+Es adecuada para ser utilizada en proyectos de investigación, ya que convierte el desarrollar y experimentar con nuevas arquitecturas en algo relativamente sencillo. Su núcleo proporciona la capacidad de definir funciones matemáticas y calcular sus gradientes.
+
+Al compararla con otras bibliotecas de aprendizaje profundo como Tensorflow encontramos diferencias. Esta sigue el paradigma definición-compilación-ejecución, mientras que PyTorch presenta una estructura definición-ejecución, donde no existe una etapa de compilación. El usuario puede definir una expresión matemática y calcular su gradiente directamente.
+
+A continuación, vamos a comentar algunas características y módulos incluidos en esta biblioteca que merece la pena conocer.
+
+\subsubsection{Dataset y DataLoader}
+El código para gestionar los datos con los que vamos a trabajar se puede volver complejo y difícil de mantener. PyTorch proporciona los módulos $torch.utils.data.DataLoader$ y $torch.utils.data.Dataset$ para automatizar la carga y la manipulación de los datos, tanto procedentes de datasets ya existentes (por ejemplo, MNIST) como de datos propios.
+
+$torch.utils.data.Dataset$ es una clase heredada por una clase hija en la que se implementan ciertos métodos encargados de cargar los datos. Un dataset puede ser de tipo $iterable$ o de tipo $map$: los primeros implementan $\_\_iter\_\_()$, y permiten que el objeto sea iterable, de forma que $iter(dataset)$ devuelve un flujo de datos que están siendo leídos de una base de datos o incluso se están produciendo en tiempo real. Por otra parte, un dataset de tipo $map$ implementa los métodos $\_\_getitem\_\_()$ y $\_\_len\_\_()$. Esto permite establecer una relación clave-dato, donde si $CompoundDataset$ es un dataset con imágenes que pueden ser o no compuestos químicos, $CompoundDataset[idx]$ devolvería la imagen número $idx$ junto a su etiqueta. Este último tipo de dataset es el que utilizamos nosotros.
+
+El constructor de un objeto de tipo $torch.utils.data.DataLoader$ recibe como principal argumento un objeto $torch.utils.data.Dataset$. También recibe otros parámetros, como el tamaño del batch o si queremos que los datos sean devueltos en un orden aleatorio. Devuelve un iterable que cumple estas características, lo que facilita en gran medida el entrenamiento de modelos. 
+
+Utilizando estos módulos separamos los datos del código de entrenamiento, obteniendo una mayor modularidad y un código más fácil de leer.
+
+\subsubsection{Módulos $torch.nn$ y $torch.optim$}
+El primero contiene los principales componentes utilizados en la construcción de redes neuronales y otras arquitecturas de aprendizaje profundo. Algunos de estos son:
+
+\begin{itemize}
+    \item \textbf{torch.nn.Module:} Es la clase padre de la que heredan todas las implementaciones de redes neuronales. En su constructor, entre otros elementos, se pueden inicializar diferentes capas que serán utilizadas en el método $forward()$, donde se especifica la estructura de la red y las conexiones entre ellas.
+    \item \textbf{torch.nn.functional:} Recoge funciones de activación, de error así como capas de la red que no tienen un estado asociado.
+    \item \textbf{torch.nn.Conv2d}, \textbf{torch.nn.MaxPool2d}, \textbf{torch.nn.Linear} son ejemplos de capas contenidas en este módulo. Existen diferentes tipos de capas lineales, convolutivas, recurrentes, transformer, etc. previamente implementadas y listas para ser utilizadas.
+\end{itemize}
+
+Por otro lado, $torch.optim$ contiene optimizadores como son SGD o Adam, encargados de actualizar los parámetros del modelo durante el entrenamiento.
+
+\subsubsection{Autograd}
+Al entrenar redes neuronales, el método más utilizado para actualizar los parámetros del modelo es la propagación hacia atrás o back propagation. Estos se ajustan de acuerdo al gradiente de la función de error con respecto al parámetro dado.
+
+PyTorch facilita la aplicación de la propagación hacia atrás a través del módulo $torch.autograd$. Cuando implementamos un modelo, solo es necesario declarar el método $forward()$, ya que PyTorch crea sobre la marcha el grafo de las operaciones necesarias para calcular el gradiente. Durante el entrenamiento del modelo, al llamar a $loss.backward()$ se calculará el gradiente utilizando este grafo.
+
+Como conclusión, PyTorch aporta una gran flexibilidad para crear modelos de aprendizaje profundo, su sintaxis y paradigma de programación son relativamente fáciles de aprender y contiene un gran número de módulos que permiten crear modelos complejos. Aparte, es compatible con el entrenamiento en GPU y permite guardar los modelos entrenados. Por todas estas razones puede resultar una librería adecuada para implementar el clasificador de imágenes.

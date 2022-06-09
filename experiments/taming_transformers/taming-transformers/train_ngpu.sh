@@ -16,11 +16,11 @@ export TFHUB_CACHE_DIR=.
 
 cd /mnt/homeGPU1/pbedmar/pycharm/experiments/taming_transformers/taming-transformers/
 
-CONFIG=configs/custom_vqgan_negative256_aug_2.yaml
+CONFIG=configs/custom_vqgan_aug_2.yaml
 
-for EPOCHS in {70..170..20}
+for EPOCHS in {70..85..5}
 do
-    python3 main.py --name negative256_aug_2_$EPOCHS --max_epochs $EPOCHS --base $CONFIG -t True --gpus 0,1,
+    python3 main.py --name aug_2_$EPOCHS --max_epochs $EPOCHS --base $CONFIG -t True --gpus 0,1,
 done
 
 
