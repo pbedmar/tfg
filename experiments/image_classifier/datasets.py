@@ -10,7 +10,7 @@ from functions import gen_metadata
 
 class CompoundDataset(Dataset):
     def __init__(self, dir_pos, dir_neg, set_name, transform=None, target_transform=None):
-        assert set_name in ["train", "val"]
+        assert set_name in ["train", "test"]
 
         if not os.path.exists(dir_pos+"/imclass_"+set_name+".txt"):
             gen_metadata(dir_pos)
