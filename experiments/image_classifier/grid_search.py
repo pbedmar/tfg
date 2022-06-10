@@ -19,9 +19,9 @@ print = partial(print, flush=True)
 torch.manual_seed(1)
 np.random.seed(1)
 
-nb_epochs = 50
+nb_epochs = 100
 batch_size = 32
-folds = 4
+folds = 5
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 criterion = torch.nn.CrossEntropyLoss()
 
