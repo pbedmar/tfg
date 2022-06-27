@@ -1,4 +1,5 @@
 import io
+import os
 import requests
 import glob
 import PIL
@@ -60,7 +61,7 @@ def reconstruct_with_vqgan(x, model):
 
 
 # auxiliary functions to sample images
-font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-BoldOblique.ttf", 10)
+font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-BoldOblique.ttf", 12)
 def download_image(url):
     resp = requests.get(url)
     resp.raise_for_status()
@@ -222,7 +223,7 @@ def gradient(h, x, y):
 
 
 # clean molecule image
-def clean_molecule(img, cutoff=210, contrast=2.5):
+def clean_molecule(img, cutoff=210, contrast=2):
     mask = cv2.inRange(img, np.array([0, 0, 0]), np.array([cutoff, cutoff, cutoff]))
 
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
@@ -247,3 +248,31 @@ def clean_molecule(img, cutoff=210, contrast=2.5):
 
     return img.astype("uint8")
 
+
+def sample_uniform_and_clean(config_name, directory, size, cutoff, n, output_path):
+    config = load_config("logs/"+directory+config_name+"configs/"+directory+"-project.yaml", display=False)
+    model = load_vqgan(config, ckpt_path="logs/"+directory+config_name+"/checkpoints/last.ckpt")
+    os.makedirs(output_path, exist_ok=True)
+
+    for i in range(n):
+        noise = torch.rand(1, 3, size, size)
+
+        gen_img = custom_to_pil(reconstruct_with_vqgan(preprocess_vqgan(noise), model)[0])
+        clean_img = clean_molecule(np.asarray(gen_img), cutoff)
+        cv2.imwrite(output_path+"uniform"+"_"+str(i)+".jpg",clean_img)
+
+
+def sample_perlin_and_clean(config_name, epochs, directory, size, amp, freq, cutoff, n, output_path):
+    config = load_config("logs/"+directory+config_name+"configs/"+directory+"-project.yaml", display=False)
+    model = load_vqgan(config, ckpt_path="logs/"+directory+config_name+"/checkpoints/last.ckpt")
+    os.makedirs(output_path, exist_ok=True)
+
+    for i in range(n):
+        noise = perlin_noise(amp, freq, size)
+        img = Image.fromarray(noise).convert("RGB")
+        h, w = img.size
+        img = preprocess(img, h)
+
+        gen_img = custom_to_pil(reconstruct_with_vqgan(preprocess_vqgan(img), model)[0])
+        clean_img = clean_molecule(np.asarray(gen_img), cutoff)
+        cv2.imwrite(output_path+"perlin_e"+epochs+"_a"+str(amp)+"_f"+str(freq)+"_"+str(i)+".jpg",clean_img)

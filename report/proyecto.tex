@@ -35,6 +35,11 @@
 \usepackage{dirtree}
 \usepackage{algorithmicx}
 \usepackage{algorithm}
+\usepackage[justification=centering, margin=0.1cm]{caption}
+\usepackage{subcaption}
+\usepackage{multirow}
+
+\newcommand{\INDSTATE}[1][1]{\STATE\hspace{#1\algorithmicindent}}
 
 % \usepackage[
 %     a4paper,
@@ -199,6 +204,8 @@ pdfproducer = {pdflatex}
 \frontmatter
 \tableofcontents
 \listoffigures
+\renewcommand{\listtablename}{Índice de tablas}
+\renewcommand{\tablename}{Tabla}
 \listoftables
 
 \mainmatter

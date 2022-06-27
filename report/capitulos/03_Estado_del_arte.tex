@@ -70,7 +70,7 @@ Otras características como la aromaticidad o estructuras inconectas también pu
 
 Uno de los principales objetivos de la química computacional es el diseño de nuevas moléculas. Para ello, la utilización de modelos generativos puede ayudar a los investigadores, pero si el espacio de estados de SMILES no es completamente válido se dificulta la tarea. Para ello han surgido otras codificaciones como SELFIES con un espacio 100\% robusto. \cite{Krenn_2020}
 
-Además de estos formatos de notación lineal, es necesario mencionar otros. El lanzamiento en 1982 de MDL MOLfile llevó a su aceptación como principal formato para codificar compuestos químicos. Se han realizado distintas adaptaciones de este para añadir información extra a las moléculas, dando lugar a SDfile (puede agrupar más de un MOLfile y almacenar información estructural), RXNfile (anota los reactivos y productos de una única reacción química), etc. El formato PDB se utiliza principalmente para almacenar información 3D de macromoléculas biológicas, como son las proteínas o los polinucleótidos. CIF también es un formato para almacenar información 3D. En espectroscopia encontramos JCAMP. Finalmente, CML (chemical markup language), una extensión de XML, es una propuesta que intenta aglutinar toda la información disponible. Es compatible con moléculas, reacciones, espectroscopia y otra información. \cite{doi:10.1021/ci600234z}
+Además de estos formatos de notación lineal, es necesario mencionar otros. El lanzamiento en 1982 de MDL MOLfile llevó a su aceptación como principal formato para codificar compuestos químicos. Se han realizado distintas adaptaciones de este para añadir información extra a las moléculas, dando lugar a SDfile (puede agrupar más de un MOLfile y almacenar información estructural), RXNfile (anota los reactivos y productos de una única reacción química), etc \cite{doi:10.1021/ci00007a012}. El formato PDB se utiliza principalmente para almacenar información 3D de macromoléculas biológicas, como son las proteínas o los polinucleótidos. CIF también es un formato para almacenar información 3D. En espectroscopia encontramos JCAMP. Finalmente, CML (chemical markup language), una extensión de XML, es una propuesta que intenta aglutinar toda la información disponible. Es compatible con moléculas, reacciones, espectroscopia y otra información. \cite{doi:10.1021/ci600234z}
 
 \begin{figure}[H]
 \centering
@@ -91,7 +91,7 @@ Aunque es complicado clasificarlas, vamos a separarlas en tres grandes grupos se
     \item \textbf{Bases de datos de biología molecular:} Contienen secuencias de aminoácidos y nucleótidos.
 \end{itemize}
 
-Pero, ¿cómo podemos rellenarlas con datos? ¿De dónde podemos extraerlos? Durante décadas se han publicado un gran número de artículos. Podríamos utilizarlos como una fuente muy amplia de información, ya que contienen todo el progreso científico. Específicamente para extraer datos relativos a estructuras, entran en juego utilidades conocidas como OCSR (Optical Chemical Structure Recognition).
+Pero, ¿cómo podemos rellenarlas con datos? ¿De dónde podemos extraerlos ? Durante décadas se han publicado un gran número de artículos. Podríamos utilizarlos como una fuente muy amplia de información, ya que contienen todo el progreso científico. Específicamente para extraer datos relativos a estructuras, entran en juego utilidades conocidas como OCSR (Optical Chemical Structure Recognition).
 
 Son capaces de transformar una imagen en un formato compatible con la máquina, como podría ser SMILES. En muchos casos incluso es posible introducirles una publicación completa y ellas mismas localizan las imágenes de moléculas. Con el paso del tiempo se han ido perfeccionando, y algunas son capaces de detectar información estereoquímica o de relacionar el compuesto con el texto de la publicación. Más adelante repasaremos algunas de estas utilidades. 
 
@@ -183,7 +183,7 @@ El kernel se va desplazando por la imagen, solapándose sobre cierta área de es
 Así es como funcionan las redes neuronales convolutivas, donde cada capa de la red aplica este operador a la entrada que recibe. Con ellas:
 \begin{itemize}
     \item Se reduce el número de parámetros necesarios. Este depende del tamaño de los kernel utilizados, que suele ser muy inferior al de las imágenes de entrada.
-    \item Se mantienen las relaciones espaciales/temporales de las señales. Muy beneficioso en análisis de imágenes, donde dos pixeles cercanos contendrán información similar. Los capas convolutivas son capaces de interpretar estas relaciones y mantenerlas para las siguientes fases del modelo.
+    \item Se mantienen las relaciones espaciales/temporales de las señales. Muy beneficioso en análisis de imágenes, donde dos pixeles cercanos contendrán información similar. Los capas convolutivas son capaces de interpretar estas relaciones y mantenerlas para las siguientes fases del modelo. \cite{Goodfellow-et-al-2016}
 \end{itemize}
 
 \subsection{Autocodificadores}
@@ -236,9 +236,44 @@ Las GANs son muy populares actualmente y se pueden utilizar con diferentes tipos
 \subsection{Transformers}
 En los últimos años, se han desarrollado diferentes estrategias que permiten el modelado de secuencias. Algunas de ellas son las Redes Neuronales Recurrentes (RNN), los LSTM o modelos basados en redes convolutivas, como Wavenet. Aunque han dado buenos resultados en campos como la generación de texto, son mejorables, ya que las técnicas de memoria que implementan solo les permiten recordar los últimos datos de la secuencia. Así, en sucesiones de mayor longitud, no podrán mantener en memoria datos alejados del punto actual.
 
-Para resolver este problema, los investigadores han creado lo que se conoce como mecanismos de atención. En ellos, el modelo es capaz de comprender qué datos de la secuencia son importantes para la tarea que estamos desarrollando. Estos datos son los que memoriza, descartando el resto. Funcionan de forma similar a nuestro cerebro: cuando vemos una imagen, aunque parece que estamos contemplando todos sus detalles, solo estamos prestando atención a fragmentos concretos de esta y obviando los detalles en el resto de áreas. 
+Para resolver este problema, los investigadores han creado lo que se conoce como mecanismos de atención. En ellos, el modelo es capaz de comprender qué datos de la secuencia son importantes para la tarea que estamos desarrollando. Estos datos son los que memoriza, descartando el resto. Funcionan de forma similar a nuestro cerebro: cuando vemos una imagen, aunque parece que estamos contemplando todos sus detalles, solo estamos prestando atención a fragmentos concretos de esta y obviando los detalles en el resto de áreas. Algunos autores aplicaron esta técnica a arquitecturas ya existentes. 
 
-Algunos autores aplicaron esta técnica a arquitecturas ya existentes. Pero en 2017, Vaswani et al. propone un modelo basado únicamente en mecanismos de atención, prescindiendo de técnicas como la recurrencia o las convoluciones. A esta arquitectura la llamó el Transformer. Este modelo está formado por dos partes, el codificador y el decodificador. Cada una de estas secciones de divide en 6 capas, y cada una de ellas a su vez tiene varias subcapas. Actualmente son los modelos más efectivos en tareas como la generación de lenguaje natural, y también se han aplicado a generación de imágenes. Los transformers son capaces de memorizar datos de cualquier punto de la secuencia, al contrario que otros modelos recurrentes o convolutivos que sólo almacenan las interacciones locales.
+Pero en 2017, Vaswani et al. \cite{vaswani2017attention} propone un modelo basado únicamente en mecanismos de atención, prescindiendo de técnicas como la recurrencia o las convoluciones: a esta arquitectura la llamó el Transformer. El modelo está formado por 6 codificadores y 6 decodificadores:
+
+\begin{figure}[H]
+\centering
+    \fbox{\includegraphics[scale=0.25]{imagenes/transformer.png}}  
+    \caption{Transformer aplicado a la generación de texto \cite{transformers}}
+\end{figure}
+
+En cada codificador, las características de entrada primero pasan por una capa de auto-atención, en la que interactúan entre sí y se descubre a cuáles hay que prestar mayor atención. La salida de esta primera capa serán los datos agregados resultantes de esas interacciones y las puntuaciones de atención. A continuación, se introduce esta salida en una red neuronal completamente conectada. \cite{self-attention}
+
+Los decodificadores también poseen estas dos capas, pero entre ambas existe otra capa de atención que ayuda al decodificador a concentrarse en las características importantes de la entrada.
+
+\begin{figure}[H]
+\centering
+    \begin{subfigure}{.85\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth]{imagenes/transformer_encoder.png}
+        \caption{Estructura interior del codificador}
+        \label{fig:sub1}
+    \end{subfigure}%
+
+    \bigskip
+
+    \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth]{imagenes/transformer_decoder.png}
+        \caption{Estructura exterior del decodificador}
+    \end{subfigure}
+
+    \caption{Los dos tipos de capas que forman el Transformer \cite{transformers}}
+\end{figure}
+
+
+Los Transformer son actualmente los modelos más efectivos en tareas como la generación de lenguaje natural, y también se han aplicado a generación de imágenes. Estos son capaces de memorizar datos de cualquier punto de la secuencia, al contrario que otros modelos recurrentes o convolutivos, que sólo almacenan las interacciones locales. \cite{transformers}
+
+
 
 \newpage
 \section{Bibliotecas y paquetes}
@@ -264,7 +299,7 @@ En la publicación original los autores muestran ejemplos de los resultados que 
 \begin{figure}[H]
 \centering
     \fbox{\includegraphics[scale=0.9]{imagenes/taming_examples.png}}  
-    \caption{Ejemplos generados utilizando el modelo basado en transformer}
+    \caption{Ejemplos generados utilizando el modelo basado en transformer \cite{esser2021taming}}
 \end{figure}
 
 Se observa que funciona correctamente en diversas situaciones, por lo que puede ser una buena opción para nuestra tarea de síntesis de imágenes.
@@ -273,14 +308,14 @@ Se observa que funciona correctamente en diversas situaciones, por lo que puede 
 PyTorch es una biblioteca basada en tensores optimizada para crear modelos de aprendizaje profundo que se entrenen y ejecuten tanto en GPUs como en CPUs.
 
 \begin{figure}[H]
-    \centering
-        \fbox{\includegraphics[scale=0.2]{imagenes/pytorch.jpeg}}  
-        \caption{Logo de PyTorch}
-    \end{figure}
+\centering
+    \fbox{\includegraphics[scale=0.2]{imagenes/pytorch.jpeg}}  
+    \caption{Logo de PyTorch}
+\end{figure}
 
 Es adecuada para ser utilizada en proyectos de investigación, ya que convierte el desarrollar y experimentar con nuevas arquitecturas en algo relativamente sencillo. Su núcleo proporciona la capacidad de definir funciones matemáticas y calcular sus gradientes.
 
-Al compararla con otras bibliotecas de aprendizaje profundo como Tensorflow encontramos diferencias. Esta sigue el paradigma definición-compilación-ejecución, mientras que PyTorch presenta una estructura definición-ejecución, donde no existe una etapa de compilación. El usuario puede definir una expresión matemática y calcular su gradiente directamente.
+Al compararla con otras bibliotecas de aprendizaje profundo como Tensorflow encontramos diferencias. Esta sigue el paradigma definición-compilación-ejecución, mientras que PyTorch presenta una estructura definición-ejecución, donde no existe una etapa de compilación. El usuario puede definir una expresión matemática y calcular su gradiente directamente. \cite{ketkar2017introduction}
 
 A continuación, vamos a comentar algunas características y módulos incluidos en esta biblioteca que merece la pena conocer.
 
@@ -291,7 +326,7 @@ $torch.utils.data.Dataset$ es una clase heredada por una clase hija en la que se
 
 El constructor de un objeto de tipo $torch.utils.data.DataLoader$ recibe como principal argumento un objeto $torch.utils.data.Dataset$. También recibe otros parámetros, como el tamaño del batch o si queremos que los datos sean devueltos en un orden aleatorio. Devuelve un iterable que cumple estas características, lo que facilita en gran medida el entrenamiento de modelos. 
 
-Utilizando estos módulos separamos los datos del código de entrenamiento, obteniendo una mayor modularidad y un código más fácil de leer.
+Utilizando estos módulos separamos los datos del código de entrenamiento, obteniendo una mayor modularidad y un código más fácil de leer. \cite{pytorch-doc}
 
 \subsubsection{Módulos $torch.nn$ y $torch.optim$}
 El primero contiene los principales componentes utilizados en la construcción de redes neuronales y otras arquitecturas de aprendizaje profundo. Algunos de estos son:
@@ -302,11 +337,11 @@ El primero contiene los principales componentes utilizados en la construcción d
     \item \textbf{torch.nn.Conv2d}, \textbf{torch.nn.MaxPool2d}, \textbf{torch.nn.Linear} son ejemplos de capas contenidas en este módulo. Existen diferentes tipos de capas lineales, convolutivas, recurrentes, transformer, etc. previamente implementadas y listas para ser utilizadas.
 \end{itemize}
 
-Por otro lado, $torch.optim$ contiene optimizadores como son SGD o Adam, encargados de actualizar los parámetros del modelo durante el entrenamiento.
+Por otro lado, $torch.optim$ contiene optimizadores como son SGD o Adam, encargados de actualizar los parámetros del modelo durante el entrenamiento. \cite{pytorch-doc}
 
 \subsubsection{Autograd}
 Al entrenar redes neuronales, el método más utilizado para actualizar los parámetros del modelo es la propagación hacia atrás o back propagation. Estos se ajustan de acuerdo al gradiente de la función de error con respecto al parámetro dado.
 
-PyTorch facilita la aplicación de la propagación hacia atrás a través del módulo $torch.autograd$. Cuando implementamos un modelo, solo es necesario declarar el método $forward()$, ya que PyTorch crea sobre la marcha el grafo de las operaciones necesarias para calcular el gradiente. Durante el entrenamiento del modelo, al llamar a $loss.backward()$ se calculará el gradiente utilizando este grafo.
+PyTorch facilita la aplicación de la propagación hacia atrás a través del módulo $torch.autograd$. Cuando implementamos un modelo, solo es necesario declarar el método $forward()$, ya que PyTorch crea sobre la marcha el grafo de las operaciones necesarias para calcular el gradiente. Durante el entrenamiento del modelo, al llamar a $loss.backward()$ se calculará el gradiente utilizando este grafo. \cite{pytorch-doc}
 
 Como conclusión, PyTorch aporta una gran flexibilidad para crear modelos de aprendizaje profundo, su sintaxis y paradigma de programación son relativamente fáciles de aprender y contiene un gran número de módulos que permiten crear modelos complejos. Aparte, es compatible con el entrenamiento en GPU y permite guardar los modelos entrenados. Por todas estas razones puede resultar una librería adecuada para implementar el clasificador de imágenes.

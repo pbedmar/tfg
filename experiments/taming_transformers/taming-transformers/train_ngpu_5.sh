@@ -16,9 +16,14 @@ export TFHUB_CACHE_DIR=.
 
 cd /mnt/homeGPU1/pbedmar/pycharm/experiments/taming_transformers/taming-transformers/
 
-EPOCHS=90
-CONFIG=configs/custom_vqgan_512_aug_2.yaml
+CONFIG_FILE=configs/custom_vqgan_256_aug2.yaml
+CONFIG_NAME=fixseed_256_aug2
+SEED=1
 
-python3 main.py --max_epochs $EPOCHS --base $CONFIG -t True --gpus 0,1,
+for EPOCHS in {70..90..5}
+do
+    python3 main.py  --name "${CONFIG_NAME}_${EPOCHS}" --max_epochs $EPOCHS --seed $SEED --base $CONFIG_FILE -t True --gpus 0,1,
+done
 
-mail -A "slurm-$SLURM_JOBID.out" -s "$SLURM_JOBID $CONFIG $EPOCHS ep ha terminado" vicyped@gmail.com <<< "El proceso de ejecución de train_ngpu.sh ha finalizado con los resultados adjuntos"
+
+mail -A "slurm-$SLURM_JOBID.out" -s "$SLURM_JOBID $CONFIG_FILE $CONFIG_NAME $EPOCHS ep ha terminado" vicyped@gmail.com <<< "El proceso de ejecución de train_ngpu.sh ha finalizado con los resultados adjuntos"

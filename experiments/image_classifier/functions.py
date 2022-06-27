@@ -23,7 +23,7 @@ def gen_metadata(directory, seed=1):
         f.write(test[-1])
 
 
-def train(dataloader, model, criterion, nb_epochs, lr, device, optimizer):
+def train(dataloader, model, criterion, nb_epochs, device, optimizer):
     acc_losses_by_epoch = torch.zeros(nb_epochs)
 
     for epoch in range(nb_epochs):
@@ -40,7 +40,7 @@ def train(dataloader, model, criterion, nb_epochs, lr, device, optimizer):
 
         acc_losses_by_epoch[epoch] = acc_loss
         if epoch % 10 == 0:
-            print("Epoch nb.", epoch, "-> loss=",acc_loss)
+            print("Epoch nb. ", epoch, " -> loss=",acc_loss,sep="")
 
     return acc_losses_by_epoch
 
@@ -70,10 +70,12 @@ def dataset_mean_std(dataset):
     return mean, std
 
 
-def init_weights(layer, optimizer):
+def init_weights(layer, initializer):
     if isinstance(layer, torch.nn.Linear) or isinstance(layer, torch.nn.Conv2d):
-        if optimizer == "Adam":
+        if initializer == "Xavier":
             torch.nn.init.xavier_uniform_(layer.weight)
-        else:
+        elif initializer == "He":
             torch.nn.init.kaiming_uniform_(layer.weight, a=math.sqrt(5))
+        else:
+            raise ValueError('The provided weight initializer has not been implemented.')
 

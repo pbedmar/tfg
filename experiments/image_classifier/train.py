@@ -44,8 +44,8 @@ test_dataset = CompoundDataset(
 )
 
 
-train_dataloader = DataLoader(train_dataset, batch_size=2, shuffle=False)
-test_dataloader = DataLoader(test_dataset, batch_size=2)
+train_dataloader = DataLoader(train_dataset, batch_size=32, shuffle=False)
+test_dataloader = DataLoader(test_dataset, batch_size=32)
 
 model = models.AlexNet()
 model.to(device)
@@ -57,7 +57,7 @@ optimizer = optim.Adam(model.parameters(), lr)
 for child in model.children():
     print(child)
 
-train(train_dataloader, model, criterion, nb_epochs, lr, device, optimizer)
+train(train_dataloader, model, criterion, nb_epochs, device, optimizer)
 torch.save(model.state_dict(), "saved_models/alexnettry.pt")
 
 nb_errors = test(test_dataloader, model, device)
