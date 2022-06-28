@@ -73,15 +73,15 @@ Para lograr cumplir con los objetivos, se planifican las siguientes tareas a rea
         \item \textbf{[T1.2]} Repaso de la literatura sobre aprendizaje profundo, comprendiendo los principales modelos de generación y clasificación de imágenes.
         \item \textbf{[T1.3]} Conocimiento de las principales herramientas que se han desarrollado en ambos ámbitos.
     \end{itemize}
-    \item \textbf{[T2]} Implementación/adaptación de un modelo de síntesis de imágenes entrenado con nuestro propio conjunto de datos.
+    \item \textbf{[T2]} Estudio del \textit{dataset} de imágenes químicas existente para su adecuación a tareas de clasificación.
     \begin{itemize}
-        \item \textbf{[T2.1]} Sintetizar imágenes de moléculas organometálicas.
-        \item \textbf{[T2.2]} Sintetizar imágenes de moléculas que no son organometálicas, es decir, ejemplos negativos.
+        \item \textbf{[T2.1]} Balancear el dataset.
+        \item \textbf{[T2.2]} Adaptación de un modelo de síntesis de imágenes para generar \textit{hard-negatives} y añadirlos al \textit{dataset}, de forma que el clasificador sea capaz de trabajar con ejemplos difíciles.
     \end{itemize}
-    \item \textbf{[T3]} Implementación de un modelo clasificador de imágenes, capaz de distinguir moléculas organometálicas de ejemplos negativos.
+    \item \textbf{[T3]} Implementación de un modelo clasificador de imágenes, capaz de distinguir moléculas de ejemplos negativos.
     \begin{itemize}
-        \item \textbf{[T3.1]} Realizar pruebas con diferentes arquitecturas e hiperparámetros para comprobar cuáles se adaptan mejor al problema.
-        \item \textbf{[T3.2]} Creación de ejecutable que reciba una imagen y la clasifique, utilizando la mejor configuración encontrada.
+        \item \textbf{[T3.1]} Entrenar sobre el dataset original y sobre el que contiene \textit{hard negatives}.
+        \item \textbf{[T3.2]} Realizar pruebas con diferentes arquitecturas e hiperparámetros para comprobar cuáles se adaptan mejor al problema.
     \end{itemize}
     \item \textbf{[T4]} Documentación del trabajo realizado.
 \end{itemize}
@@ -111,7 +111,7 @@ Una ventaja del sector tecnológico es que muchos proyectos no necesitan una gra
 \end{itemize}
 
 \subsection{Recursos software}
-\noindent Utilizamos distintos programas que nos apoyan en distintas acciones:
+\noindent Utilizamos distintos programas que nos apoyan en distintas tareas:
 \begin{itemize}
     \item \textbf{macOS Monterey 12.3.1.} Por encima del resto de programas, se encuentra el Sistema Operativo, encargado de administrar los recursos hardware y controlar la ejecución de procesos.
     \item \textbf{PyCharm 2021.3.3.} IDE desarrollado por la compañía JetBrains, ideal para trabajar con proyectos en Python e incluso con Jupyter Notebooks. Además, se integra directamente mediante SSH con el clúster GPU, permitiendo la sincronización de ficheros entre el espacio de trabajo local y el remoto. Aunque es un software de pago, los estudiantes pueden descargarlo de forma gratuita.

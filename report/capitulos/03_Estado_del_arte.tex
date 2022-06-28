@@ -340,7 +340,7 @@ El primero contiene los principales componentes utilizados en la construcción d
 Por otro lado, $torch.optim$ contiene optimizadores como son SGD o Adam, encargados de actualizar los parámetros del modelo durante el entrenamiento. \cite{pytorch-doc}
 
 \subsubsection{Autograd}
-Al entrenar redes neuronales, el método más utilizado para actualizar los parámetros del modelo es la propagación hacia atrás o back propagation. Estos se ajustan de acuerdo al gradiente de la función de error con respecto al parámetro dado.
+Al entrenar redes neuronales, el método más utilizado para actualizar los parámetros del modelo es la propagación hacia atrás o \textit{back propagation}. Estos se ajustan de acuerdo al gradiente de la función de error con respecto al parámetro dado.
 
 PyTorch facilita la aplicación de la propagación hacia atrás a través del módulo $torch.autograd$. Cuando implementamos un modelo, solo es necesario declarar el método $forward()$, ya que PyTorch crea sobre la marcha el grafo de las operaciones necesarias para calcular el gradiente. Durante el entrenamiento del modelo, al llamar a $loss.backward()$ se calculará el gradiente utilizando este grafo. \cite{pytorch-doc}
 
