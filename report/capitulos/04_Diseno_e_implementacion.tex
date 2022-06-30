@@ -1,32 +1,18 @@
 \chapter{Metodología de investigación}
-Para alcanzar el objetivo final es importante fijar unos pasos concretos a seguir. Por ello, en un primer lugar hemos estudiado el estado del arte, que nos permite conocer que herramientas se encuentran a nuestra disposición. A continuación tendremos que revisar el \textit{dataset} del que partimos, balanceándolo y añadiendo \textit{hard-negatives} que permitirán entrenar el modelo clasificador de forma que funcione correctamente en casos más difíciles. Tras haber preparado el dataset, entrenaremos el modelo clasificador sobre este.
+Para alcanzar el objetivo final es importante fijar unos pasos concretos a seguir. Por ello, en un primer lugar hemos estudiado el estado del arte, que nos permite conocer que herramientas se encuentran a nuestra disposición. A continuación tendremos que revisar el \textit{dataset} del que partimos, balanceándolo y añadiendo \textit{hard-negatives} que permitirán entrenar el modelo clasificador de forma que funcione correctamente en casos más difíciles. Tras haber preparado el \textit{dataset}, entrenaremos el modelo clasificador sobre este.
 
 En esta sección explicamos los conceptos más importantes que debemos entender si queremos comprender las decisiones que se han tomado y el funcionamiento de los modelos.
 
-La implementación de los pasos que explicamos en este capítulo se encuentra en el repositorio de GitHub del proyecto \cite{repository}. La raíz del repositorio contiene los siguientes elementos:
-
-\dirtree{%
-    .1 /.
-    .2 datasets/.
-    .2 experiments/\DTcomment{implementación del TFG}.
-    .2 papers/\DTcomment{algunas de las publicaciones utilizadas en su desarrollo}.
-    .2 report/\DTcomment{memoria en formato \LaTeX}.
-    .2 slides/.
-    .2 README.md.
-}
-
-El código se utiliza para ejecutar los experimentos que se tratarán en el próximo capítulo.
-
 \newpage
-\section{Balanceo del dataset}
-El dataset, entregado por los científicos de la Universidad de Negev, contiene ejemplos positivos y negativos. Todas las imágenes son diferentes, presentan elementos con distintos trazados de línea, tamaños, colores... Originalmente se encuentran en formato .png.
+\section{Balanceo del \textit{dataset}}
+El \textit{dataset}, entregado por los científicos de la Universidad de Negev, contiene ejemplos positivos y negativos. Todas las imágenes son diferentes, presentan elementos con distintos trazados de línea, tamaños, colores... Originalmente se encuentran en formato .png.
 
-Los ejemplos positivos son imágenes de moléculas extraídas de publicaciones. La mayoría son moléculas completas, aunque algunas parecen recortes de estructuras más grandes. En total tenemos 162 imágenes de este tipo.
+Los ejemplos positivos son imágenes de moléculas organometálicas extraídas de publicaciones. La mayoría son moléculas completas, aunque algunas parecen recortes de estructuras más grandes. En total tenemos 162 imágenes de este tipo.
 
 \begin{figure}[H]
 \centering
     \fbox{\includegraphics[scale=0.3]{imagenes/positive_examples.png}}  
-    \caption{Ejemplos de muestras positivas del dataset} 
+    \caption{Ejemplos de muestras positivas del \textit{dataset}} 
 \end{figure}
 
 Los ejemplos negativos son, en cambio, imágenes que contienen rectas, curvas y otras figuras que se parecen a las formas que adquiere una molécula, pero no lo son. La diversidad de estas imágenes es muy alta, como se puede observar en la figura \ref{fig:negative_examples}. En esta categoría hay más imágenes, 800 en total.
@@ -34,13 +20,13 @@ Los ejemplos negativos son, en cambio, imágenes que contienen rectas, curvas y 
 \begin{figure}[H]
 \centering
     \fbox{\includegraphics[scale=0.3]{imagenes/negative_examples.png}}  
-    \caption{Ejemplos de muestras negativas del dataset}
+    \caption{Ejemplos de muestras negativas del \textit{dataset}}
     \label{fig:negative_examples}
 \end{figure}
 
 Estas imágenes necesitan un preprocesamiento, es necesario elegir el formato con el que se va a trabajar y dimensionarlas para que todas tengan el mismo tamaño. Debido a que el canal alfa del formato .png no se está aprovechando, decidimos convertirlas a formato .jpg y así trabajar con tres canales en nuestros modelos. Además, el modelo generativo que utilizamos está diseñado para trabajar con imágenes con este número de canales, así que será lo más adecuado.
 
-Lo más conveniente sería dimensionar todas las imágenes al tamaño de la más grande, así no se perdería información. Pero esto puede suponer un problema, ya que existen algunas que superan los 700x700 píxeles, y cuanto mayor es su resolución más parámetros necesitan almacenar los modelos, dando lugar a altos tiempos de ejecución, y sobre todo, a problemas con la memoria de la GPU, problemas observables especialmente con el modelo generativo. Las GPUs del clúster no tienen capacidad para almacenar modelos con tantos parámetros, por lo que decidimos reducir el tamaño de las imágenes a 256x256. 
+Lo más conveniente sería dimensionar todas las imágenes al tamaño de la más grande, así no se perdería información. Pero esto puede suponer un problema, ya que existen algunas que superan los 700x700 píxeles, y cuanto mayor es su resolución más parámetros necesitan almacenar los modelos, dando lugar a altos tiempos de ejecución, y sobre todo, a problemas con la memoria de la GPU, problemas observables especialmente con el modelo generativo. Las \textit{GPUs} del clúster no tienen capacidad para almacenar modelos con tantos parámetros, por lo que decidimos reducir el tamaño de las imágenes a 256x256. 
 
 También mencionar el limitado número de ejemplos positivos que tenemos en comparación con negativos: estamos ante un conjunto de datos desbalanceado. En el momento de entrenar el clasificador, tendremos que conseguir que esté balanceado, ya sea reduciendo el número de ejemplos negativos utilizado o aplicando \textit{data augmentation} sobre los positivos. En este trabajo elegimos la segunda opción, ya que en Aprendizaje Automático cuantos más datos se utilizan en el entrenamiento, mejores modelos se obtienen. 
 
@@ -143,13 +129,13 @@ En este caso, utilizaremos transformaciones como Multiplicar (multiplica el valo
     \State VoltearIzdaDcha(20\%)
     \State VoldearArribaAbajo(20\%)
     \State A\_veces(70\%, TransformacionElastica(alfa=[0.75, 3], sigma=(0.2, 0.5)))
-    \State UnoEntre(Nitidez(alfa=[0, 1], lightness=[0.5, 1.5]), Emboss(alfa=[0, 1], fuerza=[0.75, 2]))
+    \State UnoEntre(Nitidez(alfa=[0, 1], brillo=[0.5, 1.5]), Repujar(alfa=[0, 1], fuerza=[0.75, 2]))
     \State Dropout([0.01, 0.15], por\_canal=0.5)
 \end{algorithmic}
 \end{algorithm}
 % TODO: Cómo se traduce emboss al español??
 
-Finalmente, en esta versión de \textit{data augmentation} añadimos transformaciones que alteran en gran medida el aspecto de las imágenes. TransformacionElastica desplaza píxeles de una zona de la imagen a otra cercana, donde alfa controla la distancia con la que se produce el desplazamiento y sigma la suavidad de este, un valor bajo de sigma dará lugar a imágenes ruidosas y pixeladas. Nitidez aplica este efecto a la imagen y mezcla el resultado con la imagen original, la intensidad de la mezcla se controla con el parámetro alfa, mientras que el parámetro lightness controla el brillo de la imagen. Emboss da a la imagen un aspecto metálico, pronunciando las altas luces y sombras. Por último, Dropout da el valor 0 a cada pixel con una probabilidad entre 0.01 y 0.15. 
+Finalmente, en esta versión de \textit{data augmentation} añadimos transformaciones que alteran en gran medida el aspecto de las imágenes. TransformacionElastica desplaza píxeles de una zona de la imagen a otra cercana, donde alfa controla la distancia con la que se produce el desplazamiento y sigma la suavidad de este, un valor bajo de sigma dará lugar a imágenes ruidosas y pixeladas. Nitidez aplica este efecto a la imagen y mezcla el resultado con la imagen original, la intensidad de la mezcla se controla con el parámetro alfa, mientras que el parámetro brillo controla el brillo de la imagen. Repujar (\textit{Emboss} en inglés) da a la imagen un aspecto metálico, pronunciando las altas luces y sombras. Por último, Dropout da el valor 0 a cada pixel con una probabilidad entre 0.01 y 0.15. 
 
 % \begin{figure}[H]
 % \centering
@@ -178,42 +164,12 @@ Finalmente, en esta versión de \textit{data augmentation} añadimos transformac
 
 % En esta última versión las transformaciones son bastante agresivas. Se introduce mucho ruido en las imágenes y las rotaciones y los cambios en el contraste son fuertes.
 
-El \textit{dataset} original y los derivados obtenidos al aplicar \textit{data augmentation} se almacenarán en el directorio \textit{datasets/} del repositorio, como se describe en el siguiente árbol:
-
-\vspace{0.3cm}
-\dirtree{%
-    .1 datasets/.
-    .2 negev/.
-    .3 articles\_molecules/\DTcomment{ejemplos positivos}.
-    .4 preprocess256/.
-    .5 aug/\DTcomment{\textit{data augmentation} 1}. 
-    .6 1.png.
-    .6 2.png.
-    .6 \ldots.
-    .5 aug2/\DTcomment{\textit{data augmentation} 2}.
-    .6 1.png.
-    .6 2.png.
-    .6 \ldots.
-    .5 aug3/\DTcomment{\textit{data augmentation} 3}.
-    .6 1.png.
-    .6 2.png.
-    .6 \ldots.
-    .5 1.png.
-    .5 2.png.
-    .5 \ldots.
-    .4 1.png.
-    .4 2.png.
-    .4 \ldots.
-    .3 not\_molecules/\DTcomment{ejemplos negativos}.
-}
-
-\newpage
-Como resumen, el siguiente gráfico recoge los diferentes conjuntos de datos que obtendremos tras este proceso de data augmentation:
+Como resumen, el siguiente gráfico recoge los diferentes conjuntos de datos que obtendremos tras este proceso de \textit{data augmentation}:
 \begin{figure}[H]
-    \centering
-        \fbox{\includegraphics[scale=0.42]{imagenes/metodologia/datasets.png}}  
-        \caption{Diferentes \textit{datasets} generados a partir del original} 
-    \end{figure}
+\centering
+    \fbox{\includegraphics[scale=0.42]{imagenes/metodologia/datasets.png}}  
+    \caption{Diferentes \textit{datasets} generados a partir del original} 
+\end{figure}
 
 Las secuencias \textit{data augmentation} se aplicarán en tres ocasiones sobre el conjunto de ejemplos positivos, por lo que cuadruplican su tamaño inicial: 162 + 3*162 = 648
 
@@ -223,7 +179,7 @@ Ahora ya tenemos un \textit{dataset} razonablemente balanceado (800 ejemplos neg
 
 \newpage
 \section{Generación de \textit{hard negatives}}
-Tras balancear los dataset con \textit{data augmentation}, procedemos a generar \textit{hard negatives}. Este tipo de ejemplos negativos son aquellos que se encuentran en el límite de lo que es negativo y positivo, aquellos que a los modelos de Aprendizaje Automático les cuesta clasificar. Incorporar este tipo de imágenes al conjunto de entrenamiento permite que el modelo sea más preciso en casos extremos y por tanto que funcione mejor.
+Tras balancear los \textit{datasets} con \textit{data augmentation}, procedemos a generar \textit{hard negatives}. Este tipo de ejemplos negativos son aquellos que se encuentran en el límite de lo que es negativo y positivo, aquellos que a los modelos de Aprendizaje Automático les cuesta clasificar. Incorporar este tipo de imágenes al conjunto de entrenamiento permite que el modelo sea más preciso en casos extremos y por tanto que funcione mejor.
 
 \begin{figure}[H]
 \centering
@@ -252,26 +208,28 @@ Tras realizar los experimentos, se escogerá el modelo (o los modelos) que gener
 
 
 
-El directorio que recoge la implementación de todo este proceso es el siguiente:
+% El directorio que recoge la implementación de todo este proceso es el siguiente:
 
-\vspace{0.3cm}
-\dirtree{%
-    .1 /experiments/.
-    .2 taming\_transformers/.
-    .3 taming-transformers/.
-    .3 data\_generation\_and\_augmentation.ipynb.
-    .3 sampling\_experiment.ipynb.
-    .3 sample\_and\_clean\_molecules.ipynb.
-    .3 functions.py.
-}
+% \vspace{0.3cm}
+% \dirtree{%
+%     .1 /experiments/.
+%     .2 taming\_transformers/.
+%     .3 taming-transformers/.
+%     .3 data\_generation\_and\_augmentation.ipynb.
+%     .3 sampling\_experiment.ipynb.
+%     .3 sample\_and\_clean\_molecules.ipynb.
+%     .3 functions.py.
+% }
 
-El subdirectorio \textit{taming\_transformers} contiene la implementación del modelo generativo proporcionada por sus autores \cite{taming-transformers-github}. 
+% El subdirectorio \textit{taming\_transformers} contiene la implementación del modelo generativo proporcionada por sus autores \cite{taming-transformers-github}. 
 
-\textit{{data\_generation\_and\_augmentation.ipynb}} contiene el código que preprocesa las imágenes, transformándolas de forma que tengan el mismo tamaño, y que aplica las tres secuencias de \textit{data augmentation} que hemos comentado.
+% \textit{{data\_generation\_and\_augmentation.ipynb}} contiene el código que preprocesa las imágenes, transformándolas de forma que tengan el mismo tamaño, y que aplica las tres secuencias de \textit{data augmentation} que hemos comentado.
 
-\textit{sampling\_experiment.ipynb} es un cuaderno que, una vez entrenados los modelos, permite cargarlos y generar imágenes sintéticas a partir de otra imagen de entrada. Se utiliza para comprobar a partir de que \textit{dataset} se generan mejores resultados y con qué número de épocas. Es importante saber que este modelo generativo necesita de una imagen condicionante para generar una imagen sintética: probaremos con distintos tipos, entre ellas ruido, para comprobar con cuáles se obtienen mejores resultados.
+% \textit{sampling\_experiment.ipynb} es un cuaderno que, una vez entrenados los modelos, permite cargarlos y generar imágenes sintéticas a partir de otra imagen de entrada. Se utiliza para comprobar a partir de que \textit{dataset} se generan mejores resultados y con qué número de épocas. Es importante saber que este modelo generativo necesita de una imagen condicionante para generar una imagen sintética: probaremos con distintos tipos, entre ellas ruido, para comprobar con cuáles se obtienen mejores resultados.
 
-\textit{sample\_and\_clean\_molecules.ipynb} nos permite generar un lote de imágenes sintéticas indicando el modelo que queremos utilizar y las propiedades del ruido, en concreto de ruido perlín, ruido que explicaremos en los experimentos. También creará el \textit{dataset} final que contiene \textit{hard negatives}.
+% \textit{sample\_and\_clean\_molecules.ipynb} nos permite generar un lote de imágenes sintéticas indicando el modelo que queremos utilizar y las propiedades del ruido, en concreto de ruido perlín, ruido que explicaremos en los experimentos. También creará el \textit{dataset} final que contiene \textit{hard negatives}.
+
+% \textit{functions.py} declara funciones utilizadas por todos estos cuadernos.
 
 
 % conjunto de datos sin aplicarles \textit{data augmentation} y haremos lo mismo aplicando \textit{data augmentation} 1, \textit{data augmentation} 2 y \textit{data augmentation} 3. En estos tres últimos casos, el número de imágenes utilizado para entrenar se multiplica por 4, ya que aplicamos las secuencias de transformaciones 3 veces. 
@@ -280,7 +238,14 @@ El subdirectorio \textit{taming\_transformers} contiene la implementación del m
 \section{Clasificación de imágenes}
 El segundo objetivo de este proyecto consiste en construir un clasificador capaz de separar las imágenes que contienen estructuras de moléculas de aquellas que no. Hasta ahora hemos preparado el \textit{dataset} con el que se va a entrenar este modelo y hemos generado \textit{hard negatives} que pueden ayudar a crear un clasificador más robusto.
 
-En concreto vamos a trabajar con dos \textit{datasets}, no solo con uno: el que ha sido balanceado pero no contiene \textit{hard negatives} y el que sí los contiene. Entregaremos a los científicos de la Universidad de Negev ambos clasificadores. Para implementarlos utilizamos la biblioteca Pytorch ya expuesta en el capítulo estado del arte.
+En concreto vamos a trabajar con dos \textit{datasets}, no solo con uno: el que ha sido balanceado pero no contiene \textit{hard negatives} y el que sí los contiene, 400 ejemplos negativos originales y 400 ejemplos negativos de los generados de forma sintética. Entregaremos a los científicos de la Universidad de Negev ambos clasificadores. Para implementarlos utilizamos la biblioteca Pytorch ya expuesta en el capítulo estado del arte.
+
+\begin{figure}[H]
+\centering
+    \fbox{\includegraphics[scale=0.42]{imagenes/metodologia/two_datasets.png}}  
+    \caption{Dos \textit{datasets} para entrenar dos clasificadores.} 
+    \label{fig:two_final_datasets}
+\end{figure}
 
 A priori no podemos conocer que arquitectura funcionará mejor para este problema, por lo que implementaremos varias y compararemos su rendimiento. Vamos a elegir una de tamaño pequeño, otra de tamaño mediano y otra de tamaño grande y comparar cuál es la más adecuada:
 \begin{itemize}
@@ -316,18 +281,30 @@ En las ejecuciones que vamos a realizar, la función de coste que utilizamos es 
 
 El algoritmo de aprendizaje intentará minimizar el valor de la función de entropía cruzada, es decir, tratará de minimizar la distancia entre las probabilidades devueltas por el modelo y la probabilidad real. Tras el entrenamiento, cuando realicemos una predicción, la clase a la que pertenecerá la muestra será aquella que esté representada por el \textit{logit} con mayor probabilidad. \cite{crossentropyloss}
 
+
 \begin{figure}[H]
 \centering
     \fbox{\includegraphics[scale=0.55]{imagenes/image_classification/crossentropyloss.jpeg}}
     \caption{La función de entropía cruzada $L_{CE}$ mide la distancia entre la probabilidad representada en el \textit{logit} $S$ y la probabilidad real representada mediante $T$ \cite{crossentropyloss}. Durante el entrenamiento, el algoritmo tratará de minimizar esta distancia.}
 \end{figure}
 
-\newpage
-El objetivo es realizar la \textit{grid search} sobre los dos datasets que hemos comentado, de esta forma compararemos el rendimiento de los modelos según los hiperparámetros utilizados y nos quedaremos con aquellos que dan mejores resultados. Estos serán los que entreguemos a los científicos.
+Hay otro hiperparámetro que fijamos desde el inicio que es el tamaño de los minilotes. Podríamos haber probado con tamaños diferentes, pero de hacerlo la complejidad de la \textit{grid search} crecía en gran medida. Un valor adecuado es aquel que permita que el minilote quepa en la caché de la GPU, de forma que se agilicen los cálculos. Valores como 32, 64 o 128 suelen ser utilizados en la literatura, así que nosotros elegimos fijar 32.
+
+El objetivo es realizar la \textit{grid search} sobre los dos \textit{datasets} que hemos comentado, de esta forma compararemos el rendimiento de los modelos según los hiperparámetros utilizados y nos quedaremos con aquellos que dan mejores resultados. Estos serán los que utilicen los modelos que entreguemos a los científicos.
+
+Los \textit{datasets} se dividirán en dos secciones, \textit{train} y \textit{test}. \textit{train} se utilizará para entrenar los modelos finales (y por tanto será la mayor división, 85\%) y test para evaluar su rendimiento final (15\%). Pero en la \textit{grid search} utilizaremos solamente la división de \textit{train}, a la que aplicaremos validación cruzada. Esta técnica pretende estimar el error de forma más fiable repitiendo el proceso de entrenamiento con diferentes subconjuntos. En concreto, se divide aleatoriamente el conjunto en $k$ partes (en nuestro caso $k=5$). En cada iteración ($k$ en total), se utiliza un subconjunto como \textit{test} y el resto como \textit{train}. \cite{berzal2018redes}
+
+Finalmente, tras la \textit{grid search}, cuando hayamos decidido cuál es la configuración final, se entrenará el modelo final sobre la partición \textit{train} y se dará un valor de error sobre la \textit{test}. (Como ya hemos comentado realmente tendremos dos modelos finales, uno entrenado sobre el \textit{dataset} sin \textit{hard negatives} y otro sobre el que si los tiene)
 
 \begin{figure}[H]
 \centering
-    \fbox{\includegraphics[scale=0.43]{imagenes/metodologia/grid_search.png}}  
+    \fbox{\includegraphics[scale=0.38]{imagenes/metodologia/train_test.png}}  
+    \caption{División \textit{train-test}.} 
+\end{figure}
+
+\begin{figure}[H]
+\centering
+    \fbox{\includegraphics[scale=0.37]{imagenes/metodologia/grid_search.png}}  
     \caption{Realizamos una \textit{grid search} sobre ambos datasets, y elegimos el modelo que mejor resultado da sobre cada uno de ellos.} 
 \end{figure}
 
