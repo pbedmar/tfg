@@ -1,7 +1,7 @@
 \chapter{Metodología de investigación}
-Para alcanzar el objetivo final es importante fijar unos pasos concretos a seguir. Por ello, en un primer lugar hemos estudiado el estado del arte, que nos permite conocer que herramientas se encuentran a nuestra disposición. A continuación tendremos que revisar el \textit{dataset} del que partimos, balanceándolo y añadiendo \textit{hard-negatives} que permitirán entrenar el modelo clasificador de forma que funcione correctamente en casos más difíciles. Tras haber preparado el \textit{dataset}, entrenaremos el modelo clasificador sobre este.
+Para alcanzar el objetivo final es importante fijar unos pasos concretos a seguir. Por ello, en un primer lugar he estudiado el estado del arte, que nos permite conocer que herramientas se encuentran a nuestra disposición. A continuación tendré que revisar el \textit{dataset} del que se parte, mejorando su balance y generando \textit{hard-negatives} que permitirán entrenar el modelo clasificador de forma que funcione correctamente en casos más difíciles. Tras haber preparado el \textit{dataset}, entrenaré el modelo clasificador sobre este.
 
-En esta sección explicamos los conceptos más importantes que debemos entender si queremos comprender las decisiones que se han tomado y el funcionamiento de los modelos.
+En esta sección explico los conceptos más importantes que debemos entender si queremos comprender las decisiones que se han tomado y el funcionamiento de los modelos.
 
 \newpage
 \section{Balanceo del \textit{dataset}}
@@ -26,145 +26,75 @@ Los ejemplos negativos son, en cambio, imágenes que contienen rectas, curvas y 
 
 Estas imágenes necesitan un preprocesamiento, es necesario elegir el formato con el que se va a trabajar y dimensionarlas para que todas tengan el mismo tamaño. Debido a que el canal alfa del formato .png no se está aprovechando, decidimos convertirlas a formato .jpg y así trabajar con tres canales en nuestros modelos. Además, el modelo generativo que utilizamos está diseñado para trabajar con imágenes con este número de canales, así que será lo más adecuado.
 
-Lo más conveniente sería dimensionar todas las imágenes al tamaño de la más grande, así no se perdería información. Pero esto puede suponer un problema, ya que existen algunas que superan los 700x700 píxeles, y cuanto mayor es su resolución más parámetros necesitan almacenar los modelos, dando lugar a altos tiempos de ejecución, y sobre todo, a problemas con la memoria de la GPU, problemas observables especialmente con el modelo generativo. Las \textit{GPUs} del clúster no tienen capacidad para almacenar modelos con tantos parámetros, por lo que decidimos reducir el tamaño de las imágenes a 256x256. 
+Lo más conveniente sería dimensionar todas las imágenes al tamaño de la más grande, así no se perdería información. Pero esto puede suponer un problema, ya que existen algunas que superan los 700x700 píxeles, y cuanto mayor es su resolución más parámetros necesitan almacenar los modelos, dando lugar a altos tiempos de ejecución, y sobre todo, a problemas con la memoria de la GPU. Las GPUs del clúster no tienen capacidad para almacenar modelos con tantos parámetros, por lo que decido reducir el tamaño de las imágenes a 256x256. 
 
-También mencionar el limitado número de ejemplos positivos que tenemos en comparación con negativos: estamos ante un conjunto de datos desbalanceado. En el momento de entrenar el clasificador, tendremos que conseguir que esté balanceado, ya sea reduciendo el número de ejemplos negativos utilizado o aplicando \textit{data augmentation} sobre los positivos. En este trabajo elegimos la segunda opción, ya que en Aprendizaje Automático cuantos más datos se utilizan en el entrenamiento, mejores modelos se obtienen. 
+También mencionar el limitado número de ejemplos positivos que existen en comparación con negativos: estamos ante un conjunto de datos desbalanceado. En el momento de entrenar el clasificador, tendremos que conseguir que esté más balanceado, ya sea reduciendo el número de ejemplos negativos utilizado o aplicando \textit{data augmentation} sobre los positivos. En este trabajo elijo la segunda opción, ya que en aprendizaje automático cuantos más datos se utilizan en el entrenamiento, mejores modelos se obtienen. 
 
 La técnica de \textit{data augmentation} consiste en aumentar el tamaño del conjunto de datos completándolo con imágenes alteradas de este. Existen bibliotecas en lenguajes de programación como Python que facilitan en gran medida esta tarea, ya que permiten indicar, entre una serie de transformaciones ya implementadas, cuáles queremos aplicar \cite{imgaug}. En nuestro caso vamos a crear tres \textit{data augmentation} diferentes, y comprobaremos cuál funciona mejor en los experimentos. La primera realizará transformaciones suaves, la segunda algo más fuertes y la tercera bastante disruptivas.
 
-\begin{algorithm}[H]
-    \caption{\textit{Data augmentation} 1: Transformaciones suaves}
-\begin{algorithmic}[1]
-    \State A\_veces(50\%, DesenfoqueGaussiano(sigma=[0, 0.5]))
-    \State Escalar(x: [80\%, 100\%], y: [80\%, 100\%])
-    \State Rotar([-25º, +25º])
-    \State Estirar([-5,5])
-\end{algorithmic}
-\end{algorithm}
+\noindent\rule{\textwidth}{1pt}
+\noindent\textit{Data augmentation} 1. Transformaciones suaves:
+\vspace{-0.2cm}
+\\\noindent\rule{\textwidth}{1pt}
+\begin{itemize}
+    \item A\_veces(50\%, DesenfoqueGaussiano(sigma=[0, 0.5]))
+    \item Escalar(x: [80\%, 100\%], y: [80\%, 100\%])
+    \item Rotar([-25º, +25º])
+    \item Estirar([-5,5])
+\end{itemize}
+\vspace{-0.3cm}
+\noindent\rule{\textwidth}{1pt}
+
 
 A cada imagen del conjunto de datos se le aplicarán estas cuatro transformaciones, la primera solamente con un 50\% de probabilidad. Los parámetros de cada transformación vienen dados en un rango, de forma que se elige un valor aleatorio en este.
 
-% \begin{figure}[H]
-% \centering
-%     \begin{subfigure}{.35\textwidth}
-%         \centering
-%         \includegraphics[width=1\linewidth]{imagenes/aug/180.jpg}
-%     \end{subfigure}%
-%     \begin{subfigure}{.35\textwidth}
-%         \centering
-%         \includegraphics[width=1\linewidth]{imagenes/aug/193.jpg}
-%     \end{subfigure}%
+\noindent\rule{\textwidth}{1pt}
+\noindent\textit{Data augmentation} 2: Transformaciones más fuertes
+\vspace{-0.2cm}
+\\\noindent\rule{\textwidth}{1pt}
+\begin{itemize}
+    \item A\_veces(50\%, DesenfoqueGaussiano(sigma=[0, 0.5]))
+    \item ContrasteLineal([0.75, 1.5])
+    \item Escalar(x: [70\%, 100\%], y: [70\%, 100\%])
+    \item Rotar([-45º, +45º])
+    \item Estirar([-10,10])
+    \item Trasladar(x: [-10\%, 10\%], y: [-10\%, 10\%])
+    \item Multiplicar([0.8, 1.2], por\_canal=25\%)
+    \item RuidoGaussianoAditivo(loc=0, escala=[0.0, 0.05*255])
+    \item VoltearIzdaDcha(30\%)
+\end{itemize}
+\vspace{-0.3cm}
+\noindent\rule{\textwidth}{1pt}
 
-%     \bigskip
 
-%     \begin{subfigure}{.35\textwidth}
-%         \centering
-%         \includegraphics[width=1\linewidth]{imagenes/aug/224.jpg}
-%     \end{subfigure}%
-%     \begin{subfigure}{.35\textwidth}
-%         \centering
-%         \includegraphics[width=1\linewidth]{imagenes/aug/370.jpg}
-%     \end{subfigure}
+En este caso, utilizo transformaciones como Multiplicar (multiplica el valor de los píxeles de la imagen por un número entre 0.8 y 1.2), RuidoGaussianoAditivo (donde a cada píxel se le añade ruido generado mediante una distribución gaussiana centrada en 0 y con desviación entre 0 y 0.05*255) o VoltearIzqdaDcha, entre otras.
 
-%     \caption{Imágenes generadas aplicando \textit{data augmentation} 1}
-% \end{figure}
+\noindent\rule{\textwidth}{1pt}
+\noindent\textit{Data augmentation} 3: Transformaciones fuertes
+\vspace{-0.2cm}
+\\\noindent\rule{\textwidth}{1pt}
+\begin{itemize}
+    \item A\_veces(50\%, DesenfoqueGaussiano(sigma=[0, 0.6]))
+    \item ContrasteLineal([0.75, 2])
+    \item Escalar(x: [70\%, 100\%], y: [70\%, 100\%])
+    \item Rotar([-45º, +45º])
+    \item Estirar([-10,10])
+    \item Trasladar(x: [-20\%, 20\%], y: [-10\%, 10\%])
+    \item Multiplicar([0.6, 1.4], por\_canal=25\%)
+    \item RuidoGaussianoAditivo(loc=0, escala=[0.0, 0.05*255], por\_canal=30\%)
+    \item VoltearIzdaDcha(20\%)
+    \item VoldearArribaAbajo(20\%)
+    \item A\_veces(70\%, TransformacionElastica(alfa=[0.75, 3], sigma=(0.2, 0.5)))
+    \item UnoEntre(Nitidez(alfa=[0, 1], brillo=[0.5, 1.5]), Repujar(alfa=[0, 1], fuerza=[0.75, 2]))
+    \item Dropout([0.01, 0.15], por\_canal=0.5)
+\end{itemize}
+\vspace{-0.3cm}
+\noindent\rule{\textwidth}{1pt}
 
-% Algunos ejemplos son los que se muestran sobre este párrafo, se aprecian leves rotaciones y estiramientos de las imágenes, sin existir gran diferencia con las originales.
 
-\begin{algorithm}[H]
-    \caption{\textit{Data augmentation} 2: Transformaciones más fuertes}
-\begin{algorithmic}[1]
-    \State A\_veces(50\%, DesenfoqueGaussiano(sigma=[0, 0.5]))
-    \State ContrasteLineal([0.75, 1.5])
-    \State Escalar(x: [70\%, 100\%], y: [70\%, 100\%])
-    \State Rotar([-45º, +45º])
-    \State Estirar([-10,10])
-    \State Trasladar(x: [-10\%, 10\%], y: [-10\%, 10\%])
-    \State Multiplicar([0.8, 1.2], por\_canal=25\%)
-    \State RuidoGaussianoAditivo(loc=0, escala=[0.0, 0.05*255])
-    \State VoltearIzdaDcha(30\%)
-\end{algorithmic}
-\end{algorithm}
+Finalmente, en esta versión de \textit{data augmentation} añado transformaciones que alteran en gran medida el aspecto de las imágenes. TransformacionElastica desplaza píxeles de una zona de la imagen a otra cercana, donde alfa controla la distancia con la que se produce el desplazamiento y sigma la suavidad de este, un valor bajo de sigma dará lugar a imágenes ruidosas y pixeladas. Nitidez aplica este efecto a la imagen y mezcla el resultado con la imagen original, la intensidad de la mezcla se controla con el parámetro alfa, mientras que el parámetro brillo controla el brillo de la imagen. Repujar (\textit{Emboss} en inglés) da a la imagen un aspecto metálico, pronunciando las altas luces y sombras. Por último, Dropout da el valor 0 a cada pixel con una probabilidad entre 0.01 y 0.15. 
 
-En este caso, utilizaremos transformaciones como Multiplicar (multiplica el valor de los píxeles de la imagen por un número entre 0.8 y 1.2), RuidoGaussianoAditivo (donde a cada píxel se le añade ruido generado mediante una distribución gaussiana centrada en 0 y con desviación entre 0 y 0.05*255) o VoltearIzqdaDcha, entre otras.
-
-% \begin{figure}[H]
-% \centering
-%     \begin{subfigure}{.35\textwidth}
-%         \centering
-%         \includegraphics[width=1\linewidth]{imagenes/aug2/169.jpg}
-%     \end{subfigure}%
-%     \begin{subfigure}{.35\textwidth}
-%         \centering
-%         \includegraphics[width=1\linewidth]{imagenes/aug2/188.jpg}
-%     \end{subfigure}%
-
-%     \bigskip
-
-%     \begin{subfigure}{.35\textwidth}
-%         \centering
-%         \includegraphics[width=1\linewidth]{imagenes/aug2/221.jpg}
-%     \end{subfigure}%
-%     \begin{subfigure}{.35\textwidth}
-%         \centering
-%         \includegraphics[width=1\linewidth]{imagenes/aug2/222.jpg}
-%     \end{subfigure}
-
-%     \caption{Imágenes generadas aplicando \textit{data augmentation} 2}
-% \end{figure}
-
-% En este caso se observan más cambios fundamentalmente debidos a las variaciones en contraste, al uso de ruido gaussiano y a la multiplicación, responsable de los cambios de color, ya que a veces se aplica a canales independientes. 
-
-\begin{algorithm}[H]
-    \caption{\textit{Data augmentation} 3: Transformaciones fuertes}
-\begin{algorithmic}[1]
-    \State A\_veces(50\%, DesenfoqueGaussiano(sigma=[0, 0.6]))
-    \State ContrasteLineal([0.75, 2])
-    \State Escalar(x: [70\%, 100\%], y: [70\%, 100\%])
-    \State Rotar([-45º, +45º])
-    \State Estirar([-10,10])
-    \State Trasladar(x: [-20\%, 20\%], y: [-10\%, 10\%])
-    \State Multiplicar([0.6, 1.4], por\_canal=25\%)
-    \State RuidoGaussianoAditivo(loc=0, escala=[0.0, 0.05*255], por\_canal=30\%)
-    \State VoltearIzdaDcha(20\%)
-    \State VoldearArribaAbajo(20\%)
-    \State A\_veces(70\%, TransformacionElastica(alfa=[0.75, 3], sigma=(0.2, 0.5)))
-    \State UnoEntre(Nitidez(alfa=[0, 1], brillo=[0.5, 1.5]), Repujar(alfa=[0, 1], fuerza=[0.75, 2]))
-    \State Dropout([0.01, 0.15], por\_canal=0.5)
-\end{algorithmic}
-\end{algorithm}
-% TODO: Cómo se traduce emboss al español??
-
-Finalmente, en esta versión de \textit{data augmentation} añadimos transformaciones que alteran en gran medida el aspecto de las imágenes. TransformacionElastica desplaza píxeles de una zona de la imagen a otra cercana, donde alfa controla la distancia con la que se produce el desplazamiento y sigma la suavidad de este, un valor bajo de sigma dará lugar a imágenes ruidosas y pixeladas. Nitidez aplica este efecto a la imagen y mezcla el resultado con la imagen original, la intensidad de la mezcla se controla con el parámetro alfa, mientras que el parámetro brillo controla el brillo de la imagen. Repujar (\textit{Emboss} en inglés) da a la imagen un aspecto metálico, pronunciando las altas luces y sombras. Por último, Dropout da el valor 0 a cada pixel con una probabilidad entre 0.01 y 0.15. 
-
-% \begin{figure}[H]
-% \centering
-%     \begin{subfigure}{.35\textwidth}
-%         \centering
-%         \includegraphics[width=1\linewidth]{imagenes/aug3/175.jpg}
-%     \end{subfigure}%
-%     \begin{subfigure}{.35\textwidth}
-%         \centering
-%         \includegraphics[width=1\linewidth]{imagenes/aug3/183.jpg}
-%     \end{subfigure}%
-
-%     \bigskip
-
-%     \begin{subfigure}{.35\textwidth}
-%         \centering
-%         \includegraphics[width=1\linewidth]{imagenes/aug3/225.jpg}
-%     \end{subfigure}%
-%     \begin{subfigure}{.35\textwidth}
-%         \centering
-%         \includegraphics[width=1\linewidth]{imagenes/aug3/271.jpg}
-%     \end{subfigure}
-
-%     \caption{Imágenes generadas aplicando \textit{data augmentation} 3}
-% \end{figure}
-
-% En esta última versión las transformaciones son bastante agresivas. Se introduce mucho ruido en las imágenes y las rotaciones y los cambios en el contraste son fuertes.
-
-Como resumen, el siguiente gráfico recoge los diferentes conjuntos de datos que obtendremos tras este proceso de \textit{data augmentation}:
+Todas estas transformaciones se aplican en un orden aleatorio, lo que aporta una mayor diversidad. Como resumen, el siguiente gráfico recoge los diferentes conjuntos de datos que obtendremos tras este proceso de \textit{data augmentation}:
 \begin{figure}[H]
 \centering
     \fbox{\includegraphics[scale=0.42]{imagenes/metodologia/datasets.png}}  
@@ -175,11 +105,9 @@ Las secuencias \textit{data augmentation} se aplicarán en tres ocasiones sobre 
 
 Ahora ya tenemos un \textit{dataset} razonablemente balanceado (800 ejemplos negativos vs 648 positivos), bueno, en concreto tres \textit{datasets}. Tras realizar las pruebas experimentales decidiremos cuál es el más adecuado, de forma que las imágenes generadas mediante \textit{data augmentation} aporten una diversidad razonable al conjunto pero sin excederse, para posteriormente utilizarlo para entrenar el clasificador.
 
-
-
 \newpage
 \section{Generación de \textit{hard negatives}}
-Tras balancear los \textit{datasets} con \textit{data augmentation}, procedemos a generar \textit{hard negatives}. Este tipo de ejemplos negativos son aquellos que se encuentran en el límite de lo que es negativo y positivo, aquellos que a los modelos de Aprendizaje Automático les cuesta clasificar. Incorporar este tipo de imágenes al conjunto de entrenamiento permite que el modelo sea más preciso en casos extremos y por tanto que funcione mejor.
+Tras balancear los \textit{datasets} con \textit{data augmentation}, procedemos a generar \textit{hard negatives}. Este tipo de ejemplos negativos son aquellos que se encuentran en el límite de lo que es negativo y positivo, aquellos que a los modelos de aprendizaje automático les cuesta clasificar. Incorporar este tipo de imágenes al conjunto de entrenamiento permite que el modelo sea más preciso en casos extremos y por tanto que funcione mejor.
 
 \begin{figure}[H]
 \centering
@@ -187,9 +115,7 @@ Tras balancear los \textit{datasets} con \textit{data augmentation}, procedemos 
     \caption{Límite de decisión separando dos clases. El individuo en rojo representa un \textit{hard negative} perteneciente a la clase azul, ya que se encuentra muy cercano al límite de decisión.} 
 \end{figure}
 
-% Una vez generados los \textit{hard negatives}, prepararemos dos datasets finales para entrenar el clasificador se añadirán al conjunto de datos final con el que entrenaremos el clasificador. Realmente no se añadirán, sino que sustituirán algunos de los ejemplos negativos originales, ya que sino volveríamos a encontrarnos frente a un \textit{dataset} no balanceado. Entrenaremos el clasificador de dos formas
-
-La generación de estos ejemplos la vamos a realizar utilizando el modelo desarrollado por Esser et al. \cite{esser2021taming}, descrito en la revisión del estado del arte de este TFG. Para ello, entrenaremos el modelo sobre los ejemplos positivos del conjunto de datos de forma que sea capaz de generar imágenes que recuerden a moléculas sin que sean demasiado realistas. 
+La generación de estos ejemplos la voy a realizar utilizando el modelo desarrollado por Esser et al. \cite{esser2021taming}, descrito en la revisión del estado del arte de este TFG \ref{taming-transformers}. Para ello, entrenaré el modelo sobre los ejemplos positivos del conjunto de datos, de forma que sea capaz de generar imágenes que recuerden a moléculas sin que sean demasiado realistas. 
 
 Se entrenará el modelo sobre los tres conjuntos de datos aumentados, aunque también se realizarán pruebas sobre el \textit{dataset} original. El entrenamiento se realizará durante diferentes épocas, y se comprobará visualmente cuál es el número adecuado. En concreto, sobre cada conjunto de datos, se prevé probar con 70, 90, 110, 130, 150 y 170 épocas. Si fuera necesario realizar más experimentos con diferentes valores, se realizarían también. Discutiremos esto más a fondo en el capítulo siguiente.
 
@@ -201,44 +127,11 @@ Se entrenará el modelo sobre los tres conjuntos de datos aumentados, aunque tam
     
 Tras realizar los experimentos, se escogerá el modelo (o los modelos) que generen \textit{hard negatives} de mayor calidad. Esta elección se realizará de forma visual. Con los modelos elegidos se creará un conjunto de \textit{hard negatives} finales.
 
-
-
-% que sustituirán a una parte de los ejemplos negativos que ya teníamos en el \textit{dataset} original, concretamente 400 ejemplos.
-
-
-
-
-% El directorio que recoge la implementación de todo este proceso es el siguiente:
-
-% \vspace{0.3cm}
-% \dirtree{%
-%     .1 /experiments/.
-%     .2 taming\_transformers/.
-%     .3 taming-transformers/.
-%     .3 data\_generation\_and\_augmentation.ipynb.
-%     .3 sampling\_experiment.ipynb.
-%     .3 sample\_and\_clean\_molecules.ipynb.
-%     .3 functions.py.
-% }
-
-% El subdirectorio \textit{taming\_transformers} contiene la implementación del modelo generativo proporcionada por sus autores \cite{taming-transformers-github}. 
-
-% \textit{{data\_generation\_and\_augmentation.ipynb}} contiene el código que preprocesa las imágenes, transformándolas de forma que tengan el mismo tamaño, y que aplica las tres secuencias de \textit{data augmentation} que hemos comentado.
-
-% \textit{sampling\_experiment.ipynb} es un cuaderno que, una vez entrenados los modelos, permite cargarlos y generar imágenes sintéticas a partir de otra imagen de entrada. Se utiliza para comprobar a partir de que \textit{dataset} se generan mejores resultados y con qué número de épocas. Es importante saber que este modelo generativo necesita de una imagen condicionante para generar una imagen sintética: probaremos con distintos tipos, entre ellas ruido, para comprobar con cuáles se obtienen mejores resultados.
-
-% \textit{sample\_and\_clean\_molecules.ipynb} nos permite generar un lote de imágenes sintéticas indicando el modelo que queremos utilizar y las propiedades del ruido, en concreto de ruido perlín, ruido que explicaremos en los experimentos. También creará el \textit{dataset} final que contiene \textit{hard negatives}.
-
-% \textit{functions.py} declara funciones utilizadas por todos estos cuadernos.
-
-
-% conjunto de datos sin aplicarles \textit{data augmentation} y haremos lo mismo aplicando \textit{data augmentation} 1, \textit{data augmentation} 2 y \textit{data augmentation} 3. En estos tres últimos casos, el número de imágenes utilizado para entrenar se multiplica por 4, ya que aplicamos las secuencias de transformaciones 3 veces. 
-
 \newpage
 \section{Clasificación de imágenes}
 El segundo objetivo de este proyecto consiste en construir un clasificador capaz de separar las imágenes que contienen estructuras de moléculas de aquellas que no. Hasta ahora hemos preparado el \textit{dataset} con el que se va a entrenar este modelo y hemos generado \textit{hard negatives} que pueden ayudar a crear un clasificador más robusto.
 
-En concreto vamos a trabajar con dos \textit{datasets}, no solo con uno: el que ha sido balanceado pero no contiene \textit{hard negatives} y el que sí los contiene, 400 ejemplos negativos originales y 400 ejemplos negativos de los generados de forma sintética. Entregaremos a los científicos de la Universidad de Negev ambos clasificadores. Para implementarlos utilizamos la biblioteca Pytorch ya expuesta en el capítulo estado del arte.
+En concreto vamos a trabajar con dos \textit{datasets}, no solo con uno: el que ha sido balanceado pero no contiene \textit{hard negatives} y el que sí los contiene, 400 ejemplos negativos originales y 400 ejemplos negativos de los generados de forma sintética. Entregaremos a los científicos de la Universidad de Negev dos clasificadores, cada uno entrenado sobre uno de los dos conjuntos de datos. Para implementarlos utilizo la biblioteca Pytorch ya expuesta en el capítulo estado del arte \ref{pytorch}.
 
 \begin{figure}[H]
 \centering
@@ -247,7 +140,7 @@ En concreto vamos a trabajar con dos \textit{datasets}, no solo con uno: el que 
     \label{fig:two_final_datasets}
 \end{figure}
 
-A priori no podemos conocer que arquitectura funcionará mejor para este problema, por lo que implementaremos varias y compararemos su rendimiento. Vamos a elegir una de tamaño pequeño, otra de tamaño mediano y otra de tamaño grande y comparar cuál es la más adecuada:
+A priori no podemos conocer que arquitectura funcionará mejor para este problema, por lo que implementaremos varias y compararemos su rendimiento. Voy a elegir una de tamaño pequeño, otra de tamaño mediano y otra de tamaño grande y comparar cuál es la más adecuada:
 \begin{itemize}
     \item \textbf{LeNet5:} Modelo propuesto por Yann LeCun en 1998 \cite{lecun1998gradient}, fue una de las primeras redes convolutivas de la historia. Se diseñó con el propósito de reconocer imágenes de dígitos numéricos, y tras compararse su rendimiento con otros modelos en uso, se demostró que los sobrepasaba. Esto atrajo a muchos investigadores a esta incipiente línea de investigación y sentó las bases para las arquitecturas del futuro.
     \item \textbf{AlexNet:} Propuesto por Alex Krizhevsky en 2012 \cite{krizhevsky2012imagenet}, consiguió mejorar por un alto porcentaje a la siguiente mejor solución en el concurso ImageNet Large Scale Visual Recognition Challenge. La ventaja de este modelo frente a otros fue su profundidad, que le permitía reconocer imágenes más complejas con mayor precisión. Esto conllevó un aumento del número de parámetros y del tiempo de entrenamiento, que fue contrarrestado por el uso de GPUs que permitieron la paralelización. Para combatir el sobreajuste se utilizó \textit{dropout}, donde los enlaces entre neuronas se desconectaban con una determinada probabilidad durante cada iteración del entrenamiento.
@@ -263,10 +156,10 @@ Cada uno de estos modelos tiene diferentes hiperparámetros configurables: el ta
 Vamos a trabajar con tres hiperparámetros. Aunque podríamos hacer pruebas con más, el número de modelos a entrenar crecería exponencialmente:
 \begin{itemize}
     \item \textbf{Tasa de aprendizaje (\textit{Learning rate}):} Es probablemente el hiperparámetro más importante. Si le damos un valor demasiado bajo, los pesos del modelo variarán en muy poca medida en cada iteración y el error decrecerá muy lentamente. Si su valor es muy alto, es posible que el valor de los pesos y del error oscile y el algoritmo no converja. Es conveniente probar con diferentes posibilidades: en nuestro caso vamos a comprobar el rendimiento de los modelos tomando 0.5, 0.05, 0.005, 0.0005 y 0.00005 como posibles valores. \cite{berzal2018redes}
-    \item \textbf{Inicialización de los pesos:} Las redes neuronales dependen en gran medida de la inicialización de los pesos. Si todas las neuronas se inicializasen con el mismo valor, el modelo no sería capaz de aprender nada, ya que la derivada del gradiente sería la misma para todas. Las que vamos a utilizar son: \cite{pytorch-doc}
+    \item \textbf{Inicialización de los pesos:} Las redes neuronales dependen en gran medida de la inicialización de los pesos. Si todas las neuronas se inicializasen con el mismo valor, el modelo no sería capaz de aprender nada, ya que la derivada del gradiente sería la misma para todas. Las que voy a utilizar son: \cite{pytorch-doc}
     \begin{itemize}
         \item \textit{He:} utilizada por defecto en PyTorch en sus capas completamente conectadas y convolutivas, He (también conocida como Kaiming) genera valores aleatorios a partir de una distribución uniforme $\mathcal{U}(-bound, bound)$, donde $bound = gain * \sqrt{\frac{3}{fan\_in}}$. El parámetro $fan\_in$ depende de la entrada a la neurona. Por otro lado, en la inicialización por defecto de PyTorch $gain$ depende de $a = \sqrt{5}$.
-        \item \textit{Xavier:} Los valores aleatorios son generados a partir de una distribución uniforme $\mathcal{U}(-a, a)$, donde $a = \sqrt{\frac{6}{fan\_in + fan\_out}}$. 
+        \item \textit{Xavier:} Los valores aleatorios son generados a partir de una distribución uniforme $\mathcal{U}(-a, a)$, donde $a = \sqrt{\frac{6}{fan\_in + fan\_out}}$. Los parámetros $fan\_in$ y $fan\_out$ dependen de la entrada y de la salida de la neurona respectivamente.
     \end{itemize}
     Una correcta inicialización de los pesos evita el problema de la evanescencia del gradiente (durante el entrenamiento, este se vuelve cada vez menor aproximándose a cero, de forma que los pesos no cambian) y el de la explosión del gradiente (este toma valores cada vez mayores, de forma que los pesos cambian en gran medida y el algoritmo diverge).
     \item \textbf{Algoritmo de optimización:} Como muchos otros algoritmos de aprendizaje automático, los de aprendizaje profundo son problemas de optimización donde se intenta reducir el error de una función objetivo $f$ definida sobre un conjunto de datos de entrenamiento. En muchas ocasiones, este proceso de optimización se realiza de forma numérica, una forma de hacerlo es a partir del cálculo del gradiente descendiente, un proceso costoso por tener que calcular en numerosas ocasiones el valor de la función $f$ y de su derivada. La elección del algoritmo de optimización es importante, ya que de él dependen la convergencia a una buena solución y el actualizar los pesos de forma eficiente: \cite{berzal2018redes}
@@ -277,7 +170,7 @@ Vamos a trabajar con tres hiperparámetros. Aunque podríamos hacer pruebas con 
     \end{itemize}
 \end{itemize}
 
-En las ejecuciones que vamos a realizar, la función de coste que utilizamos es la función de entropía cruzada (\textit{Cross Entropy Loss}). Esta función integra la función de activación \textit{Softmax}, de forma que cada logit es transformado en un valor probabilístico entre 0 y 1. 
+En las ejecuciones que voy a realizar, la función de coste que utilizamos es la función de entropía cruzada (\textit{Cross Entropy Loss}). Esta función integra la función de activación \textit{Softmax}, de forma que cada logit es transformado en un valor probabilístico entre 0 y 1. 
 
 El algoritmo de aprendizaje intentará minimizar el valor de la función de entropía cruzada, es decir, tratará de minimizar la distancia entre las probabilidades devueltas por el modelo y la probabilidad real. Tras el entrenamiento, cuando realicemos una predicción, la clase a la que pertenecerá la muestra será aquella que esté representada por el \textit{logit} con mayor probabilidad. \cite{crossentropyloss}
 
@@ -288,18 +181,19 @@ El algoritmo de aprendizaje intentará minimizar el valor de la función de entr
     \caption{La función de entropía cruzada $L_{CE}$ mide la distancia entre la probabilidad representada en el \textit{logit} $S$ y la probabilidad real representada mediante $T$ \cite{crossentropyloss}. Durante el entrenamiento, el algoritmo tratará de minimizar esta distancia.}
 \end{figure}
 
-Hay otro hiperparámetro que fijamos desde el inicio que es el tamaño de los minilotes. Podríamos haber probado con tamaños diferentes, pero de hacerlo la complejidad de la \textit{grid search} crecía en gran medida. Un valor adecuado es aquel que permita que el minilote quepa en la caché de la GPU, de forma que se agilicen los cálculos. Valores como 32, 64 o 128 suelen ser utilizados en la literatura, así que nosotros elegimos fijar 32.
+Hay otro hiperparámetro que fijo desde el inicio que es el tamaño de los minilotes. Podría haber probado con tamaños diferentes, pero de hacerlo la complejidad de la \textit{grid search} crecía en gran medida. Un valor adecuado es aquel que permita que el minilote quepa en la caché de la GPU, de forma que se agilicen los cálculos. Valores como 32, 64 o 128 suelen ser utilizados en la literatura, así que nosotros elegimos fijar 32. \cite{batch-size}
 
-El objetivo es realizar la \textit{grid search} sobre los dos \textit{datasets} que hemos comentado, de esta forma compararemos el rendimiento de los modelos según los hiperparámetros utilizados y nos quedaremos con aquellos que dan mejores resultados. Estos serán los que utilicen los modelos que entreguemos a los científicos.
+El objetivo es realizar la \textit{grid search} sobre los dos \textit{datasets} que he comentado, de esta forma compararemos el rendimiento de los modelos según los hiperparámetros utilizados y nos quedaremos con aquellos que dan mejores resultados. Estos serán los que utilicen los modelos que entreguemos a los científicos.
 
 Los \textit{datasets} se dividirán en dos secciones, \textit{train} y \textit{test}. \textit{train} se utilizará para entrenar los modelos finales (y por tanto será la mayor división, 85\%) y test para evaluar su rendimiento final (15\%). Pero en la \textit{grid search} utilizaremos solamente la división de \textit{train}, a la que aplicaremos validación cruzada. Esta técnica pretende estimar el error de forma más fiable repitiendo el proceso de entrenamiento con diferentes subconjuntos. En concreto, se divide aleatoriamente el conjunto en $k$ partes (en nuestro caso $k=5$). En cada iteración ($k$ en total), se utiliza un subconjunto como \textit{test} y el resto como \textit{train}. \cite{berzal2018redes}
 
-Finalmente, tras la \textit{grid search}, cuando hayamos decidido cuál es la configuración final, se entrenará el modelo final sobre la partición \textit{train} y se dará un valor de error sobre la \textit{test}. (Como ya hemos comentado realmente tendremos dos modelos finales, uno entrenado sobre el \textit{dataset} sin \textit{hard negatives} y otro sobre el que si los tiene)
+Finalmente, tras la \textit{grid search}, cuando se haya decidido cuál es la configuración final, se entrenará el modelo final sobre la partición \textit{train} y se dará un valor de error sobre la \textit{test}. (Como ya hemos comentado realmente tendremos dos modelos finales, uno entrenado sobre el \textit{dataset} sin \textit{hard negatives} y otro sobre el que si los tiene)
 
 \begin{figure}[H]
 \centering
     \fbox{\includegraphics[scale=0.38]{imagenes/metodologia/train_test.png}}  
     \caption{División \textit{train-test}.} 
+    \label{fig:train-test}
 \end{figure}
 
 \begin{figure}[H]
@@ -307,222 +201,3 @@ Finalmente, tras la \textit{grid search}, cuando hayamos decidido cuál es la co
     \fbox{\includegraphics[scale=0.37]{imagenes/metodologia/grid_search.png}}  
     \caption{Realizamos una \textit{grid search} sobre ambos datasets, y elegimos el modelo que mejor resultado da sobre cada uno de ellos.} 
 \end{figure}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-% Toda la implementación se encuentra en el repositorio de GitHub del proyecto \cite{repository}. La raíz del repositorio contiene los siguientes elementos:
-
-% \dirtree{%
-%     .1 /.
-%     .2 datasets/.
-%     .2 experiments/\DTcomment{implementación del TFG}.
-%     .2 papers/\DTcomment{algunas de las publicaciones utilizadas en su desarrollo}.
-%     .2 report/\DTcomment{memoria en formato \LaTeX}.
-%     .2 slides/.
-%     .2 README.md.
-% }
-
-% En el repositorio, el directorio datasets se encuentra vacío para no crear problemas con el sistema de control de versiones. En el README.md se indica un enlace donde se pueden descargar los datos que se deben colocar en el directorio.
-
-% \newpage
-% \section{Dataset utilizado}
-% El dataset contiene ejemplos positivos y negativos. Todas las imágenes son diferentes, presentan elementos con distintos trazados de línea, tamaños, colores... Originalmente se encuentran en formato .png.
-
-% Los ejemplos positivos son imágenes de moléculas extraídas de publicaciones. La mayoría son moléculas completas, aunque algunas parecen recortes de estructuras más grandes. En total tenemos 162 imágenes de este tipo.
-
-% \begin{figure}[H]
-% \centering
-%     \fbox{\includegraphics[scale=0.3]{imagenes/positive_examples.png}}  
-%     \caption{Ejemplos de muestras positivas del dataset} 
-% \end{figure}
-
-% Los ejemplos negativos son, en cambio, imágenes que contienen rectas, curvas y otras figuras que se parecen a las formas que adquiere una molécula, pero no lo son. En esta categoría hay más imágenes, 800 en total.
-
-% \begin{figure}[H]
-% \centering
-%     \fbox{\includegraphics[scale=0.3]{imagenes/negative_examples.png}}  
-%     \caption{Ejemplos de muestras negativas del dataset} 
-% \end{figure}
-
-% Estas imágenes necesitan un preprocesamiento, es necesario elegir el formato con el que se va a trabajar y dimensionarlas para que todas tengan el mismo tamaño. Debido a que el canal alfa del formato .png no se está aprovechando, decidimos convertirlas a formato .jpg y así trabajar con tres canales en nuestros modelos. Además, el modelo generativo que utilizamos está diseñado para trabajar con imágenes con este número de canales, así que será lo más adecuado.
-
-% Lo más conveniente sería dimensionar todas las imágenes al tamaño de la más grande, así no se perdería información. Pero esto puede suponer un problema, ya que existen algunas que superan los 700x700 píxeles, y cuanto mayor es su resolución más parámetros necesitan almacenar los modelos, dando lugar a altos tiempos de ejecución, y sobre todo, a problemas con la memoria de la GPU. Las GPUs del clúster no tienen capacidad para almacenar modelos con tantos parámetros, por lo que decidimos reducir el tamaño de las imágenes a 256x256. 
-
-% También mencionar el limitado número de ejemplos positivos que tenemos en comparación con negativos: estamos ante un conjunto de datos desbalanceado. En el momento de entrenar el clasificador, tendremos que conseguir que esté balanceado, ya sea reduciendo el número de ejemplos negativos utilizado o aplicando \textit{data augmentation} sobre los positivos. En este trabajo elegimos la segunda opción, ya que en Aprendizaje Automático cuantos más datos se utilizan en el entrenamiento, mejores modelos se obtienen y con mayor capacidad de generalización. 
-
-% La técnica de \textit{data augmentation} consiste en aumentar el tamaño del conjunto de datos completándolo con imágenes alteradas de este. Existen bibliotecas en lenguajes de programación como Python que facilitan en gran medida esta tarea, ya que permiten indicar, entre una serie de transformaciones ya implementadas, cuáles queremos aplicar \cite{imgaug}. En nuestro caso vamos a crear tres \textit{data augmentation} diferentes, y comprobaremos cuál funciona mejor en los experimentos. La primera realizará transformaciones suaves, la segunda algo más fuertes y la tercera bastante disruptivas.
-
-% \begin{algorithm}[H]
-%     \caption{\textit{Data augmentation} 1: Transformaciones suaves}
-% \begin{algorithmic}[1]
-%     \State A\_veces(50\%, DesenfoqueGaussiano(sigma=[0, 0.5]))
-%     \State Escalar(x: [80\%, 100\%], y: [80\%, 100\%])
-%     \State Rotar([-25º, +25º])
-%     \State Estirar([-5,5])
-% \end{algorithmic}
-% \end{algorithm}
-
-% A cada imagen del conjunto de datos se le aplicarán estas cuatro transformaciones, la primera solamente con un 50\% de probabilidad. Los parámetros de cada transformación vienen dados en un rango, de forma que se elige un valor aleatorio en este.
-
-% \begin{figure}[H]
-% \centering
-%     \begin{subfigure}{.35\textwidth}
-%         \centering
-%         \includegraphics[width=1\linewidth]{imagenes/aug/180.jpg}
-%     \end{subfigure}%
-%     \begin{subfigure}{.35\textwidth}
-%         \centering
-%         \includegraphics[width=1\linewidth]{imagenes/aug/193.jpg}
-%     \end{subfigure}%
-
-%     \bigskip
-
-%     \begin{subfigure}{.35\textwidth}
-%         \centering
-%         \includegraphics[width=1\linewidth]{imagenes/aug/224.jpg}
-%     \end{subfigure}%
-%     \begin{subfigure}{.35\textwidth}
-%         \centering
-%         \includegraphics[width=1\linewidth]{imagenes/aug/370.jpg}
-%     \end{subfigure}
-
-%     \caption{Imágenes generadas aplicando \textit{data augmentation} 1}
-% \end{figure}
-
-% Algunos ejemplos son los que se muestran sobre este párrafo, se aprecian leves rotaciones y estiramientos de las imágenes, sin existir gran diferencia con las originales.
-
-% \begin{algorithm}[H]
-%     \caption{\textit{Data augmentation} 2: Transformaciones más fuertes}
-% \begin{algorithmic}[1]
-%     \State A\_veces(50\%, DesenfoqueGaussiano(sigma=[0, 0.5]))
-%     \State ContrasteLineal([0.75, 1.5])
-%     \State Escalar(x: [70\%, 100\%], y: [70\%, 100\%])
-%     \State Rotar([-45º, +45º])
-%     \State Estirar([-10,10])
-%     \State Trasladar(x: [-10\%, 10\%], y: [-10\%, 10\%])
-%     \State Multiplicar([0.8, 1.2], por\_canal=25\%)
-%     \State RuidoGaussianoAditivo(loc=0, escala=[0.0, 0.05*255])
-%     \State VoltearIzdaDcha(30\%)
-% \end{algorithmic}
-% \end{algorithm}
-
-% En este caso, utilizaremos transformaciones como Multiplicar (multiplica el valor de los píxeles de la imagen por un número entre 0.8 y 1.2), RuidoGaussianoAditivo (donde a cada píxel se le añade ruido generado mediante una distribución gaussiana centrada en 0 y con desviación entre 0 y 0.05*255) o VoltearIzqdaDcha, entre otras.
-
-% \begin{figure}[H]
-% \centering
-%     \begin{subfigure}{.35\textwidth}
-%         \centering
-%         \includegraphics[width=1\linewidth]{imagenes/aug2/169.jpg}
-%     \end{subfigure}%
-%     \begin{subfigure}{.35\textwidth}
-%         \centering
-%         \includegraphics[width=1\linewidth]{imagenes/aug2/188.jpg}
-%     \end{subfigure}%
-
-%     \bigskip
-
-%     \begin{subfigure}{.35\textwidth}
-%         \centering
-%         \includegraphics[width=1\linewidth]{imagenes/aug2/221.jpg}
-%     \end{subfigure}%
-%     \begin{subfigure}{.35\textwidth}
-%         \centering
-%         \includegraphics[width=1\linewidth]{imagenes/aug2/222.jpg}
-%     \end{subfigure}
-
-%     \caption{Imágenes generadas aplicando \textit{data augmentation} 2}
-% \end{figure}
-
-% En este caso se observan más cambios fundamentalmente debidos a las variaciones en contraste, al uso de ruido gaussiano y a la multiplicación, responsable de los cambios de color, ya que a veces se aplica a canales independientes. 
-
-% \begin{algorithm}[H]
-%     \caption{\textit{Data augmentation} 3: Transformaciones fuertes}
-% \begin{algorithmic}[1]
-%     \State A\_veces(50\%, DesenfoqueGaussiano(sigma=[0, 0.6]))
-%     \State ContrasteLineal([0.75, 2])
-%     \State Escalar(x: [70\%, 100\%], y: [70\%, 100\%])
-%     \State Rotar([-45º, +45º])
-%     \State Estirar([-10,10])
-%     \State Trasladar(x: [-20\%, 20\%], y: [-10\%, 10\%])
-%     \State Multiplicar([0.6, 1.4], por\_canal=25\%)
-%     \State RuidoGaussianoAditivo(loc=0, escala=[0.0, 0.05*255], por\_canal=30\%)
-%     \State VoltearIzdaDcha(20\%)
-%     \State VoldearArribaAbajo(20\%)
-%     \State A\_veces(70\%, TransformacionElastica(alfa=[0.75, 3], sigma=(0.2, 0.5)))
-%     \State UnoEntre(Nitidez(alfa=[0, 1], lightness=[0.5, 1.5]), Emboss(alfa=[0, 1], fuerza=[0.75, 2]))
-%     \State Dropout([0.01, 0.15], por\_canal=0.5)
-% \end{algorithmic}
-% \end{algorithm}
-% % TODO: Cómo se traduce emboss al español??
-
-% Finalmente, en esta versión de \textit{data augmentation} añadimos transformaciones que alteran en gran medida el aspecto de las imágenes. TransformacionElastica desplaza píxeles de una zona de la imagen a otra cercana, donde alfa controla la distancia con la que se produce el desplazamiento y sigma la suavidad de este, un valor bajo de sigma dará lugar a imágenes ruidosas y pixeladas. Nitidez aplica este efecto a la imagen y mezcla el resultado con la imagen original, la intensidad de la mezcla se controla con el parámetro alfa, mientras que el parámetro lightness controla el brillo de la imagen. Emboss da a la imagen un aspecto metálico, pronunciando las altas luces y sombras. Por último, Dropout da el valor 0 a cada pixel con una probabilidad entre 0.01 y 0.15. 
-
-% \begin{figure}[H]
-% \centering
-%     \begin{subfigure}{.35\textwidth}
-%         \centering
-%         \includegraphics[width=1\linewidth]{imagenes/aug3/175.jpg}
-%     \end{subfigure}%
-%     \begin{subfigure}{.35\textwidth}
-%         \centering
-%         \includegraphics[width=1\linewidth]{imagenes/aug3/183.jpg}
-%     \end{subfigure}%
-
-%     \bigskip
-
-%     \begin{subfigure}{.35\textwidth}
-%         \centering
-%         \includegraphics[width=1\linewidth]{imagenes/aug3/225.jpg}
-%     \end{subfigure}%
-%     \begin{subfigure}{.35\textwidth}
-%         \centering
-%         \includegraphics[width=1\linewidth]{imagenes/aug3/271.jpg}
-%     \end{subfigure}
-
-%     \caption{Imágenes generadas aplicando \textit{data augmentation} 3}
-% \end{figure}
-
-% En esta última versión las transformaciones son bastante agresivas. Se introduce mucho ruido en las imágenes y las rotaciones y los cambios en el contraste son fuertes.
-
-% \section{Estructura del código}
-% Como se menciona al principio del capítulo, la implementación se sitúa en el directorio $experiments/$, dividido en dos subdirectorios. El primero contiene el código del modelo generador de imágenes, el segundo el del clasificador: \\
-
-% \dirtree{%
-%     .1 experiments/\DTcomment{implementación del TFG}.
-%     .2 taming\_transformers/\DTcomment{generador de imágenes}.
-%     .3 taming-transformers/.
-%     .4 configs/.
-%     .4 logs/.
-%     .4 train\_ngpu.sh.
-%     .3 data\_generation\_and\_aug.ipynb.
-%     .3 sample\_and\_clean\_molecules.ipynb.
-%     .3 sampling\_experiment.ipynb.
-%     .3 functions.py.
-%     .2 image\_classifier/\DTcomment{clasificador de imágenes}.
-%     .3 saved\_models/.
-%     .3 datasets.py.
-%     .3 functions.py.
-%     .3 grid\_search.py.
-%     .3 models.py.
-%     .3 train.py.
-%     .3 train\_ngpu.sh.
-% }
-
-% \subsection{Generador de imágenes sintéticas}
-% Uno de los objetivos del proyecto es construir un modelo que nos permita generar imágenes sintéticas de moléculas. 
-
-% \section{Ejecución y reproducibilidad}
-% Como ejecutar los scripts y semillas utilizadas

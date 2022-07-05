@@ -16,6 +16,7 @@ export TFHUB_CACHE_DIR=.
 
 cd /mnt/homeGPU1/pbedmar/pycharm/experiments/image_classifier/
 
-python3 train_lenet.py
+python3 train_final_models.py original_dataset
+python3 train_final_models.py synthetic_dataset
 
 mail -A "slurm-$SLURM_JOBID.out" -s "ha terminado" vicyped@gmail.com <<< "El proceso de ejecución de train_ngpu.sh ha finalizado con los resultados adjuntos"

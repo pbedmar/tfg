@@ -1,11 +1,11 @@
 \chapter{Estado del arte}
-Para poder organizar este proyecto debemos conocer el estado del arte en su ámbito. Hablaremos del estado de arte en cheminformatics, las herramientas que se han creado en el marco de esta ciencia y las técnicas de Deep Learning que utilizamos para desarrollar el TFG.
+Para poder organizar este proyecto debemos conocer el estado del arte en su ámbito. Hablaremos del estado de arte en cheminformatics, en Deep Learning y sobre las herramientas que se han creado en estas áreas del conocimiento y que nos van a facilitar desarrollar este TFG.
 
 \section{Cheminformatics}
-Como comentamos en la introducción, cheminformatics es un tema muy amplio y engloba subtópicos diferentes. Muchos de ellos surgieron en la década de 1960 y principios de 1970, y desde esa época muchos grupos de investigación siguen trabajando en ellos y nuevos grupos han surgido para aplicar nuevas tecnologías en nuevos ámbitos. A continuación discutimos algunos de los temas que históricamente han sido de interés para esta ciencia. \cite{doi:10.1021/ci600234z}
+Como comentamos en el capítulo \ref{intro} (Introducción), cheminformatics es un tema muy amplio y engloba subtópicos diferentes. Muchos de ellos surgieron en la década de 1960 y principios de 1970, y desde esa época muchos grupos de investigación siguen trabajando en ellos y nuevos grupos han surgido para aplicar nuevas tecnologías en nuevos ámbitos. A continuación discutimos algunos de los temas que históricamente han sido de interés para esta ciencia. \cite{doi:10.1021/ci600234z}
 
 \subsection{Compuestos orgánicos y su representación}
-Un compuesto orgánico es un compuesto químico que contiene átomos de carbono, formando enlaces carbono-carbono y carbono-hidrógeno \cite{comporganico}. En este TFG, vamos a trabajar concretamente con la clasificación de compuestos organometálicos, donde los átomos de carbono forman enlaces covalentes con átomos metálicos \cite{comporganometalico}.
+Un compuesto orgánico es un compuesto químico que contiene átomos de carbono, formando enlaces carbono-carbono y carbono-hidrógeno \cite{comporganico}. En el conjunto de datos sobre el que trabajamos, los ejemplos positivos son concretamente compuestos químicos organometálicos, en los que átomos de carbono forman enlaces covalentes con átomos metálicos \cite{comporganometalico}.
 
 En las publicaciones de química encontramos numerosas representaciones gráficas de estos compuestos, lo que se conocen como fórmulas estructurales. Éstas muestran la disposición en el espacio de los átomos que forman el compuesto. Un ejemplo es la siguiente figura:
 
@@ -48,7 +48,7 @@ En a) se detalla la definición de todos los átomos, en cambio en b) encontramo
 \subsection{Representación en el ordenador}
 El poder almacenar representaciones de compuestos químicos de manera eficiente en un ordenador requiere de la creación de métodos y formatos específicos para ello. Además, hay que tener en cuenta qué datos vamos a codificar, si solo la estructura básica del compuesto, si también queremos guardar información estereoquímica o si queremos añadir notas auxiliares sobre los compuestos. Es importante tener esto claro, ya que la complejidad de la representación influirá en la cantidad de almacenamiento que ocupe en disco y en los recursos necesarios para procesarla.
 
-Utilizando notación lineal, representamos la estructura del compuesto como una secuencia lineal de caracteres y números. Esta es una codificación adecuada para las computadoras, ya que la pueden procesar con facilidad. Algunos formatos que utilizan esta notación son WLN (Wiswesser Line Notation), ROSDAL (Rp) o SMILES (Simplified Molecular Input Line Entry Specification). Aunque WLN y ROSDAL han quedado obsoletos, SMILES se sigue utilizando con mucha frecuencia en la actualidad. \cite{doi:10.1021/ci600234z}
+Utilizando notación lineal, se representa la estructura del compuesto como una secuencia lineal de caracteres y números. Esta es una codificación adecuada para las computadoras, ya que la pueden procesar con facilidad. Algunos formatos que utilizan esta notación son WLN (Wiswesser Line Notation), ROSDAL (Rp) o SMILES (Simplified Molecular Input Line Entry Specification). Aunque WLN y ROSDAL han quedado obsoletos, SMILES se sigue utilizando con mucha frecuencia en la actualidad. \cite{doi:10.1021/ci600234z}
 
 \begin{figure}[H]
 \centering
@@ -56,7 +56,7 @@ Utilizando notación lineal, representamos la estructura del compuesto como una 
     \caption{Dos posibles codificaciones de la melatonina en SMILES \cite{smiles_wikipedia}}
 \end{figure}
 
-Aunque no vamos a entrar en detalle de cómo funciona, ya que para ello hay que tener nociones avanzadas de química, diremos que utiliza las siglas de cada elemento de la tabla periódica para representar los átomos. La primera letra del elemento se escribe en mayúscula, a no ser que se trate de un átomo perteneciente a un anillo aromático\footnote{La aromaticidad es una propiedad presente en enlaces dobles de moléculas cíclicas, donde sus electrones pueden circular libremente. Esto mejora la estabilidad del compuesto. \cite{aromaticidad, aromaticidad_wikipedia}}, ya que en ese caso se escribe en minúscula. Si el elemento tiene dos caracteres, el segundo se escribe siempre en minúscula. Además, se pueden representar cargas.
+Aunque no vamos a entrar en detalle de cómo funciona ya que para ello hay que tener nociones avanzadas de química, diremos que utiliza las siglas de cada elemento de la tabla periódica para representar los átomos. La primera letra del elemento se escribe en mayúscula, a no ser que se trate de un átomo perteneciente a un anillo aromático\footnote{La aromaticidad es una propiedad presente en enlaces dobles de moléculas cíclicas, donde sus electrones pueden circular libremente. Esto mejora la estabilidad del compuesto. \cite{aromaticidad, aromaticidad_wikipedia}}, ya que en ese caso se escribe en minúscula. Si el elemento tiene dos caracteres, el segundo se escribe siempre en minúscula. Además, se pueden representar cargas.
 
 Los enlaces se representan con -, =, \# y :, según el tipo. Bajo algunas circunstancias, se pueden omitir estos símbolos, ya que por su contexto se deducen. También se pueden codificar ramas, situando elementos entre paréntesis, y ciclos, utilizando un número para indicar el inicio y el fin del ciclo en la cadena de texto. \cite{weininger1988smiles}
 
@@ -91,9 +91,9 @@ Aunque es complicado clasificarlas, vamos a separarlas en tres grandes grupos se
     \item \textbf{Bases de datos de biología molecular:} Contienen secuencias de aminoácidos y nucleótidos.
 \end{itemize}
 
-Pero, ¿cómo podemos rellenarlas con datos? ¿De dónde podemos extraerlos ? Durante décadas se han publicado un gran número de artículos. Podríamos utilizarlos como una fuente muy amplia de información, ya que contienen todo el progreso científico. Específicamente para extraer datos relativos a estructuras, entran en juego utilidades conocidas como OCSR (Optical Chemical Structure Recognition).
+Pero, ¿cómo podemos rellenarlas con datos? ¿De dónde podemos extraerlos? Durante décadas se han publicado un gran número de artículos. Se podrían utilizar como una fuente muy amplia de información, ya que contienen todo el progreso científico. Específicamente para extraer datos relativos a estructuras entran en juego utilidades conocidas como OCSR (Optical Chemical Structure Recognition).
 
-Son capaces de transformar una imagen en un formato compatible con la máquina, como podría ser SMILES. En muchos casos incluso es posible introducirles una publicación completa y ellas mismas localizan las imágenes de moléculas. Con el paso del tiempo se han ido perfeccionando, y algunas son capaces de detectar información estereoquímica o de relacionar el compuesto con el texto de la publicación. Más adelante repasaremos algunas de estas utilidades. 
+Son capaces de transformar una imagen en un formato compatible con la máquina, como podría ser SMILES. En muchos casos incluso es posible introducirles una publicación completa y ellas mismas localizan las imágenes de moléculas. Con el paso del tiempo se han ido perfeccionando, y algunas son capaces de detectar información estereoquímica o de relacionar el compuesto con el texto de la publicación. ChemEx \cite{tharatipyakul2012chemex}, ChemGrapher \cite{oldenhof2020chemgrapher} y DECIMER \cite{rajan2020decimer} son ejemplos de sistemas OCSR publicados en la última década.
 
 Por último, mencionar una base de datos que merece la pena conocer. Creada por el National Institute of Health (NIH), PubChem es una base de datos abierta que cada mes sirve a millones de usuarios en todo el mundo. Es una base de datos de estructuras y aunque contiene mayoritariamente moléculas pequeñas, también almacena nucleótidos, carbohidratos, lípidos, péptidos y macromoléculas modificadas químicamente. Para cada compuesto almacena su estructura, identificadores, propiedades físicas y químicas, toxicidad, patentes, etc. Los datos que aglutina provienen de diversas fuentes, como son agencias del gobierno estadounidense, editores de revistas científicas o proveedores químicos, aunque hay muchas más. \cite{pubchem}
 
@@ -107,15 +107,15 @@ En química, grandes cantidades de datos son producidas. Una vez que hemos conse
 
 El análisis de datos no solo se enfrenta a la extracción de la información principal, sino que también intenta generar nueva información secundaria. \cite{doi:10.1021/ci600234z}
 
-Este TFG se desarrolla dentro de este ámbito, ya que, como describiremos más adelante, entrenamos un modelo capaz de detectar que imágenes contienen moléculas organometálicas. Además, creamos un modelo generativo para aumentar el tamaño del dataset en uso.
+Este TFG se desarrolla dentro de este ámbito, ya que, como describiré más adelante, entreno un modelo capaz de detectar que imágenes contienen moléculas.
 
 \newpage
 \section{Deep learning}
-En las últimas décadas, la Inteligencia Artificial (I.A) ha vivido un periodo de crecimiento brutal. Dentro del ámbito de la I.A. se engloban técnicas muy diferentes que tienen como objetivo simular el comportamiento inteligente de los seres vivos, siendo uno de sus rasgos la capacidad de aprendizaje. Los sistemas expertos fueron su primer éxito comercial. En ellos se codificaban una serie de reglas manualmente, emulando el razonamiento de un experto en un problema específico.
+En las últimas décadas, la Inteligencia Artificial (I.A.) ha vivido un periodo de crecimiento brutal. Dentro del ámbito de la I.A. se engloban técnicas muy diferentes que tienen como objetivo simular el comportamiento inteligente de los seres vivos, siendo uno de sus rasgos la capacidad de aprendizaje. Los sistemas expertos fueron su primer éxito comercial. En ellos se codificaban una serie de reglas manualmente, emulando el razonamiento de un experto en un problema específico.
 
 El aprendizaje automático es un subconjunto dentro de la Inteligencia Artificial. Aglutina aquellas técnicas que permiten a un ordenador construir modelos a partir de conjuntos de datos, aprendiendo con la experiencia. No hace falta definir reglas de forma explícita. Pero tiene un inconveniente, y es que en muchos casos un especialista humano tiene que elegir manualmente que características de los datos son relevantes en el problema.
 
-El aprendizaje profundo o deep learning va un paso más allá. Es un subconjunto del aprendizaje automático, pero en las técnicas que engloba no es necesario indicar al modelo  las características útiles, ya que él mismo las descubre automáticamente. Y no se queda ahí, va un paso más allá, puede generar nuevas características a partir de las existentes.
+El aprendizaje profundo o deep learning va un paso más allá. Es un subconjunto del aprendizaje automático, pero en las técnicas que engloba no es necesario indicar al modelo  las características útiles, ya que él mismo las descubre automáticamente. Y no se queda ahí, va un aún más allá, puede generar nuevas características a partir de las existentes.
 
 El desarrollo temporal de estas técnicas coincide con el orden en el que las menciono. Como se puede apreciar, el proceso de aprendizaje consta de diferentes fases, de las que cada vez se encuentra automatizado un mayor número. \cite{berzal2018redes}
 
@@ -189,9 +189,9 @@ Así es como funcionan las redes neuronales convolutivas, donde cada capa de la 
 \subsection{Autocodificadores}
 Los autocodificadores o autoencoders son un modelo de aprendizaje no supervisado que permite encontrar una representación latente no lineal para una distribución de datos dada.
 
-Para comprenderlos correctamente, definamos primero lo que es una representación latente. Esta es una representación subyacente para una determinada distribución de datos, es decir, una forma ``comprimida" de representar la distribución que siguen estos datos. En esta representación, se reduce el número de dimensiones necesarias para definir la distribución.
+Para comprenderlos correctamente, definamos primero lo que es una representación latente. Esta es una representación subyacente para una determinada distribución de datos, es decir, una forma ``comprimida" de representar la distribución que siguen estos. En esta representación, se reduce el número de dimensiones necesarias para definir la distribución.
 
-Existe un algoritmo conocido como análisis de componentes principales (Principal Component Analysis, PCA) que encuentra una transformación lineal de la representación original a otra latente. Pero tiene un problema, y es que como su definición indica esta transformación es lineal. \cite{vqvae}
+Existe un algoritmo conocido como análisis de componentes principales (\textit{Principal Component Analysis}, PCA) que encuentra una transformación de la representación original a otra latente. Pero tiene un problema, y es que como su transformación es lineal. \cite{vqvae}
 
 Los autocodificadores realizan esta tarea pero encontrando una transformación no lineal, por lo que pueden trabajar con datos más complejos. Para ello constan de dos partes, el codificador y el decodificador:
 
@@ -203,7 +203,7 @@ Los autocodificadores realizan esta tarea pero encontrando una transformación n
 
 El objetivo tras el entrenamiento del modelo es que los datos reconstruidos por el decodificador sean lo más parecidos posible a los de entrada.
 
-Un tipo especial de autocodificador es el autocodificador variacional (Variational Autoencoder, VAE). La principal diferencia viene dada por la estructura que sigue la representación latente, donde se fuerza al autocodificador a organizarla de forma que puntos de datos similares se encuentren cerca en la representación latente y puntos diferentes se encuentren separados. En un autocodificador regular esto no se exige, por lo que no podríamos desplazarnos por el espacio latente y observar cambios graduales que se corresponden con cambios graduales en la representación original. \cite{vqvae}
+Un tipo especial de autocodificador es el autocodificador variacional (Variational Autoencoder, VAE). La principal diferencia viene dada por la estructura que sigue la representación latente, donde se fuerza al autocodificador a organizarla de forma que puntos de datos similares se encuentren cerca y puntos diferentes se encuentren separados. En un autocodificador regular esto no se exige, por lo que no podríamos desplazarnos por el espacio latente y observar cambios graduales que se corresponden con cambios graduales en la representación original. \cite{vqvae}
 
 \begin{figure}[H]
 \centering
@@ -212,7 +212,7 @@ Un tipo especial de autocodificador es el autocodificador variacional (Variation
 \end{figure}
 
 \subsubsection{Vector Quantized Variational Autoencoder}
-La representación latente por defecto en los VAE es continua. Pero existe una variante en la que se discretiza esta representación. Esto es útil cuando trabajamos con datos como imágenes: podría utilizarse una variable discreta para el color, otra para el tipo de objeto, su tamaño, etc. Muchos otros elementos del mundo real son susceptibles de representarse de forma discreta. Hay modelos como los transformers, que vamos a estudiar más adelante, que están diseñados para trabajar sobre datos con esta codificación.
+La representación latente por defecto en los VAE es continua. Pero existe una variante en la que se discretiza esta representación. Esto es útil cuando trabajamos con datos como imágenes: podría utilizarse una variable discreta para el color, otra para el tipo de objeto, su tamaño, etc. Muchos otros elementos del mundo real son susceptibles de representarse de forma discreta. Hay modelos como los transformers, que vamos a estudiar más adelante, que están diseñados para trabajar sobre datos con esta codificación. \cite{vqvae}
 
 Los Vector Quantized Variational Autoencoders (VQVAE) utilizan este tipo de codificación, donde la representación latente consiste en lo que se conoce como libro de código (codebook). Este codebook no deja de ser un conjunto de vectores discretos asociados a un índice.
 
@@ -222,7 +222,7 @@ Esto no es así, ya que normalmente no se utiliza un único vector: en datos com
 
 \subsection{Redes generativas antagónicas}
 En inglés conocidas como Generative Adversarial Networks (GANs), son un tipo de modelos utilizados para generar datos sintéticos, que por ejemplo pueden servir para ampliar nuestro dataset. Contienen dos módulos que trabajan simultáneamente, cada uno de ellos intentando ser mejor que el otro. Estos dos módulos son el generador G y el discriminador D: el generador intenta crear datos sintéticos parecidos a los reales y el discriminador actuará de juez, tendrá que decidir si dado un dato este es real o sintético.
-Estamos en un juego en el que el generador intentará mejorar todo lo posible para generar imágenes indistinguibles a ojos del discriminador, desarrollándose en dos escenarios:
+Estamos en un juego en el que el generador intentará mejorar todo lo posible para generar imágenes indistinguibles a ojos del discriminador, desarrollándose en dos escenarios: \cite{berzal2018redes}
 
 \begin{itemize}
     \item Se muestrean datos x del conjunto de entrenamiento y se introducen en D. En este caso, D(x) será un valor cercano a 1, ya que las muestras son datos reales.
@@ -277,9 +277,9 @@ Los transformer son actualmente los modelos más efectivos en tareas como la gen
 
 \newpage
 \section{Bibliotecas y paquetes}
-En el estado del arte encontramos productos desarrollados por investigadores que nos van a facilitar cumplir nuestro objetivo. 
+Existen productos desarrollados por investigadores que nos van a facilitar cumplir nuestro objetivo. 
 
-\subsection{Taming Transformers for High-Resolution Image Synthesis}
+\subsection{Taming Transformers for High-Resolution Image Synthesis} \label{taming-transformers}
 Científicos de la Universidad de Heidelberg (Alemania) publicaron a finales de 2020 un modelo capaz de generar imágenes sintéticas de alta resolución utilizando transformers. En publicaciones previas ya se habían expuesto modelos generativos basados en transformers \cite{chen2020generative}, pero estos solo podían funcionar con imágenes de pequeño tamaño. El coste computacional de un transformer aplicado directamente en imágenes crece cuadráticamente con el tamaño de esta, así que no es viable utilizarlos en imágenes de más de 100x100 píxeles, y mucho menos en aquellas del orden del megapixel.
 
 P. Esser et al. \cite{esser2021taming} desarrolla un método capaz de combinar la potencia generativa de los transformers con la eficiencia que aportan las redes convolutivas. 
@@ -292,7 +292,7 @@ P. Esser et al. \cite{esser2021taming} desarrolla un método capaz de combinar l
 
 La arquitectura convolutiva de la que hablamos es un Vector Quantized Generative Adversarial Network (VQGAN), una variante de VQVAE propuesta por los autores de la publicación donde la estructura codificador-decodificador del VAE se entrena mediante un procedimiento adversarial, utilizando un discriminador.
 
-Tras entrenar el modelo, se habrá generado un codebook que comprime la información de las imágenes. Será sobre este codebook sobre el que se entrene el transformer que posteriormente nos permitirá sintetizar imágenes sintéticas. Ahora tendremos un modelo que es capaz de aprovechar la gran capacidad generativa de los transformers, manteniendo tiempos de entrenamiento razonables gracias a VQGAN.
+Tras entrenar el modelo, se habrá generado un codebook que comprime la información de las imágenes. Será sobre este codebook sobre el que se entrene el transformer que posteriormente nos permitirá generar imágenes sintéticas. Ahora tendremos un modelo que es capaz de aprovechar la gran capacidad generativa de los transformers, manteniendo tiempos de entrenamiento razonables gracias a VQGAN.
 
 En la publicación original los autores muestran ejemplos de los resultados que se pueden obtener dada una imagen condicional de entrada:
 
@@ -302,9 +302,9 @@ En la publicación original los autores muestran ejemplos de los resultados que 
     \caption{Ejemplos generados utilizando el modelo basado en transformer \cite{esser2021taming}}
 \end{figure}
 
-Se observa que funciona correctamente en diversas situaciones, por lo que puede ser una buena opción para nuestra tarea de síntesis de imágenes.
+Se observa que funciona correctamente en diversas situaciones, por lo que puede ser una buena opción para nuestra la de síntesis de imágenes.
 
-\subsection{Pytorch}
+\subsection{Pytorch} \label{pytorch} 
 PyTorch es una biblioteca basada en tensores optimizada para crear modelos de aprendizaje profundo que se entrenen y ejecuten tanto en GPUs como en CPUs.
 
 \begin{figure}[H]
@@ -317,12 +317,12 @@ Es adecuada para ser utilizada en proyectos de investigación, ya que convierte 
 
 Al compararla con otras bibliotecas de aprendizaje profundo como Tensorflow encontramos diferencias. Esta sigue el paradigma definición-compilación-ejecución, mientras que PyTorch presenta una estructura definición-ejecución, donde no existe una etapa de compilación. El usuario puede definir una expresión matemática y calcular su gradiente directamente. \cite{ketkar2017introduction}
 
-A continuación, vamos a comentar algunas características y módulos incluidos en esta biblioteca que merece la pena conocer.
+A continuación, voy a comentar algunas características y módulos incluidos en esta biblioteca que merece la pena conocer.
 
 \subsubsection{Dataset y DataLoader}
-El código para gestionar los datos con los que vamos a trabajar se puede volver complejo y difícil de mantener. PyTorch proporciona los módulos $torch.utils.data.DataLoader$ y $torch.utils.data.Dataset$ para automatizar la carga y la manipulación de los datos, tanto procedentes de datasets ya existentes (por ejemplo, MNIST) como de datos propios.
+El código para gestionar los datos con los que se trabaja se puede volver complejo y difícil de mantener. PyTorch proporciona los módulos $torch.utils.data.DataLoader$ y $torch.utils.data.Dataset$ para automatizar la carga y la manipulación de los datos, tanto procedentes de \textit{datasets} ya existentes (por ejemplo, MNIST) como de datos propios.
 
-$torch.utils.data.Dataset$ es una clase heredada por una clase hija en la que se implementan ciertos métodos encargados de cargar los datos. Un dataset puede ser de tipo $iterable$ o de tipo $map$: los primeros implementan $\_\_iter\_\_()$, y permiten que el objeto sea iterable, de forma que $iter(dataset)$ devuelve un flujo de datos que están siendo leídos de una base de datos o incluso se están produciendo en tiempo real. Por otra parte, un dataset de tipo $map$ implementa los métodos $\_\_getitem\_\_()$ y $\_\_len\_\_()$. Esto permite establecer una relación clave-dato, donde si $CompoundDataset$ es un dataset con imágenes que pueden ser o no compuestos químicos, $CompoundDataset[idx]$ devolvería la imagen número $idx$ junto a su etiqueta. Este último tipo de dataset es el que utilizamos nosotros.
+$torch.utils.data.Dataset$ es una clase heredada por una clase hija en la que se implementan ciertos métodos encargados de cargar los datos. Un dataset puede ser de tipo $iterable$ o de tipo $map$: los primeros implementan $\_\_iter\_\_()$, y permiten que el objeto sea iterable, de forma que $iter(dataset)$ devuelve un flujo de datos que están siendo leídos de una base de datos o incluso se están produciendo en tiempo real. Por otra parte, un \textit{dataset} de tipo $map$ implementa los métodos $\_\_getitem\_\_()$ y $\_\_len\_\_()$. Esto permite establecer una relación clave-dato, donde si $CompoundDataset$ es un \textit{dataset} con imágenes que pueden ser o no compuestos químicos, $CompoundDataset[idx]$ devolvería la imagen número $idx$ junto a su etiqueta. Este último tipo de \textit{dataset} es el que se utiliza en este proyecto.
 
 El constructor de un objeto de tipo $torch.utils.data.DataLoader$ recibe como principal argumento un objeto $torch.utils.data.Dataset$. También recibe otros parámetros, como el tamaño del batch o si queremos que los datos sean devueltos en un orden aleatorio. Devuelve un iterable que cumple estas características, lo que facilita en gran medida el entrenamiento de modelos. 
 

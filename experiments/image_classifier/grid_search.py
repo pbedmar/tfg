@@ -55,7 +55,6 @@ train_dataset = CompoundDataset(
 
 mean, std = dataset_mean_std(train_dataset)
 
-
 train_dataset = CompoundDataset(
     positive_examples_path,
     negative_examples_path,

@@ -1,4 +1,4 @@
-\chapter{Introducción}
+\chapter{Introducción} \label{intro}
 
 % Debido al desarrollo exponencial de la informática en el último siglo, todas las ramas del conocimiento se han visto afectadas. La informática está permitiendo la automatización de muchas tareas que anteriormente se realizaban de forma manual por un operario. 
 
@@ -16,7 +16,7 @@ En la literatura existen diferentes definiciones para este término, discutidas 
 % TODO: para qué necesitan los científicos de Negev un clasificador de imágenes?
 Desde la Universidad de Granada, la tutora de este TFG trabaja en este ámbito. Colabora con químicos de la Universidad de Negev y es consciente de los problemas que tienen para manejar la gran cantidad de datos que aparecen en publicaciones científicas. Un tipo de datos muy valioso son las imágenes, pero clasificarlas no es trivial: pueden ser sobre cualquier temática, algunas pueden referirse a esquemas explicando cómo funciona un modelo, otras pueden contener resultados de algún experimento, pueden ser representaciones de compuestos químicos, etc. Clasificarlas manualmente por un operario no es una opción viable, ya que se consumirían demasiados recursos en una tarea que actualmente se puede automatizar.
 
-Es por ello que en este Trabajo de Fin de Grado vamos a crear un modelo que permita clasificar imágenes. En concreto, aquellas que contienen representaciones de moléculas del resto. Este tipo de imágenes de moléculas en ocasiones son difíciles de clasificar, debido al parecido que presentan con otras estructuras. Por ello, también entrenaremos un clasificador con un \textit{dataset} que contiene \textit{hard negatives}, ejemplos negativos que están en el límite de lo que es una imagen de una molécula química y lo que no. Crearemos estos \textit{hard negatives} a partir de un modelo generativo capaz de sintetizar imágenes.
+Es por ello que en este Trabajo de Fin de Grado vamos a crear un modelo que permita clasificar imágenes. En concreto, aquellas que contienen representaciones de moléculas del resto. Este tipo de imágenes de moléculas en ocasiones son difíciles de clasificar, debido al parecido que presentan con otras estructuras. Por ello, también entrenaremos un clasificador con un conjunto de datos (\textit{dataset}) que contiene \textit{hard negatives}, ejemplos negativos que están en el límite de lo que es una imagen de una molécula química y lo que no. Crearemos estos \textit{hard negatives} a partir de un modelo generativo capaz de sintetizar imágenes.
 
 
 Aunque existen diferentes opiniones sobre el alcance de las \textit{cheminformatics}, se puede considerar que este proyecto está dentro de sus fronteras, ya que vamos a crear una herramienta de clasificación de imágenes químicas, es decir, una herramienta que procesa y analiza este tipo de información.
@@ -24,7 +24,7 @@ Aunque existen diferentes opiniones sobre el alcance de las \textit{cheminformat
 \section{Objetivos}
 El proyecto tiene como fin cumplir los siguientes objetivos:
 
-\begin{itemize}
+\begin{itemize} \label{objetivos}
     \item \textbf{[OBJ1]} Refinar un \textit{dataset} de clasificación de imágenes de compuestos químicos ya existente.
     \item \textbf{[OBJ2]} Clasificar imágenes que presentan compuestos químicos de aquellas que no.
 \end{itemize}

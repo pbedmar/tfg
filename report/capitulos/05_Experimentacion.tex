@@ -1,7 +1,7 @@
 \chapter{Experimentación}
-En esta sección explicamos los experimentos realizados hasta alcanzar la versión final del clasificador siguiendo los pasos propuestos en la metodología. Delimitar las pruebas que se van a realizar en un proyecto es fundamental para concentrar los esfuerzos y cumplir con los objetivos en plazo. Al tratarse de un proyecto de investigación, realizaremos experimentos iniciales, evaluaremos los resultados y volveremos a realizar experimentos hasta alcanzar unos resultados que cumplan con los objetivos.
+En esta sección se explican los experimentos realizados hasta alcanzar la versión final del clasificador siguiendo los pasos propuestos en la metodología. Delimitar las pruebas que se van a realizar en un proyecto es fundamental para concentrar los esfuerzos y cumplir con los objetivos en plazo. Al tratarse de un proyecto de investigación, realizo experimentos iniciales, evalúo los resultados y vuelvo a realizar experimentos hasta alcanzar unos resultados que cumplan con los objetivos.
 
-La implementación de los experimentos que realizamos se encuentra en el repositorio de GitHub del proyecto \cite{repository}. La raíz del repositorio contiene los siguientes elementos:
+La implementación de los experimentos realizados se encuentra en el repositorio de GitHub del proyecto \cite{repository}. La raíz del repositorio contiene los siguientes elementos:
 
 \dirtree{%
     .1 /.
@@ -15,7 +15,7 @@ La implementación de los experimentos que realizamos se encuentra en el reposit
 
 \newpage
 \section{Transformaciones sobre el \textit{dataset}}
-Tras recibir el \textit{dataset} y normalizar el tamaño de las imágenes, procedemos a aplicar las tres secuencias de \textit{data augmentation} que hemos explicado en el capítulo anterior.
+Tras recibir el \textit{dataset} y normalizar el tamaño de las imágenes, procedo a aplicar las tres secuencias de \textit{data augmentation} que he explicado en el capítulo anterior.
 
 El \textit{dataset} original y los derivados obtenidos al aplicar \textit{data augmentation} se almacenarán en el directorio \textit{datasets/} del repositorio, como se describe en el siguiente árbol:
 
@@ -56,30 +56,32 @@ El código que nos permitirá realizar generar estas transformaciones se encuent
     .3 functions.py.
 }
 
-\noindent \textit{{data\_generation\_and\_augmentation.ipynb}} contiene el código que pre-procesa las imágenes, transformándolas de forma que tengan el mismo tamaño, y que aplica las tres secuencias de \textit{data augmentation} que hemos comentado.
+\noindent \textit{{data\_generation\_and\_augmentation.ipynb}} contiene el código que pre-procesa las imágenes, transformándolas de forma que tengan el mismo tamaño, y que aplica las tres secuencias de \textit{data augmentation} que he comentado.
 
 \noindent \textit{functions.py} declara funciones utilizadas por todos este cuaderno.
 
-Comenzamos por \textit{data augmentation} 1. Al aplicarla obtenemos los siguientes resultados:
+\noindent Aunque no se mencionan aquí, existen otros directorios y ficheros auxiliares que permiten funcionar a estos.
+
+Comienzo por \textit{data augmentation} 1. Al aplicarla se obtienen los siguientes resultados:
 
 \begin{figure}[H]
 \centering
-    \begin{subfigure}{.26\textwidth}
+    \begin{subfigure}{.25\textwidth}
         \centering
         \includegraphics[width=1\linewidth]{imagenes/aug/180.jpg}
     \end{subfigure}%
-    \begin{subfigure}{.26\textwidth}
+    \begin{subfigure}{.25\textwidth}
         \centering
         \includegraphics[width=1\linewidth]{imagenes/aug/193.jpg}
     \end{subfigure}%
 
     \bigskip
 
-    \begin{subfigure}{.26\textwidth}
+    \begin{subfigure}{.25\textwidth}
         \centering
         \includegraphics[width=1\linewidth]{imagenes/aug/224.jpg}
     \end{subfigure}%
-    \begin{subfigure}{.26\textwidth}
+    \begin{subfigure}{.25\textwidth}
         \centering
         \includegraphics[width=1\linewidth]{imagenes/aug/370.jpg}
     \end{subfigure}
@@ -87,26 +89,26 @@ Comenzamos por \textit{data augmentation} 1. Al aplicarla obtenemos los siguient
     \caption{Imágenes generadas aplicando \textit{data augmentation} 1}
 \end{figure}
 
-Se aprecian leves rotaciones y estiramientos de las imágenes, sin existir gran diferencia con las originales. Al estar aplicando tres veces la transformación sobre el conjunto de datos, puede que los cambios sean demasiado suaves dando lugar a imágenes muy similares.  Vamos a observar los resultados de \textit{data augmentation} 2:
+Se aprecian leves rotaciones y estiramientos de las imágenes, sin existir gran diferencia con las originales. Al estar aplicando tres veces la transformación sobre el conjunto de datos, puede que los cambios sean demasiado suaves dando lugar a imágenes muy similares. Observemos los resultados de \textit{data augmentation} 2:
 
 \begin{figure}[H]
 \centering
-    \begin{subfigure}{.26\textwidth}
+    \begin{subfigure}{.23\textwidth}
         \centering
         \includegraphics[width=1\linewidth]{imagenes/aug2/169.jpg}
     \end{subfigure}%
-    \begin{subfigure}{.26\textwidth}
+    \begin{subfigure}{.23\textwidth}
         \centering
         \includegraphics[width=1\linewidth]{imagenes/aug2/188.jpg}
     \end{subfigure}%
 
     \bigskip
 
-    \begin{subfigure}{.26\textwidth}
+    \begin{subfigure}{.23\textwidth}
         \centering
         \includegraphics[width=1\linewidth]{imagenes/aug2/221.jpg}
     \end{subfigure}%
-    \begin{subfigure}{.26\textwidth}
+    \begin{subfigure}{.23\textwidth}
         \centering
         \includegraphics[width=1\linewidth]{imagenes/aug2/222.jpg}
     \end{subfigure}
@@ -120,24 +122,24 @@ Por último, comprobemos los resultados que se obtienen al aplicar \textit{data 
 
 \begin{figure}[H]
 \centering
-    \begin{subfigure}{.28\textwidth}
+    \begin{subfigure}{.23\textwidth}
         \centering
         \includegraphics[width=1\linewidth]{imagenes/aug3/175.jpg}
     \end{subfigure}%
-    \begin{subfigure}{.28\textwidth}
+    \begin{subfigure}{.23\textwidth}
         \centering
         \includegraphics[width=1\linewidth]{imagenes/aug3/183.jpg}
     \end{subfigure}%
 
     \bigskip
 
-    \begin{subfigure}{.28\textwidth}
+    \begin{subfigure}{.23\textwidth}
         \centering
         \includegraphics[width=1\linewidth]{imagenes/aug3/225.jpg}
     \end{subfigure}%
-    \begin{subfigure}{.28\textwidth}
+    \begin{subfigure}{.23\textwidth}
         \centering
-        \includegraphics[width=1\linewidth]{imagenes/aug3/271.jpg}
+        \includegraphics[width=1\linewidth]{imagenes/aug3/347.jpg}
     \end{subfigure}
 
     \caption{Imágenes generadas aplicando \textit{data augmentation} 3}
@@ -149,13 +151,12 @@ Para entrenar el clasificador, seguramente las imágenes más adecuadas sean las
 
 \newpage
 \section{Generación de imágenes sintéticas}
-% La generación de imágenes la vamos a realizar utilizando el modelo desarrollado por Esser et al. \cite{esser2021taming}, descrito en la revisión del estado del arte de este TFG. Vamos a intentar generar imágenes de moléculas, para ello entrenaremos el modelo sobre las imágenes positivas del conjunto de datos sin aplicarles \textit{data augmentation} y haremos lo mismo aplicando \textit{data augmentation} 1, \textit{data augmentation} 2 y \textit{data augmentation} 3. En estos tres últimos casos, el número de imágenes utilizado para entrenar se multiplica por 4, ya que aplicamos las secuencias de transformaciones 3 veces. 
 
 Sobre los cuatro conjuntos de datos se entrenarán modelos con diferente número de épocas, desde 70 hasta 170, aumentando de 20 en 20. De esta forma tendremos $4 * |[70, 90, 110, 130, 150, 170]| = 4 * 6 = 24$ modelos diferentes.
 
-Una vez entrenados, probamos a generar imágenes a partir de estos para ver cuál se comporta mejor. Para ello, debemos introducirles algún tipo de imagen de entrada. 
+Una vez entrenados, probamos a generar imágenes a partir de estos para ver cuál se comporta mejor. Para ello, debemos introducirles algún tipo de imagen de entrada.
 
-El código en el que se realizan los experimentos con el generador se encuentra en los siguientes archivos:
+La generación de imágenes la vamos a realizar utilizando el modelo desarrollado por Esser et al. \cite{esser2021taming}, descrito en la revisión del estado del arte de este TFG \label{st:taming-transformers}. El código en el que se realizan los experimentos con el generador se encuentra en los siguientes archivos:
 
 \vspace{0.2cm}
 \dirtree{%
@@ -237,8 +238,6 @@ Con el tercer \textit{data augmentation} estos fondos grisáceos son mucho más 
     \fbox{\includegraphics[scale=0.2]{imagenes/image_generation/256/aug3_2.jpg}}  
 \end{figure}
 
-Tras debatirlo con el equipo investigador, se llega a la conclusión de que los resultados más adecuados son los generados a partir del modelo entrenado sobre el conjunto de datos \textit{data augmentation} 2. Se puede observar que son los resultados con menos ruido y que más se asemejan a moléculas.
-
 ¿Qué tipo de datos de entrada se ha utilizado para generar las imágenes sintéticas? En un primer momento probamos a utilizar imágenes de moléculas reales y de objetos que, sin ser moléculas, lo parecen. En el primer caso, la salida es similar a la entrada, con la diferencia de que la imagen sintética pierde información: detalles como letras o números se alteran. En el segundo caso ocurre algo similar, con la particularidad de que objetos circulares son transformados en formas que parecen hexágonos propios de las moléculas. Además, incluso se añaden átomos.
 
 \begin{figure}[H]
@@ -247,7 +246,7 @@ Tras debatirlo con el equipo investigador, se llega a la conclusión de que los 
     \caption{El modelo tiene la capacidad de modificar la imagen para que se parezca a una molécula.}
 \end{figure}
 
-Pero queremos generar tantas imágenes como queramos, así que deberíamos poder partir de una imagen de entrada generada aleatoriamente. En un primer momento se utilizó ruido uniforme, pero no funcionó bien en ningún caso. Este tipo de ruido no sigue ninguna estructura, y nuestro modelo necesita una entrada que tenga cierta continuidad. Por ello probamos con una cuadrícula de ajedrez: ocurre lo mismo, ya que aunque existe un patrón que se repite, los elementos de este no están conectados entre sí.
+Pero queremos generar tantas imágenes como queramos, así que deberíamos poder partir de una imagen de entrada generada aleatoriamente. En un primer momento se utilizó ruido uniforme, pero no funcionó bien en ningún caso. Este tipo de ruido no sigue ninguna estructura, y nuestro modelo necesita una entrada que tenga cierta continuidad. Por ello pruebo con una cuadrícula de ajedrez: ocurre lo mismo, ya que aunque existe un patrón que se repite, los elementos de este no están conectados entre sí.
 
 \subsection{Ruido Perlín}
 Se trata de un ruido inventado por Ken Perlín en 1982 que revolucionó el ámbito de la Informática Gráfica. En esta rama de las Ciencias de la Computación, la creación de texturas que imitan materiales de la naturaleza como la madera o el mármol es una tarea importante. Generar estas texturas de una forma manual o mediante un escáner no es una opción escalable.
@@ -297,7 +296,7 @@ Tras realizar estos experimentos, se los mostramos al equipo para conocer su opi
 
 \begin{figure}[H]
 \centering
-    \caption{Resultados de entrenar con imágenes con \textit{data augmentation} 2. La primera columna representa la imagen de entrada, el resto los diferentes modelos entrenados desde las 70 hasta las 90 épocas tomadas de 5 en 5.}
+    \caption{Resultados de entrenar con imágenes con \textit{data augmentation} 2. La primera columna representa la imagen de entrada (ruido Perlín en todos los casos), el resto los diferentes modelos entrenados desde las 70 hasta las 90 épocas tomadas de 5 en 5.}
     \fbox{\includegraphics[scale=0.23]{imagenes/image_generation/256/aug2_extraepochs_1.jpg}}  
     \label{fig:synthetic_molecules_aug2_extra} 
 \end{figure}
@@ -322,7 +321,7 @@ En concreto, vamos a obtener 50 imágenes a partir de cada una de estas configur
     \item Modelo entrenado durante 85 épocas al que se le introduce ruido Perlín con amplitud 7 y frecuencia 2 (fila 11 columna 5 de la figura \ref{fig:synthetic_molecules_aug2_extra}).
 \end{itemize}
 
-En total, 400 \textit{hard negatives}. Antes de unificarlos con los 400 ejemplos negativos restantes, los tratamos de forma que se reduce el color grisáceo de fondo que presentan tras ser producidos por los modelos generadores. Para ello, de forma independiente en cada una de las configuraciones, fijamos un umbral de color que, si no es superado por un pixel, este es transformado en color blanco. De esta forma, solo los píxeles con un color intenso se mantienen en la imagen, o sea, solo se mantiene la estructura molecular. Antes de eso, aplicamos un aumento de contraste a la imagen y un filtro de apertura (\textit{opening}) que elimina ruido.
+En total, 400 \textit{hard negatives}. Antes de unificarlos con 400 ejemplos negativos del \textit{dataset} original, los tratamos de forma que se reduce el color grisáceo de fondo que presentan tras ser producidos por los modelos generadores. Para ello, de forma independiente en cada una de las configuraciones, fijamos un umbral de color que, si no es superado por un pixel, este es transformado en color blanco. De esta forma, solo los píxeles con un color intenso se mantienen en la imagen, o sea, solo se mantiene la estructura molecular. Antes de eso, aplicamos un aumento de contraste a la imagen y un filtro de apertura (\textit{opening}) que elimina ruido.
 
 \begin{figure}[H]
 \centering
@@ -349,8 +348,9 @@ En total, 400 \textit{hard negatives}. Antes de unificarlos con los 400 ejemplos
     \caption{\textit{Hard negatives} finales tras ser post-procesados.}
 \end{figure}
 
-Ya podemos crear los dos \textit{datasets} finales para entrenar el clasificador, tal y como se expone en la figura \ref{fig:two_final_datasets} del capítulo anterior.
+Ya puedo crear los dos \textit{datasets} finales para entrenar el clasificador, tal y como se expone en la figura \ref{fig:two_final_datasets} del capítulo anterior.
 
+\newpage
 Otra prueba que se hizo y fue descartada consistió en entrenar el modelo generador a partir de ejemplos negativos. Si, en vez de entrenar sobre ejemplos positivos como estábamos haciendo hasta ahora, hacerlo sobre negativos. ¿Qué ocurrió? Como se puede observar en la imagen siguiente, los resultados no fueron buenos:
 
 \begin{figure}[H]
@@ -361,131 +361,910 @@ Otra prueba que se hizo y fue descartada consistió en entrenar el modelo genera
 
 Esto puede deberse a la alta diversidad que presentan los ejemplos negativos del \textit{dataset}. Esta diversidad hace que el modelo generativo no pueda aprender, ya que las imágenes no tienen apenas características en común.
 
-% \newpage
-% \section{Clasificación de imágenes}
-% El segundo objetivo de este proyecto consiste en clasificar aquellas imágenes que contienen estructuras de moléculas organometálicas de aquellas que no. Para ello, utilizamos la biblioteca Pytorch que nos permitirá implementar modelos de forma sencilla y definir sus hiperparámetros.
-
-% A priori no podemos conocer que modelo funcionará mejor para este problema, por lo que implementaremos varios y compararemos su rendimiento. Vamos a elegir un modelo de tamaño pequeño, otro de tamaño mediano y otro de tamaño grande y comparar cuál es el más adecuado:
-% \begin{itemize}
-%     \item \textbf{LeNet5:} Modelo propuesto por Yann LeCun en 1998 \cite{lecun1998gradient}, fue una de las primeras redes convolutivas de la historia. Se diseñó con el propósito de reconocer imágenes de dígitos numéricos, y tras compararse su rendimiento con otros modelos en uso, se demostró que los sobrepasaba. Esto atrajo a muchos investigadores a esta incipiente línea de investigación y sentó las bases para las arquitecturas del futuro.
-%     \item \textbf{AlexNet:} Propuesto por Alex Krizhevsky en 2012 \cite{krizhevsky2012imagenet}, consiguió mejorar por un alto porcentaje a la siguiente mejor solución en el concurso ImageNet Large Scale Visual Recognition Challenge. La ventaja de este modelo frente a otros fue su profundidad, que le permitía reconocer imágenes más complejas con mayor precisión. Esta conllevó un aumento del número de parámetros y del tiempo de entrenamiento, que fue contrarrestado por el uso de GPUs que permitían paralelizarlo. Para combatir el sobreajuste se utilizó \textit{dropout}, donde los enlaces entre neuronas se desconectaban con una determinada probabilidad durante cada iteración del entrenamiento.
-%     \item \textbf{VGG16:} Desarrollado por el Visual Geometry Group (de sus siglas procede el nombre del modelo) de la Universidad de Oxford \cite{https://doi.org/10.48550/arxiv.1409.1556}, fue el ganador del concurso ImageNet en su edición de 2014. Una de las características que le permitió mejorar frente a otros modelos fue el uso de \textit{kernels} convolutivos de pequeño tamaño (3x3). Se presentaron varias versiones del algoritmo, cada una con un número de capas diferente. La que nosotros utilizamos, VGG16, cuenta con 16 capas.
-% \end{itemize}
-
-% En un principio, cada uno de estos modelos se diseñó para trabajar con un tamaño de imágenes y de salida específicos, pero nosotros los adaptamos para funcionar sobre imágenes 256x256 y vectores \textit{one-hot}. Estos vectores se utilizan en problemas de clasificación, de forma que cada coordenada del vector representa una de las clases (en nuestro caso dos clases, imagen de molécula o no). Cada coordenada se conoce como \textit{logit}.
-
-% Tras la implementación con estos cambios, el número de parámetros se incrementa. Por ejemplo, LeNet5 contaba originalmente con 62006 parámetros al trabajar con imágenes 28x28 y un vector de salida de tamaño 10, pero tras los cambios cuenta con 7393806. Las versiones modificadas de AlexNet y VGG16 cuentan respectivamente con 58289538 y 153263298 parámetros.
-
-% Cada uno de estos modelos tiene diferentes hiperparámetros configurables: el tamaño del lote de entrenamiento (\textit{batch size}), el optimizador que modifica los parámetros en cada iteración, la inicialización de los pesos, etc. Algunos de estos producen mejores resultados que otros en determinados dominios y arquitecturas. Es imposible probar todos los valores posibles, por lo que seleccionamos algunos que creemos que pueden dar buenos resultados y comprobamos cuáles lo dan: esto es lo que se conoce como \textit{grid search}.
-
-% Vamos a trabajar con tres hiperparámetros. Aunque podríamos hacer pruebas con más, el número de modelos a entrenar crecería exponencialmente:
-% \begin{itemize}
-%     \item \textbf{Tasa de aprendizaje (\textit{Learning rate}):} Es probablemente el hiperparámetro más importante. Si le damos un valor demasiado bajo, los pesos del modelo variarán en muy poca medida en cada iteración y el error decrecerá muy lentamente. Si su valor es muy alto, es posible que el valor de los pesos y del error oscile y el algoritmo no converja. Es conveniente probar con diferentes posibilidades: en nuestro caso vamos a comprobar el rendimiento de los modelos tomando 0.5, 0.05, 0.005, 0.0005 y 0.00005 como posibles valores. \cite{berzal2018redes}
-%     \item \textbf{Inicialización de los pesos:} Las redes neuronales dependen en gran medida de la inicialización de los pesos. Si todas las neuronas se inicializasen con el mismo valor, el modelo no sería capaz de aprender nada, ya que la derivada del gradiente sería la misma para todas. Las que vamos a utilizar son: \cite{pytorch-doc}
-%     \begin{itemize}
-%         \item \textit{He:} utilizada por defecto en PyTorch en sus capas completamente conectadas y convolutivas, He (también conocida como Kaiming) genera valores aleatorios a partir de una distribución uniforme $\mathcal{U}(-bound, bound)$, donde $bound = gain * \sqrt{\frac{3}{fan\_in}}$. El parámetro $fan\_in$ depende de la entrada a la neurona. Por otro lado, en la inicialización por defecto de PyTorch $gain$ depende de $a = \sqrt{5}$.
-%         \item \textit{Xavier:} Los valores aleatorios son generados a partir de una distribución uniforme $\mathcal{U}(-a, a)$, donde $a = \sqrt{\frac{6}{fan\_in + fan\_out}}$. 
-%     \end{itemize}
-%     Una correcta inicialización de los pesos evita el problema de la evanescencia del gradiente (durante el entrenamiento, este se vuelve cada vez menor aproximándose a cero, de forma que los pesos no cambian) y el de explosión del gradiente (este toma valores cada vez mayores, de forma que los pesos cambian en gran medida y el algoritmo diverge).
-%     \item \textbf{Algoritmo de optimización:} Como muchos otros algoritmos de aprendizaje automático, los de aprendizaje profundo son problemas de optimización donde se intenta reducir el error de una función objetivo $f$ definida sobre un conjunto de datos de entrenamiento. Este proceso de optimización se realiza de forma numérica, una forma de hacerlo es a partir del cálculo del gradiente descendiente, un proceso costoso por tener que calcular en numerosas ocasiones el valor de la función $f$ y de su derivada. La elección del algoritmo de optimización es importante, ya que de él dependen la convergencia a una buena solución y el actualizar los pesos de forma eficiente: \cite{berzal2018redes}
-%     \begin{itemize}
-%         \item \textit{SGD:} En el entrenamiento de redes neuronales, el gradiente se calcula a partir de los datos de entrenamiento. Si estos datos no son un conjunto representativo de la distribución real porque contienen ruido, la estimación no será correcta. El gradiente se puede calcular a partir de todos los datos de entrenamiento (aprendizaje por lotes), a partir de un subconjunto (aprendizaje por minilotes) o a partir de una única muestra (aprendizaje online). Cuantos más datos utilicemos para calcular el gradiente, menor será el error cometido al estimarlo, pero como hemos mencionado, los datos siempre pueden contener ruido y por tanto no podemos asegurar que los resultados sean correctos. El gradiente descendiente estocástico (\textit{Stochastic Gradient Descent}, SGD) engloba el aprendizaje por minilotes y el online, y aunque pueda parecer lo contrario por utilizar menos muestras en el cómputo del gradiente, mejora los resultados al permitir al algoritmo escapar de puntos de silla. Además, es mucho más eficiente ya que solo tiene en cuenta un número limitado de datos.
-%         \item \textit{AdaDelta:} Es una extensión de AdaGrad (\textit{Adaptative Gradients}), un optimizador que dota a cada parámetro de una tasa de aprendizaje independiente y que va actualizando su valor durante la ejecución del algoritmo. AdaDelta resuelve el principal problema de Adagrad, la disminución prematura de las tasas de aprendizaje. Esto se debe a que Adagrad la calcula a partir del gradiente acumulado de todas las iteraciones, en cambio AdaDelta sólo utiliza las $n$ iteraciones anteriores.
-%         \item \textit{Adam:} Se podría considerar una extensión de AdaDelta en la que se utilizan momentos. En concreto, este algoritmo calcula la estimación del primer momento del gradiente (media) y del segundo momento (varianza). A partir de ellos se define la fórmula que da nombre a este algoritmo.
-%     \end{itemize}
-% \end{itemize}
-
-% En las ejecuciones que vamos a realizar, la función de coste que utilizamos es la función de entropía cruzada (\textit{Cross Entropy Loss}). Esta función integra la función de activación \textit{Softmax}, de forma que cada logit es transformado en un valor probabilístico entre 0 y 1. 
-
-
-% La función de entropía cruzada tratará de minimizar la distancia entre las probabilidades devueltas por el modelo y la probabilidad real. Tras el entrenamiento, cuando realicemos una predicción, la clase a la que pertenecerá la muestra será aquella que esté representada por el \textit{logit} con mayor probabilidad. \cite{crossentropyloss}
-
-% \begin{figure}[H]
-% \centering
-%     \fbox{\includegraphics[scale=0.55]{imagenes/image_classification/crossentropyloss.jpeg}}
-%     \caption{La función de entropía cruzada $L_{CE}$ trata de minimizar la distancia entre el \textit{logit} $S$ y la etiqueta $T$ durante el entrenamiento. \cite{crossentropyloss}}
-% \end{figure}
+Por tanto, tenemos dos datasets finales con los que se entrenará cada una de las versiones del clasificador:
+\begin{figure}[H]
+\centering
+    \fbox{\includegraphics[scale=0.42]{imagenes/metodologia/two_datasets_aug2.png}}  
+    \caption{Dos \textit{datasets} para entrenar dos clasificadores.} 
+    \label{fig:two_final_datasets}
+\end{figure}
 
 \newpage
 \section{Clasificación de imágenes}
 
-(Aún por terminar)
+Con los dos \textit{datasets} preparados \ref{fig:two_final_datasets}, paso a construir los clasificadores. Como mencionamos en el capítulo anterior, realizaré una \textit{grid search} para comprobar que arquitecturas e hiperparámetros funcionan mejor.
 
-% Para la experimentación, dividimos el conjunto de datos en dos, \textit{train} y \textit{test}. \textit{Train} tendrá el 85\% de las imágenes y \textit{test} el 15\% restante. En la \textit{grid search} solamente utilizaremos el conjunto \textit{train}, sobre el que aplicaremos validación cruzada con 5 iteraciones. 
+El código en el que se realizan los experimentos con el clasificador se encuentra en los siguientes archivos:
 
-% Finalmente, cuando hayamos decidido la configuración final, entrenaremos el modelo con el \textit{dataset} de entrenamiento al completo y evaluaremos su rendimiento con el de test.
+\vspace{0.2cm}
+\dirtree{%
+    .1 experiments/\DTcomment{implementación del TFG}.
+    .2 image\_classifier/\DTcomment{clasificador de imágenes}.
+    .3 datasets.py.
+    .3 models.py.
+    .3 grid\_search.py.
+    .3 train\_final\_models.py.
+    .3 functions.py.
+}
 
-% El primer modelo con el que experimentamos es LeNet5. Los resultados obtenidos tras realizar la \textit{grid search} son los siguientes:
+\noindent \textit{datasets.py} declara la clase CompoundDataset, una clase que hereda la clase Dataset de Pytorch. Este objeto facilita la carga de las imágenes y su uso por las funciones y sentencias incluidas en PyTorch.
 
-% %TODO: Cambiar media por error medio (%) en el header de las tablas
-% \begin{table}[H]
-% \caption{\textit{Grid search} de los mejores parámetros sobre LeNet5}
-% \begin{tabular}{cl|llllll|}
-% \multicolumn{2}{c|}{\multirow{2}{*}{}}                                                                                                                              & \multicolumn{6}{c|}{Optimizadores}                                                                          \\ \cline{3-8} 
-% \multicolumn{2}{c|}{}                                                                                                                                               & \multicolumn{2}{c|}{SGD}             & \multicolumn{2}{c|}{Adam}            & \multicolumn{2}{c|}{AdaDelta} \\ \hline
-% \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Ini. de \\ pesos\end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Tasa de \\ aprendizaje\end{tabular}} & Media  & \multicolumn{1}{l|}{Desv.}  & Media  & \multicolumn{1}{l|}{Desv.}  & Media         & Desv.         \\ \hline
-% \multicolumn{1}{c|}{\multirow{5}{*}{He}}                                      & 0.5                                                                                 & 44.715 & \multicolumn{1}{l|}{1.971}  & 49.593 & \multicolumn{1}{l|}{6.630}  & 44.715        & 3.042         \\
-% \multicolumn{1}{c|}{}                                                         & 0.05                                                                                & 48.130 & \multicolumn{1}{l|}{6.308}  & 44.715 & \multicolumn{1}{l|}{3.042}  & 44.715        & 3.042         \\
-% \multicolumn{1}{c|}{}                                                         & 0.005                                                                               & 44.715 & \multicolumn{1}{l|}{3.042}  & 44.715 & \multicolumn{1}{l|}{3.042}  & 44.715        & 3.042         \\
-% \multicolumn{1}{c|}{}                                                         & 0.0005                                                                              & 44.715 & \multicolumn{1}{l|}{3.042}  & 44.715 & \multicolumn{1}{l|}{3.042}  & 44.715        & 3.042         \\
-% \multicolumn{1}{c|}{}                                                         & 0.00005                                                                             & 44.715 & \multicolumn{1}{l|}{3.042}  & 44.715 & \multicolumn{1}{l|}{3.042}  & 48.130        & 6.308         \\ \hline
-% \multicolumn{1}{c|}{\multirow{5}{*}{Xavier}}                                  & 0.5                                                                                 & 48.130 & \multicolumn{1}{l|}{6.308}  & 48.943 & \multicolumn{1}{l|}{6.540}  & 25.854        & 16.619        \\
-% \multicolumn{1}{c|}{}                                                         & 0.05                                                                                & 27.967 & \multicolumn{1}{l|}{14.734} & 44.715 & \multicolumn{1}{l|}{3.042}  & 33.252        & 11.226        \\
-% \multicolumn{1}{c|}{}                                                         & 0.005                                                                               & 43.902 & \multicolumn{1}{l|}{4.378}  & 44.715 & \multicolumn{1}{l|}{3.042}  & 43.740        & 4.685         \\
-% \multicolumn{1}{c|}{}                                                         & 0.0005                                                                              & 44.715 & \multicolumn{1}{l|}{3.042}  & 44.715 & \multicolumn{1}{l|}{3.042}  & 44.715        & 3.042         \\
-% \multicolumn{1}{c|}{}                                                         & 0.00005                                                                             & 44.715 & \multicolumn{1}{l|}{3.042}  & 39.756 & \multicolumn{1}{l|}{10.586} & 48.130        & 6.308        
-% \end{tabular}
-% \end{table}
+\noindent \textit{models.py} implementa cada una de las arquitecturas con las que vamos a trabajar (LeNet5, AlexNet y VGG16). Se declaran cada una de sus capas, funciones de activación y el orden en el que la información fluye por estas.
 
-% Como se puede observar, el resultado es extraño: el modelo no parece estar aprendiendo nada. En ninguna de las configuraciones se observa que el error de clasificación sea bajo, y en aquellos casos donde se da esta situación Xavier con AdaDelta y tasa de aprendizaje 0.5 donde se consigue un 25\% de error, la desviación estándar entre iteraciones es del 16\%, una cifra alta. 
+\noindent \textit{grid\_search.py} implementa la \textit{grid\_search}, mediante un parámetro podemos indicar si queremos realizarla entrenando los modelos sobre el \textit{dataset} con \textit{hard negatives} o sin ellos.
+
+\noindent \textit{train\_final\_models.py} entrena los modelos finales con la configuración decidida tras realizar la \textit{grid\_search.py}.
+
+\noindent \textit{functions.py} declara funciones utilizadas por todos estos ficheros.
+
+\newpage
+\subsection{Clasificador sobre el \textit{dataset} sin \textit{hard negatives}}
+Tras ejecutar la \textit{grid search}, obtenemos los siguientes resultados:
+
+\begin{table}[H]
+    \footnotesize
+    \caption{\textit{Grid search} utilizando la arquitectura LeNet5, entrenamiento sobre \textit{dataset} sin \textit{hard negatives}.}
+    \label{table:lenet-sin-hard}
+\begin{tabular}{cl|llllll|}
+\cline{3-8}
+\multicolumn{2}{c|}{\multirow{2}{*}{}} &
+    \multicolumn{6}{c|}{Optimizadores} \\ \cline{3-8} 
+\multicolumn{2}{c|}{} &
+    \multicolumn{2}{c|}{SGD} &
+    \multicolumn{2}{c|}{Adam} &
+    \multicolumn{2}{c|}{Adadelta} \\ \hline
+\multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Ini. de \\ pesos\end{tabular}} &
+    \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Tasa de \\ aprendizaje\end{tabular}} &
+    \multicolumn{1}{c}{\begin{tabular}[c]{@{}c@{}}Error\\ medio\\ (\%)\end{tabular}} &
+    \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Desv.\\ típica\\ (\%)\end{tabular}} &
+    \multicolumn{1}{c}{\begin{tabular}[c]{@{}c@{}}Error\\ medio\\ (\%)\end{tabular}} &
+    \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Desv.\\ típica\\ (\%)\end{tabular}} &
+    \multicolumn{1}{c}{\begin{tabular}[c]{@{}c@{}}Error\\ medio\\ (\%)\end{tabular}} &
+    \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Desv.\\ típica\\ (\%)\end{tabular}} \\ \hline
+\multicolumn{1}{|c|}{\multirow{7}{*}{He}} &
+    0.5 &
+    44.715 &
+    \multicolumn{1}{l|}{1.971} &
+    49.593 &
+    \multicolumn{1}{l|}{6.630} &
+    44.715 &
+    3.042 \\
+\multicolumn{1}{|c|}{} &
+    0.05 &
+    48.130 &
+    \multicolumn{1}{l|}{6.308} &
+    44.715 &
+    \multicolumn{1}{l|}{3.042} &
+    44.715 &
+    3.042 \\
+\multicolumn{1}{|c|}{} &
+    0.005 &
+    44.715 &
+    \multicolumn{1}{l|}{3.042} &
+    44.715 &
+    \multicolumn{1}{l|}{3.042} &
+    44.715 &
+    3.042 \\
+\multicolumn{1}{|c|}{} &
+    0.0005 &
+    44.715 &
+    \multicolumn{1}{l|}{3.042} &
+    44.715 &
+    \multicolumn{1}{l|}{3.042} &
+    44.715 &
+    3.042 \\
+\multicolumn{1}{|c|}{} &
+    0.00005 &
+    44.715 &
+    \multicolumn{1}{l|}{3.042} &
+    44.715 &
+    \multicolumn{1}{r|}{3.042} &
+    48.130 &
+    6.308 \\
+\multicolumn{1}{|c|}{} &
+    0.000005 &
+    48.130 &
+    \multicolumn{1}{l|}{6.308} &
+    44.715 &
+    \multicolumn{1}{r|}{3.042} &
+    48.130 &
+    6.308 \\
+\multicolumn{1}{|c|}{} &
+    0.0000005 &
+    48.130 &
+    \multicolumn{1}{l|}{6.308} &
+    48.130 &
+    \multicolumn{1}{r|}{6.308} &
+    48.130 &
+    6.308 \\ \hline
+\multicolumn{1}{|c|}{\multirow{7}{*}{Xavier}} &
+    0.5 &
+    48.130 &
+    \multicolumn{1}{l|}{6.308} &
+    48.943 &
+    \multicolumn{1}{l|}{6.540} &
+    26.260 &
+    \multicolumn{1}{r|}{16.213} \\
+\multicolumn{1}{|c|}{} &
+    0.05 &
+    27.967 &
+    \multicolumn{1}{l|}{14.734} &
+    44.715 &
+    \multicolumn{1}{l|}{3.042} &
+    33.252 &
+    11.226 \\
+\multicolumn{1}{|c|}{} &
+    0.005 &
+    43.902 &
+    \multicolumn{1}{l|}{4.378} &
+    44.715 &
+    \multicolumn{1}{l|}{3.042} &
+    43.740 &
+    4.685 \\
+\multicolumn{1}{|c|}{} &
+    0.0005 &
+    44.715 &
+    \multicolumn{1}{l|}{3.042} &
+    44.715 &
+    \multicolumn{1}{r|}{3.042} &
+    44.715 &
+    3.042 \\
+\multicolumn{1}{|c|}{} &
+    0.00005 &
+    44.715 &
+    \multicolumn{1}{l|}{3.042} &
+    41.951 &
+    \multicolumn{1}{r|}{6.018} &
+    48.130 &
+    6.308 \\
+\multicolumn{1}{|c|}{} &
+    0.000005 &
+    48.130 &
+    \multicolumn{1}{l|}{6.308} &
+    40.813 &
+    \multicolumn{1}{l|}{6.596} &
+    48.130 &
+    6.308 \\
+\multicolumn{1}{|c|}{} &
+    0.0000005 &
+    48.130 &
+    \multicolumn{1}{l|}{6.308} &
+    44.715 &
+    \multicolumn{1}{l|}{3.042} &
+    48.130 &
+    6.308 \\ \hline
+\end{tabular}
+\label{table:lenetsinhard}
+\end{table}
 
 
+% Please add the following required packages to your document preamble:
+% \usepackage{multirow}
+\begin{table}[H]
+    \footnotesize
+    \caption{\textit{Grid search} utilizando la arquitectura AlexNet, entrenamiento sobre \textit{dataset} sin \textit{hard negatives}.}
+    \label{table:alexnet-sin-hard}
+\begin{tabular}{cl|llllll|}
+\cline{3-8}
+\multicolumn{2}{c|}{\multirow{2}{*}{}} &
+    \multicolumn{6}{c|}{Optimizadores} \\ \cline{3-8} 
+\multicolumn{2}{c|}{} &
+    \multicolumn{2}{c|}{SGD} &
+    \multicolumn{2}{c|}{Adam} &
+    \multicolumn{2}{c|}{Adadelta} \\ \hline
+\multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Ini. de \\ pesos\end{tabular}} &
+    \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Tasa de \\ aprendizaje\end{tabular}} &
+    \multicolumn{1}{c}{\begin{tabular}[c]{@{}c@{}}Error\\ medio\\ (\%)\end{tabular}} &
+    \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Desv.\\ típica\\ (\%)\end{tabular}} &
+    \multicolumn{1}{c}{\begin{tabular}[c]{@{}c@{}}Error\\ medio\\ (\%)\end{tabular}} &
+    \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Desv.\\ típica\\ (\%)\end{tabular}} &
+    \multicolumn{1}{c}{\begin{tabular}[c]{@{}c@{}}Error\\ medio\\ (\%)\end{tabular}} &
+    \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Desv.\\ típica\\ (\%)\end{tabular}} \\ \hline
+\multicolumn{1}{|c|}{\multirow{7}{*}{He}} &
+    0.5 &
+    44.715 &
+    \multicolumn{1}{l|}{3.042} &
+    49.268 &
+    \multicolumn{1}{l|}{7.061} &
+    5.041 &
+    1.691 \\
+\multicolumn{1}{|c|}{} &
+    0.05 &
+    5.528 &
+    \multicolumn{1}{l|}{1.809} &
+    53.008 &
+    \multicolumn{1}{l|}{5.732} &
+    3.984 &
+    2.061 \\
+\multicolumn{1}{|c|}{} &
+    0.005 &
+    3.984 &
+    \multicolumn{1}{l|}{1.091} &
+    42.683 &
+    \multicolumn{1}{l|}{6.814} &
+    5.366 &
+    1.449 \\
+\multicolumn{1}{|c|}{} &
+    0.0005 &
+    44.634 &
+    \multicolumn{1}{l|}{2.937} &
+    3.740 &
+    \multicolumn{1}{l|}{1.128} &
+    44.715 &
+    3.042 \\
+\multicolumn{1}{|c|}{} &
+    0.00005 &
+    44.715 &
+    \multicolumn{1}{l|}{3.042} &
+    3.821 &
+    \multicolumn{1}{r|}{0.843} &
+    45.691 &
+    2.104 \\
+\multicolumn{1}{|c|}{} &
+    0.000005 &
+    48.618 &
+    \multicolumn{1}{l|}{5.782} &
+    4.309 &
+    \multicolumn{1}{r|}{1.786} &
+    48.699 &
+    6.601 \\
+\multicolumn{1}{|c|}{} &
+    0.0000005 &
+    49.675 &
+    \multicolumn{1}{l|}{7.409} &
+    5.772 &
+    \multicolumn{1}{r|}{1.298} &
+    50.000 &
+    7.479 \\ \hline
+\multicolumn{1}{|c|}{\multirow{7}{*}{Xavier}} &
+    0.5 &
+    44.715 &
+    \multicolumn{1}{l|}{3.042} &
+    46.992 &
+    \multicolumn{1}{l|}{7.281} &
+    4.472 &
+    \multicolumn{1}{r|}{0.909} \\
+\multicolumn{1}{|c|}{} &
+    0.05 &
+    5.691 &
+    \multicolumn{1}{l|}{1.437} &
+    45.854 &
+    \multicolumn{1}{l|}{7.113} &
+    3.984 &
+    1.661 \\
+\multicolumn{1}{|c|}{} &
+    0.005 &
+    4.390 &
+    \multicolumn{1}{l|}{1.937} &
+    44.634 &
+    \multicolumn{1}{l|}{3.154} &
+    4.065 &
+    2.370 \\
+\multicolumn{1}{|c|}{} &
+    0.0005 &
+    5.610 &
+    \multicolumn{1}{l|}{2.360} &
+    4.146 &
+    \multicolumn{1}{r|}{0.782} &
+    5.772 &
+    1.505 \\
+\multicolumn{1}{|c|}{} &
+    0.00005 &
+    31.789 &
+    \multicolumn{1}{l|}{2.325} &
+    3.333 &
+    \multicolumn{1}{r|}{1.532} &
+    34.228 &
+    2.625 \\
+\multicolumn{1}{|c|}{} &
+    0.000005 &
+    44.959 &
+    \multicolumn{1}{l|}{2.751} &
+    4.228 &
+    \multicolumn{1}{l|}{2.548} &
+    45.041 &
+    2.687 \\
+\multicolumn{1}{|c|}{} &
+    0.0000005 &
+    46.748 &
+    \multicolumn{1}{l|}{7.157} &
+    5.122 &
+    \multicolumn{1}{l|}{1.537} &
+    47.805 &
+    6.275 \\ \hline
+\end{tabular}
+\label{table:alexnetsinhard}
+\end{table}
 
 
+% Please add the following required packages to your document preamble:
+% \usepackage{multirow}
+\begin{table}[H]
+    \footnotesize
+    \caption{\textit{Grid search} utilizando la arquitectura VGG16, entrenamiento sobre \textit{dataset} sin \textit{hard negatives}.}
+    \label{table:vgg16-sin-hard}
+\begin{tabular}{cl|llllll|}
+\cline{3-8}
+\multicolumn{2}{c|}{\multirow{2}{*}{}} &
+    \multicolumn{6}{c|}{Optimizadores} \\ \cline{3-8} 
+\multicolumn{2}{c|}{} &
+    \multicolumn{2}{c|}{SGD} &
+    \multicolumn{2}{c|}{Adam} &
+    \multicolumn{2}{c|}{Adadelta} \\ \hline
+\multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Ini. de \\ pesos\end{tabular}} &
+    \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Tasa de \\ aprendizaje\end{tabular}} &
+    \multicolumn{1}{c}{\begin{tabular}[c]{@{}c@{}}Error\\ medio\\ (\%)\end{tabular}} &
+    \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Desv.\\ típica\\ (\%)\end{tabular}} &
+    \multicolumn{1}{c}{\begin{tabular}[c]{@{}c@{}}Error\\ medio\\ (\%)\end{tabular}} &
+    \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Desv.\\ típica\\ (\%)\end{tabular}} &
+    \multicolumn{1}{c}{\begin{tabular}[c]{@{}c@{}}Error\\ medio\\ (\%)\end{tabular}} &
+    \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Desv.\\ típica\\ (\%)\end{tabular}} \\ \hline
+\multicolumn{1}{|c|}{\multirow{7}{*}{He}} &
+    0.5 &
+    44.715 &
+    \multicolumn{1}{l|}{3.042} &
+    52.439 &
+    \multicolumn{1}{l|}{5.126} &
+    44.715 &
+    3.042 \\
+\multicolumn{1}{|c|}{} &
+    0.05 &
+    44.715 &
+    \multicolumn{1}{l|}{3.042} &
+    44.797 &
+    \multicolumn{1}{l|}{3.101} &
+    44.715 &
+    3.042 \\
+\multicolumn{1}{|c|}{} &
+    0.005 &
+    44.715 &
+    \multicolumn{1}{l|}{3.042} &
+    44.715 &
+    \multicolumn{1}{l|}{3.042} &
+    44.715 &
+    3.042 \\
+\multicolumn{1}{|c|}{} &
+    0.0005 &
+    44.715 &
+    \multicolumn{1}{l|}{3.042} &
+    44.715 &
+    \multicolumn{1}{l|}{3.042} &
+    48.537 &
+    7.062 \\
+\multicolumn{1}{|c|}{} &
+    0.00005 &
+    48.618 &
+    \multicolumn{1}{l|}{6.938} &
+    3.577 &
+    \multicolumn{1}{r|}{0.668} &
+    50.569 &
+    5.436 \\
+\multicolumn{1}{|c|}{} &
+    0.000005 &
+    50.650 &
+    \multicolumn{1}{l|}{5.451} &
+    5.772 &
+    \multicolumn{1}{r|}{2.020} &
+    50.813 &
+    5.806 \\
+\multicolumn{1}{|c|}{} &
+    0.0000005 &
+    50.813 &
+    \multicolumn{1}{l|}{5.806} &
+    22.764 &
+    \multicolumn{1}{r|}{7.643} &
+    50.732 &
+    5.766 \\ \hline
+\multicolumn{1}{|c|}{\multirow{7}{*}{Xavier}} &
+    0.5 &
+    44.715 &
+    \multicolumn{1}{l|}{3.042} &
+    49.350 &
+    \multicolumn{1}{l|}{6.463} &
+    44.715 &
+    \multicolumn{1}{r|}{3.042} \\
+\multicolumn{1}{|c|}{} &
+    0.05 &
+    7.398 &
+    \multicolumn{1}{l|}{1.872} &
+    44.715 &
+    \multicolumn{1}{l|}{3.042} &
+    3.577 &
+    1.849 \\
+\multicolumn{1}{|c|}{} &
+    0.005 &
+    5.041 &
+    \multicolumn{1}{l|}{2.065} &
+    44.715 &
+    \multicolumn{1}{l|}{3.042} &
+    7.317 &
+    1.285 \\
+\multicolumn{1}{|c|}{} &
+    0.0005 &
+    44.309 &
+    \multicolumn{1}{l|}{3.613} &
+    44.715 &
+    \multicolumn{1}{r|}{3.042} &
+    44.390 &
+    3.697 \\
+\multicolumn{1}{|c|}{} &
+    0.00005 &
+    46.260 &
+    \multicolumn{1}{l|}{2.139} &
+    3.252 &
+    \multicolumn{1}{r|}{1.113} &
+    48.130 &
+    4.010 \\
+\multicolumn{1}{|c|}{} &
+    0.000005 &
+    49.593 &
+    \multicolumn{1}{l|}{4.388} &
+    4.878 &
+    \multicolumn{1}{l|}{2.802} &
+    49.837 &
+    4.289 \\
+\multicolumn{1}{|c|}{} &
+    0.0000005 &
+    49.919 &
+    \multicolumn{1}{l|}{4.267} &
+    6.667 &
+    \multicolumn{1}{l|}{2.328} &
+    50.163 &
+    4.514 \\ \hline
+\end{tabular}
+\label{table:vggsinhard}
+\end{table}
 
-% ¿Por qué LeNet5 no está aprendiendo? Habiendo comprobado el modelo por si se tratase de un error de implementación y no habiendo encontrado ningún problema, vamos a probar a entrenarlo con una sola imagen, para comprobar si el error desciende en este caso.
+Es curioso observar que, mientras en AlexNet \ref{table:alexnetsinhard} y VGG16 \ref{table:vggsinhard} se reduce el error a menos del 5\% con ciertas combinaciones de hiperparámetros, en LeNet5 \ref{table:lenetsinhard} no ocurre esto. En concreto, uno de los mejores resultados que obtiene esta arquitectura es un 27.96\% de error con una desviación media del 14.73\% entre las 5 iteraciones de la validación cruzada. Tras revisar la implementación, no creemos que haya ningún error. ¿A qué puede deberse? ¿Puede ser que el modelo, por su pequeño tamaño, no tenga la capacidad suficiente para aprender este tipo de imágenes?
+
+\begin{figure}[H]
+\centering
+    \includegraphics[scale=0.65]{imagenes/image_classification/original_dataset/loss1.png}
+    \caption{Variación del error durante el entrenamiento utilizando la configuración LeNet5-Xavier-0.05-SGD. Las iteraciones se corresponden con las producidas durante la validación cruzada.}
+\end{figure}
+
+Esta gráfica muestra la disminución del error durante el entrenamiento del modelo con la configuración de la que hablamos en el párrafo anterior. Se puede observar como decrece solo en 3 de las 5 iteraciones. Seguramente esta sea la causa de que exista una alta desviación de error entre iteraciones (14.73\%), ya que en algunas el algoritmo tiende a converger pero en otras no. %TODO: Observando estos resultados podríamos decir que en esta configuración el modelo tiene una alta varianza, ya que según que particiones se utilizan para entrenar el error varía en gran medida. \cite{bias-variance}
+
+En la mayoría de configuraciones se observa o bien que el error no decrece o bien una gran diferencia entre iteraciones:
+
+\begin{figure}[H]
+\centering
+    \begin{subfigure}{.47\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth]{imagenes/image_classification/original_dataset/loss2.png}
+        \caption{LeNet5 - He - Adam - 0.00005}
+    \end{subfigure}%
+    \begin{subfigure}{.47\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth]{imagenes/image_classification/original_dataset/loss3.png}
+        \caption{LeNet5 - Xavier - Adam - 0.00005}
+    \end{subfigure}%
+
+    \bigskip
+
+    \begin{subfigure}{.47\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth]{imagenes/image_classification/original_dataset/loss4.png}
+        \caption{LeNet5 - He - AdaDelta - 0.005}
+    \end{subfigure}%
+    \begin{subfigure}{.47\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth]{imagenes/image_classification/original_dataset/loss5.png}
+        \caption{LeNet5 - Xavier - AdaDelta - 0.05}
+    \end{subfigure}
+
+    \caption{Más ejemplos de cómo varía el error durante el entrenamiento utilizando diferentes configuraciones sobre LeNet5.}
+\end{figure}
+
+Es probable que la arquitectura LeNet5 no tenga capacidad para modelar el problema debido a su pequeño tamaño. Vamos a realizar otro experimento, entrenar un modelo LeNet5 con un \textit{dataset} reducido para ver si el error de entrenamiento decrece con mayor facilidad. Este será una muestra aleatoria del original.
+
+\begin{figure}[H]
+\centering
+    \includegraphics[scale=0.64]{imagenes/image_classification/original_dataset/loss_smalldataset.png}
+    \caption{Modelos entrenados con la configuración LeNet5-He-Adam-0.00005, utilizando \textit{datasets} de diferente tamaño (desde 25 hasta 700 imágenes).}
+\end{figure}
+
+Se observa como utilizando conjuntos de datos de entrenamiento de menor tamaño se consigue que el error decrezca con mayor facilidad. Hasta un \textit{dataset} de tamaño 400, el error reduce de forma continua durante todo el entrenamiento, pero a partir de 600 el error se estanca. Introducir un mayor número de imágenes de entrenamiento genera mayor diversidad, que tiene que ser capturada por el modelo. Si el modelo es demasiado pequeño no será capaz de capturarla y por tanto el error no se reducirá mientras se entrena.
+
+Por ello AlexNet y VGG16 serán las arquitecturas que tengamos en cuenta a la hora de elegir la configuración del modelo final. Entre ellas, el mejor resultado viene dado por VGG16, con la configuración VGG16-Xavier-Adam-0.00005. Se obtiene un error del 3.252\%, con una desviación entre iteraciones de la validación cruzada del 1.113\%. Vamos a graficar el error de entrenamiento en cada iteración:
+
+\begin{figure}[H]
+\centering
+    \includegraphics[scale=0.67]{imagenes/image_classification/original_dataset/loss_vgg16_xavier_adam_00005.png}
+    \caption{Evolución del error de \textit{training} durante el entrenamiento de un modelo con configuración VGG16-Xavier-Adam-0.00005 sobre un \textit{dataset} sin \textit{hard negatives}.}
+\end{figure}
+
+Se observan muchos picos, en algunos casos ascendiendo al valor de error inicial. Esto puede deberse a diversos factores, como son la explosión del gradiente (producida por el valor que toma la tasa de aprendizaje o por su inadecuada actualización en el algoritmo de optimización) o el un tamaño de minilote demasiado pequeño y que sea culpable de que el gradiente oscile. ¿Qué ocurre en otras configuraciones que también devuelven porcentajes de error razonables en las tablas \ref{table:alexnet-sin-hard} y \ref{table:vgg16-sin-hard}?
+
+\begin{figure}[H]
+\centering
+    \begin{subfigure}{.45\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth]{imagenes/image_classification/original_dataset/loss_alexnet_he_adadelta_05.png}
+        \caption{AlexNet-He-Adadelta-0.05 \hspace{\textwidth} Error medio (\%): 3.984 \hspace{\textwidth} Desv. típica (\%): 2.061}
+    \end{subfigure}%
+    \begin{subfigure}{.45\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth]{imagenes/image_classification/original_dataset/loss_alexnet_xavier_adam_00005.png}
+        \caption{AlexNet-Xavier-Adam-0.00005 \hspace{\textwidth} Error medio (\%): 3.333 \hspace{\textwidth} Desv. típica (\%): 1.532}
+    \end{subfigure}%
+
+    \bigskip
+
+    \begin{subfigure}{.45\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth]{imagenes/image_classification/original_dataset/loss_vgg16_he_adam_00005.png}
+        \caption{VGG16-He-Adam-0.00005 \hspace{\textwidth} Error medio (\%): 3.577 \hspace{\textwidth} Desv. típica (\%): 0.668}
+    \end{subfigure}%
+    \begin{subfigure}{.45\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth]{imagenes/image_classification/original_dataset/loss_vgg16_xavier_adadelta_05.png}
+        \caption{VGG16-Xavier-AdaDelta-0.05 \hspace{\textwidth} Error medio (\%): 3.577 \hspace{\textwidth} Desv. típica (\%): 1.849}
+    \end{subfigure}
+
+    \caption{Más ejemplos de cómo varía el error durante el entrenamiento de diferentes modelos utilizando configuraciones basadas en LeNet5, sobre un \textit{dataset} sin \textit{hard negatives}.}
+\end{figure}
+
+Se observa como en los modelos basados en VGG16 existe una mayor oscilación del error. Se podría probar a utilizar un tamaño de minilote mayor (64, 128 o 256). Por otro lado, en los basados en AlexNet se observa una curva más suave. Por ello, ya que la diferencia de error es mínima entre todos estos modelos, vamos a utilizar como configuración para entrenar el modelo final AlexNet-Xavier-Adam-0.00005, cuya curva de error es muy suave.
+
+El modelo final se entrenará sobre la partición \textit{train} (de 1230 elementos, 85\% del dataset) y se dará una evaluación final sobre la \textit{test} (de 218 elementos, 15\% del dataset), tal y como se representa en la figura \ref{fig:train-test}.
+
+\begin{table}[H]
+    \footnotesize
+    \centering
+    \caption{Porcentaje de error del modelo final sin \textit{hard negatives}.}
+\begin{tabular}{@{}ll@{}}
+\toprule
+Modelo final              & \multicolumn{1}{c}{\begin{tabular}[c]{@{}c@{}}Error sobre la\\ partición de \textit{test}\end{tabular}} \\ \midrule
+AlexNet-Xavier-Adam-0.00005 & 2.752\%                                                                                        \\ \bottomrule
+\end{tabular}
+\end{table}
+
+Se mostró este resultado a los científicos israelíes y quedaron conformes. Durante el entrenamiento el error decreció de la siguiente forma:
+
+\begin{figure}[H]
+\centering
+    \includegraphics[scale=0.67]{imagenes/image_classification/original_dataset/loss_final_model.png}
+    \caption{Evolución del error de \textit{training} durante el entrenamiento del modelo final sobre el \textit{dataset} sin \textit{hard negatives}.}
+\end{figure}
 
 
+\newpage
+\subsection{Clasificador sobre el \textit{dataset} con \textit{hard negatives}}
+Se realiza el mismo proceso que he seguido en la sección anterior, ahora utilizando el \textit{dataset} que contiene un 50\% de ejemplos negativos originales y un 50\% sintéticos creados a partir de los modelos generadores.
+
+\begin{table}[H]
+    \footnotesize
+    \caption{\textit{Grid search} utilizando la arquitectura LeNet5, entrenamiento sobre \textit{dataset} con \textit{hard negatives}.}
+\begin{tabular}{cl|llllll|}
+\cline{3-8}
+\multicolumn{2}{c|}{\multirow{2}{*}{}} &
+    \multicolumn{6}{c|}{Optimizadores} \\ \cline{3-8} 
+\multicolumn{2}{c|}{} &
+    \multicolumn{2}{c|}{SGD} &
+    \multicolumn{2}{c|}{Adam} &
+    \multicolumn{2}{c|}{Adadelta} \\ \hline
+\multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Ini. de \\ pesos\end{tabular}} &
+    \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Tasa de \\ aprendizaje\end{tabular}} &
+    \multicolumn{1}{c}{\begin{tabular}[c]{@{}c@{}}Error\\ medio\\ (\%)\end{tabular}} &
+    \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Desv.\\ típica\\ (\%)\end{tabular}} &
+    \multicolumn{1}{c}{\begin{tabular}[c]{@{}c@{}}Error\\ medio\\ (\%)\end{tabular}} &
+    \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Desv.\\ típica\\ (\%)\end{tabular}} &
+    \multicolumn{1}{c}{\begin{tabular}[c]{@{}c@{}}Error\\ medio\\ (\%)\end{tabular}} &
+    \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Desv.\\ típica\\ (\%)\end{tabular}} \\ \hline
+\multicolumn{1}{|c|}{\multirow{7}{*}{He}} &
+    0.5 &
+    44.715 &
+    \multicolumn{1}{l|}{1.971} &
+    48.943 &
+    \multicolumn{1}{l|}{6.540} &
+    44.715 &
+    3.042 \\
+\multicolumn{1}{|c|}{} &
+    0.05 &
+    48.130 &
+    \multicolumn{1}{l|}{6.308} &
+    44.715 &
+    \multicolumn{1}{l|}{3.042} &
+    44.715 &
+    3.042 \\
+\multicolumn{1}{|c|}{} &
+    0.005 &
+    44.715 &
+    \multicolumn{1}{l|}{3.042} &
+    44.715 &
+    \multicolumn{1}{l|}{3.042} &
+    44.715 &
+    3.042 \\
+\multicolumn{1}{|c|}{} &
+    0.0005 &
+    44.715 &
+    \multicolumn{1}{l|}{3.042} &
+    44.715 &
+    \multicolumn{1}{l|}{3.042} &
+    44.715 &
+    3.042 \\
+\multicolumn{1}{|c|}{} &
+    0.00005 &
+    44.715 &
+    \multicolumn{1}{l|}{3.042} &
+    44.715 &
+    \multicolumn{1}{r|}{3.042} &
+    48.130 &
+    6.308 \\
+\multicolumn{1}{|c|}{} &
+    0.000005 &
+    48.130 &
+    \multicolumn{1}{l|}{6.308} &
+    44.715 &
+    \multicolumn{1}{r|}{3.042} &
+    48.130 &
+    6.308 \\
+\multicolumn{1}{|c|}{} &
+    0.0000005 &
+    48.130 &
+    \multicolumn{1}{l|}{6.308} &
+    48.130 &
+    \multicolumn{1}{r|}{6.308} &
+    48.130 &
+    6.308 \\ \hline
+\multicolumn{1}{|c|}{\multirow{7}{*}{Xavier}} &
+    0.5 &
+    48.130 &
+    \multicolumn{1}{l|}{6.308} &
+    48.130 &
+    \multicolumn{1}{l|}{6.308} &
+    44.715 &
+    \multicolumn{1}{r|}{3.042} \\
+\multicolumn{1}{|c|}{} &
+    0.05 &
+    48.130 &
+    \multicolumn{1}{l|}{6.308} &
+    44.715 &
+    \multicolumn{1}{l|}{3.042} &
+    45.610 &
+    2.545 \\
+\multicolumn{1}{|c|}{} &
+    0.005 &
+    45.041 &
+    \multicolumn{1}{l|}{2.672} &
+    44.715 &
+    \multicolumn{1}{l|}{3.042} &
+    44.715 &
+    3.042 \\
+\multicolumn{1}{|c|}{} &
+    0.0005 &
+    44.715 &
+    \multicolumn{1}{l|}{3.042} &
+    44.715 &
+    \multicolumn{1}{r|}{3.042} &
+    44.715 &
+    3.042 \\
+\multicolumn{1}{|c|}{} &
+    0.00005 &
+    44.715 &
+    \multicolumn{1}{l|}{3.042} &
+    44.715 &
+    \multicolumn{1}{r|}{3.042} &
+    48.130 &
+    6.308 \\
+\multicolumn{1}{|c|}{} &
+    0.000005 &
+    48.130 &
+    \multicolumn{1}{l|}{6.308} &
+    44.634 &
+    \multicolumn{1}{l|}{2.851} &
+    48.130 &
+    6.308 \\
+\multicolumn{1}{|c|}{} &
+    0.0000005 &
+    48.130 &
+    \multicolumn{1}{l|}{6.308} &
+    44.715 &
+    \multicolumn{1}{l|}{3.042} &
+    48.130 &
+    6.308 \\ \hline
+\end{tabular}
+\end{table}
 
 
-% % Please add the following required packages to your document preamble:
-% % \usepackage{multirow}
-% \begin{table}[H]
-% \caption{\textit{Grid search} de los mejores parámetros sobre AlexNet}
-% \begin{tabular}{cl|llllll|}
-% \multicolumn{2}{c|}{\multirow{2}{*}{}}                                                                                                                              & \multicolumn{6}{c|}{Optimizadores}                                                                              \\ \cline{3-8} 
-% \multicolumn{2}{c|}{}                                                                                                                                               & \multicolumn{2}{c|}{SGD}            & \multicolumn{2}{c|}{Adam}           & \multicolumn{2}{c|}{AdaDelta}       \\ \hline
-% \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Ini. de \\ pesos\end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Tasa de \\ aprendizaje\end{tabular}} & Media  & \multicolumn{1}{l|}{Desv.} & Media  & \multicolumn{1}{l|}{Desv.} & Media  & Desv.                      \\ \hline
-% \multicolumn{1}{c|}{\multirow{5}{*}{He}}                                      & 0.5                                                                                 & 44.715 & \multicolumn{1}{l|}{3.042} & 49.268 & \multicolumn{1}{l|}{7.061} & 5.041  & 1.691                      \\
-% \multicolumn{1}{c|}{}                                                         & 0.05                                                                                & 5.528  & \multicolumn{1}{l|}{1.809} & 53.008 & \multicolumn{1}{l|}{5.732} & 3.984  & 2.061                      \\
-% \multicolumn{1}{c|}{}                                                         & 0.005                                                                               & 3.984  & \multicolumn{1}{l|}{1.091} & 42.683 & \multicolumn{1}{l|}{6.814} & 5.366  & 1.449                      \\
-% \multicolumn{1}{c|}{}                                                         & 0.0005                                                                              & 44.634 & \multicolumn{1}{l|}{2.937} & 3.740  & \multicolumn{1}{l|}{1.128} & 44.715 & 3.042                      \\
-% \multicolumn{1}{c|}{}                                                         & 0.00005                                                                             & 44.715 & \multicolumn{1}{l|}{3.042} & 3.821  & \multicolumn{1}{r|}{0.843} & 45.691 & 2.104                      \\ \hline
-% \multicolumn{1}{c|}{\multirow{5}{*}{Xavier}}                                  & 0.5                                                                                 & 44.715 & \multicolumn{1}{l|}{3.042} & 46.992 & \multicolumn{1}{l|}{7.281} & 4.472  & \multicolumn{1}{r|}{0.909} \\
-% \multicolumn{1}{c|}{}                                                         & 0.05                                                                                & 5.691  & \multicolumn{1}{l|}{1.437} & 45.854 & \multicolumn{1}{l|}{7.113} & 3.984  & 1.661                      \\
-% \multicolumn{1}{c|}{}                                                         & 0.005                                                                               & 4.390  & \multicolumn{1}{l|}{1.937} & 44.634 & \multicolumn{1}{l|}{3.154} & 4.065  & 2.370                      \\
-% \multicolumn{1}{c|}{}                                                         & 0.0005                                                                              & 5.610  & \multicolumn{1}{l|}{2.360} & 4.146  & \multicolumn{1}{r|}{0.782} & 5.772  & 1.505                      \\
-% \multicolumn{1}{c|}{}                                                         & 0.00005                                                                             & 31.789 & \multicolumn{1}{l|}{2.325} & 3.333  & \multicolumn{1}{l|}{1.532} & 34.228 & 2.625                     
-% \end{tabular}
-% \end{table}
+\begin{table}[H]
+    \footnotesize
+    \caption{\textit{Grid search} utilizando la arquitectura AlexNet, entrenamiento sobre \textit{dataset} con \textit{hard negatives}.}
+\begin{tabular}{cl|lrlllr|}
+\cline{3-8}
+\multicolumn{2}{c|}{\multirow{2}{*}{}}                    & \multicolumn{6}{c|}{Optimizadores}                                                                        \\ \cline{3-8} 
+\multicolumn{2}{c|}{}                                     & \multicolumn{2}{c|}{SGD}            & \multicolumn{2}{c|}{Adam}           & \multicolumn{2}{c|}{Adadelta} \\ \hline
+\multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Ini. de \\ pesos\end{tabular}} &
+    \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Tasa de \\ aprendizaje\end{tabular}} &
+    \multicolumn{1}{c}{\begin{tabular}[c]{@{}c@{}}Error\\ medio\\ (\%)\end{tabular}} &
+    \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Desv.\\ típica\\ (\%)\end{tabular}} &
+    \multicolumn{1}{c}{\begin{tabular}[c]{@{}c@{}}Error\\ medio\\ (\%)\end{tabular}} &
+    \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Desv.\\ típica\\ (\%)\end{tabular}} &
+    \multicolumn{1}{c}{\begin{tabular}[c]{@{}c@{}}Error\\ medio\\ (\%)\end{tabular}} &
+    \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Desv.\\ típica\\ (\%)\end{tabular}} \\ \hline
+\multicolumn{1}{|c|}{\multirow{7}{*}{He}}     & 0.5       & 44.715 & \multicolumn{1}{l|}{3.042} & 50.325 & \multicolumn{1}{l|}{6.768} & 6.260          & 1.983        \\
+\multicolumn{1}{|c|}{}                        & 0.05      & 5.854  & \multicolumn{1}{l|}{1.240} & 47.805 & \multicolumn{1}{l|}{6.521} & 5.203          & 0.530        \\
+\multicolumn{1}{|c|}{}                        & 0.005     & 3.089  & \multicolumn{1}{r|}{0.463} & 44.715 & \multicolumn{1}{l|}{3.042} & 3.496          & 0.680        \\
+\multicolumn{1}{|c|}{}                        & 0.0005    & 43.008 & \multicolumn{1}{l|}{3.502} & 4.065  & \multicolumn{1}{r|}{0.407} & 43.089         & 3.931        \\
+\multicolumn{1}{|c|}{}                        & 0.00005   & 44.309 & \multicolumn{1}{l|}{3.659} & 2.927  & \multicolumn{1}{r|}{1.012} & 47.805         & 5.644        \\
+\multicolumn{1}{|c|}{}                        & 0.000005  & 50.244 & \multicolumn{1}{l|}{7.477} & 3.008  & \multicolumn{1}{r|}{0.979} & 50.650         & 6.884        \\
+\multicolumn{1}{|c|}{}                        & 0.0000005 & 51.626 & \multicolumn{1}{l|}{5.603} & 5.041  & \multicolumn{1}{r|}{1.426} & 51.951         & 5.169        \\ \hline
+\multicolumn{1}{|c|}{\multirow{7}{*}{Xavier}} & 0.5       & 44.715 & \multicolumn{1}{r|}{3.042} & 53.740 & \multicolumn{1}{l|}{5.241} & 7.236          & 1.894        \\
+\multicolumn{1}{|c|}{}                        & 0.05      & 6.016  & \multicolumn{1}{r|}{1.128} & 52.927 & \multicolumn{1}{l|}{5.851} & 4.309          & 1.537        \\
+\multicolumn{1}{|c|}{}                        & 0.005     & 3.496  & \multicolumn{1}{r|}{0.843} & 44.715 & \multicolumn{1}{l|}{3.042} & 2.927          & 0.881        \\
+\multicolumn{1}{|c|}{}                        & 0.0005    & 3.577  & \multicolumn{1}{r|}{1.012} & 4.715  & \multicolumn{1}{r|}{1.171} & 4.553          & 1.505        \\
+\multicolumn{1}{|c|}{}                        & 0.00005   & 26.179 & \multicolumn{1}{r|}{0.891} & 2.683  & \multicolumn{1}{r|}{0.936} & 27.236         & 0.760        \\
+\multicolumn{1}{|c|}{}                        & 0.000005  & 43.089 & \multicolumn{1}{r|}{3.265} & 2.927  & \multicolumn{1}{r|}{0.971} & 42.602         & 3.513        \\
+\multicolumn{1}{|c|}{}                        & 0.0000005 & 47.561 & \multicolumn{1}{r|}{6.630} & 4.228  & \multicolumn{1}{l|}{1.305} & 47.805         & 6.540        \\ \hline
+\end{tabular}
+\end{table}
 
-% % Please add the following required packages to your document preamble:
-% % \usepackage{multirow}
-% \begin{table}[H]
-% \caption{\textit{Grid search} de los mejores parámetros sobre VGG16}
-% \begin{tabular}{cl|llllll|}
-% \multicolumn{2}{c|}{\multirow{2}{*}{}}                                                                                                                              & \multicolumn{6}{c|}{Optimizadores}                                                                                \\ \cline{3-8} 
-% \multicolumn{2}{c|}{}                                                                                                                                               & \multicolumn{2}{c|}{SGD}             & \multicolumn{2}{c|}{Adam}            & \multicolumn{2}{c|}{AdaDelta}       \\ \hline
-% \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Ini. de \\ pesos\end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Tasa de \\ aprendizaje\end{tabular}} & Media  & \multicolumn{1}{l|}{Desv.}  & Media  & \multicolumn{1}{l|}{Desv.}  & Media  & Desv.                      \\ \hline
-% \multicolumn{1}{c|}{\multirow{5}{*}{He}}                                      & 0.5                                                                                 & 44.715 & \multicolumn{1}{l|}{3.042}  & 52.439 & \multicolumn{1}{l|}{5.126}  & 44.715 & 3.042                      \\
-% \multicolumn{1}{c|}{}                                                         & 0.05                                                                                & 44.715 & \multicolumn{1}{l|}{3.042}  & 45.122 & \multicolumn{1}{l|}{2.787}  & 44.715 & 3.042                      \\
-% \multicolumn{1}{c|}{}                                                         & 0.005                                                                               & 44.715 & \multicolumn{1}{l|}{3.042}  & 44.715 & \multicolumn{1}{l|}{3.042}  & 44.715 & 3.042                      \\
-% \multicolumn{1}{c|}{}                                                         & 0.0005                                                                              & 44.715 & \multicolumn{1}{l|}{3.042}  & 37.967 & \multicolumn{1}{l|}{17.082} & 48.537 & 7.062                      \\
-% \multicolumn{1}{c|}{}                                                         & 0.00005                                                                             & 48.618 & \multicolumn{1}{l|}{6.938}  & 5.041  & \multicolumn{1}{r|}{1.171}  & 50.569 & 5.436                      \\ \hline
-% \multicolumn{1}{c|}{\multirow{5}{*}{Xavier}}                                  & 0.5                                                                                 & 44.715 & \multicolumn{1}{l|}{3.042}  & 49.350 & \multicolumn{1}{l|}{6.463}  & 44.715 & \multicolumn{1}{r|}{3.042} \\
-% \multicolumn{1}{c|}{}                                                         & 0.05                                                                                & 18.049 & \multicolumn{1}{l|}{15.009} & 44.715 & \multicolumn{1}{l|}{3.042}  & 3.333  & 1.758                      \\
-% \multicolumn{1}{c|}{}                                                         & 0.005                                                                               & 8.618  & \multicolumn{1}{l|}{7.142}  & 44.715 & \multicolumn{1}{l|}{3.042}  & 7.154  & 1.786                      \\
-% \multicolumn{1}{c|}{}                                                         & 0.0005                                                                              & 44.309 & \multicolumn{1}{l|}{3.613}  & 44.715 & \multicolumn{1}{r|}{3.042}  & 44.472 & 3.562                      \\
-% \multicolumn{1}{c|}{}                                                         & 0.00005                                                                             & 46.260 & \multicolumn{1}{l|}{2.139}  & 2.846  & \multicolumn{1}{r|}{0.996}  & 48.130 & 4.010                     
-% \end{tabular}
-% \end{table}
+
+\begin{table}[H]
+    \footnotesize
+    \caption{\textit{Grid search} utilizando la arquitectura VGG16, entrenamiento sobre \textit{dataset} con \textit{hard negatives}.}
+\begin{tabular}{cl|llllll|}
+\cline{3-8}
+\multicolumn{2}{c|}{\multirow{2}{*}{}} &
+    \multicolumn{6}{c|}{Optimizadores} \\ \cline{3-8} 
+\multicolumn{2}{c|}{} &
+    \multicolumn{2}{c|}{SGD} &
+    \multicolumn{2}{c|}{Adam} &
+    \multicolumn{2}{c|}{Adadelta} \\ \hline
+\multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Ini. de \\ pesos\end{tabular}} &
+    \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Tasa de \\ aprendizaje\end{tabular}} &
+    \multicolumn{1}{c}{\begin{tabular}[c]{@{}c@{}}Error\\ medio\\ (\%)\end{tabular}} &
+    \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Desv.\\ típica\\ (\%)\end{tabular}} &
+    \multicolumn{1}{c}{\begin{tabular}[c]{@{}c@{}}Error\\ medio\\ (\%)\end{tabular}} &
+    \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Desv.\\ típica\\ (\%)\end{tabular}} &
+    \multicolumn{1}{c}{\begin{tabular}[c]{@{}c@{}}Error\\ medio\\ (\%)\end{tabular}} &
+    \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}}Desv.\\ típica\\ (\%)\end{tabular}} \\ \hline
+\multicolumn{1}{|c|}{\multirow{7}{*}{He}} &
+    0.5 &
+    44.715 &
+    \multicolumn{1}{l|}{3.042} &
+    52.439 &
+    \multicolumn{1}{l|}{5.126} &
+    44.715 &
+    3.042 \\
+\multicolumn{1}{|c|}{} &
+    0.05 &
+    44.715 &
+    \multicolumn{1}{l|}{3.042} &
+    44.634 &
+    \multicolumn{1}{l|}{3.154} &
+    44.715 &
+    3.042 \\
+\multicolumn{1}{|c|}{} &
+    0.005 &
+    44.715 &
+    \multicolumn{1}{l|}{3.042} &
+    44.715 &
+    \multicolumn{1}{l|}{3.042} &
+    44.715 &
+    3.042 \\
+\multicolumn{1}{|c|}{} &
+    0.0005 &
+    44.715 &
+    \multicolumn{1}{l|}{3.042} &
+    44.715 &
+    \multicolumn{1}{l|}{3.042} &
+    48.537 &
+    7.062 \\
+\multicolumn{1}{|c|}{} &
+    0.00005 &
+    48.618 &
+    \multicolumn{1}{l|}{6.938} &
+    3.496 &
+    \multicolumn{1}{l|}{1.537} &
+    50.569 &
+    5.436 \\
+\multicolumn{1}{|c|}{} &
+    0.000005 &
+    50.650 &
+    \multicolumn{1}{l|}{5.451} &
+    3.415 &
+    \multicolumn{1}{l|}{1.482} &
+    50.813 &
+    5.806 \\
+\multicolumn{1}{|c|}{} &
+    0.0000005 &
+    50.813 &
+    \multicolumn{1}{l|}{5.806} &
+    26.748 &
+    \multicolumn{1}{l|}{1.611} &
+    50.732 &
+    5.766 \\ \hline
+\multicolumn{1}{|c|}{\multirow{7}{*}{Xavier}} &
+    0.5 &
+    44.715 &
+    \multicolumn{1}{l|}{3.042} &
+    48.130 &
+    \multicolumn{1}{l|}{6.308} &
+    36.260 &
+    \multicolumn{1}{r|}{17.262} \\
+\multicolumn{1}{|c|}{} &
+    0.05 &
+    37.236 &
+    \multicolumn{1}{l|}{18.044} &
+    44.715 &
+    \multicolumn{1}{l|}{3.042} &
+    4.390 &
+    \multicolumn{1}{r|}{0.971} \\
+\multicolumn{1}{|c|}{} &
+    0.005 &
+    5.285 &
+    \multicolumn{1}{l|}{1.574} &
+    44.553 &
+    \multicolumn{1}{l|}{3.272} &
+    4.715 &
+    \multicolumn{1}{r|}{1.564} \\
+\multicolumn{1}{|c|}{} &
+    0.0005 &
+    44.715 &
+    \multicolumn{1}{l|}{3.239} &
+    44.715 &
+    \multicolumn{1}{r|}{3.042} &
+    44.390 &
+    \multicolumn{1}{r|}{3.977} \\
+\multicolumn{1}{|c|}{} &
+    0.00005 &
+    46.667 &
+    \multicolumn{1}{l|}{2.325} &
+    3.089 &
+    \multicolumn{1}{r|}{2.024} &
+    48.618 &
+    \multicolumn{1}{r|}{4.613} \\
+\multicolumn{1}{|c|}{} &
+    0.000005 &
+    49.837 &
+    \multicolumn{1}{l|}{4.211} &
+    4.309 &
+    \multicolumn{1}{l|}{1.832} &
+    49.756 &
+    \multicolumn{1}{r|}{4.211} \\
+\multicolumn{1}{|c|}{} &
+    0.0000005 &
+    50.163 &
+    \multicolumn{1}{l|}{4.152} &
+    10.407 &
+    \multicolumn{1}{l|}{4.132} &
+    50.325 &
+    \multicolumn{1}{r|}{4.267} \\ \hline
+\end{tabular}
+\end{table}
+
+% Modelo AlexNet-Xavier-Adam-0.00005
+Como se puede observar, los resultados son similares a lo que ocurre al no utilizar \textit{hard negatives}. La arquitectura LeNet5 no tiene capacidad para modelar el problema de clasificación binaria, obteniendo unos porcentajes de error en torno al 40\%-50\%. AlexNet y VGG16 son modelos más modernos y con mayor profundidad, lo que les permite descubrir y modelar relaciones más complejas en las imágenes, y tomar decisiones de clasificación a partir de estas. 
+
+Recordar que estos resultados se obtienen a partir de aplicar validación cruzada (ver figura \ref{fig:train-test}), de forma que el error medio se calcula como la media de error de las 5 iteraciones que la componen y la desviación es la existente entre iteraciones.
+
+Entrenando sobre este \textit{dataset}, la configuración AlexNet-Xavier-Adam-0.00005 es la que mejores resultados consigue, un 2.683\% de error con una desviación típica del 0.936\% entre iteraciones de la validación cruzada. Si graficamos cómo varía el error de \textit{training} durante el entrenamiento del modelo obtenemos lo siguiente:
+
+\begin{figure}[H]
+\centering
+    \includegraphics[scale=0.67]{imagenes/image_classification/synthetic_dataset/loss_alexnet_xavier_adam_00005.png}
+    \caption{Evolución del error de \textit{training} durante el entrenamiento de un modelo con configuración AlexNet-Xavier-Adam-0.00005 sobre un \textit{dataset} con \textit{hard negatives}.}
+\end{figure}
+
+Se observa como el error decrece suavemente. Elijo esta configuración y se procede a entrenar el modelo final, obteniendo los siguientes resultados:
+
+\begin{table}[H]
+    \footnotesize
+    \centering
+    \caption{Porcentaje de error del modelo final con \textit{hard negatives}.}
+\begin{tabular}{@{}ll@{}}
+\toprule
+Modelo final              & \multicolumn{1}{c}{\begin{tabular}[c]{@{}c@{}}Error sobre la\\ partición de \textit{test}\end{tabular}} \\ \midrule
+AlexNet-Xavier-Adam-0.00005 & 0.917\%                                                                                        \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+\centering
+    \includegraphics[scale=0.67]{imagenes/image_classification/synthetic_dataset/loss_final_model.png}
+    \caption{Evolución del error de \textit{training} durante el entrenamiento del modelo final sobre el \textit{dataset} con \textit{hard negatives}.}
+\end{figure}
+
+Da la casualidad de que sobre ambos \textit{datasets}, con y sin \textit{hard negatives}, el modelo escogido utiliza la misma configuración.  Entregaremos a los científicos de la Universidad de Negev ambos modelos.
