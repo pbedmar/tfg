@@ -46,7 +46,7 @@ El \textit{dataset} original y los derivados obtenidos al aplicar \textit{data a
     .3 not\_molecules/\DTcomment{ejemplos negativos}.
 }
 
-El código que nos permitirá realizar generar estas transformaciones se encuentra en los siguientes archivos:
+El código que me permitirá realizar estas transformaciones se encuentra en los siguientes archivos:
 
 \vspace{0.2cm}
 \dirtree{%
@@ -62,7 +62,7 @@ El código que nos permitirá realizar generar estas transformaciones se encuent
 
 \noindent Aunque no se mencionan aquí, existen otros directorios y ficheros auxiliares que permiten funcionar a estos.
 
-Comienzo por \textit{data augmentation} 1. Al aplicarla se obtienen los siguientes resultados:
+Comienzo por \textit{data augmentation} 1. Al aplicarla se obtienen los resultados mostrados en la Figura \ref{fig:data-aug1}.
 
 \begin{figure}[H]
 \centering
@@ -87,9 +87,10 @@ Comienzo por \textit{data augmentation} 1. Al aplicarla se obtienen los siguient
     \end{subfigure}
 
     \caption{Imágenes generadas aplicando \textit{data augmentation} 1}
+    \label{fig:data-aug1}
 \end{figure}
 
-Se aprecian leves rotaciones y estiramientos de las imágenes, sin existir gran diferencia con las originales. Al estar aplicando tres veces la transformación sobre el conjunto de datos, puede que los cambios sean demasiado suaves dando lugar a imágenes muy similares. Observemos los resultados de \textit{data augmentation} 2:
+Se aprecian leves rotaciones y estiramientos de las imágenes, sin existir gran diferencia con las originales. Al estar aplicando tres veces la transformación sobre el conjunto de datos, puede que los cambios sean demasiado suaves dando lugar a imágenes muy similares. A continuación, observemos los resultados de \textit{data augmentation} 2 en la Figura \ref{fig:data-aug2}.
 
 \begin{figure}[H]
 \centering
@@ -114,11 +115,12 @@ Se aprecian leves rotaciones y estiramientos de las imágenes, sin existir gran 
     \end{subfigure}
 
     \caption{Imágenes generadas aplicando \textit{data augmentation} 2}
+    \label{fig:data-aug2}
 \end{figure}
 
 En este caso se observan más cambios fundamentalmente debidos a las variaciones en contraste, al uso de ruido gaussiano y a la multiplicación, responsable de los cambios de color, ya que a veces se aplica a canales independientes. Puede ser una transformación adecuada, ya que añade diversidad al conjunto sin cambios demasiado pronunciados. 
 
-Por último, comprobemos los resultados que se obtienen al aplicar \textit{data augmentation} 3:
+Por último, comprobemos los resultados que se obtienen al aplicar \textit{data augmentation} 3 en la Figura \ref{fig:data-aug3}.
 
 \begin{figure}[H]
 \centering
@@ -143,6 +145,7 @@ Por último, comprobemos los resultados que se obtienen al aplicar \textit{data 
     \end{subfigure}
 
     \caption{Imágenes generadas aplicando \textit{data augmentation} 3}
+    \label{fig:data-aug3}
 \end{figure}
 
 En esta última versión las transformaciones son bastante agresivas. Se introduce mucho ruido en las imágenes y las rotaciones y los cambios en el contraste son fuertes.
@@ -152,11 +155,11 @@ Para entrenar el clasificador, seguramente las imágenes más adecuadas sean las
 \newpage
 \section{Generación de imágenes sintéticas}
 
-Sobre los cuatro conjuntos de datos se entrenarán modelos con diferente número de épocas, desde 70 hasta 170, aumentando de 20 en 20. De esta forma tendremos $4 * |[70, 90, 110, 130, 150, 170]| = 4 * 6 = 24$ modelos diferentes.
+Sobre los cuatro conjuntos de datos se entrenarán modelos con diferente número de épocas, desde 70 hasta 170, aumentando de 20 en 20. De esta forma tendré $4 * |[70, 90, 110, 130, 150, 170]| = 4 * 6 = 24$ modelos diferentes.
 
-Una vez entrenados, probamos a generar imágenes a partir de estos para ver cuál se comporta mejor. Para ello, debemos introducirles algún tipo de imagen de entrada.
+Una vez entrenados, probaré a generar imágenes a partir de estos para ver cuál se comporta mejor. Para ello, debo introducirles algún tipo de imagen de entrada.
 
-La generación de imágenes la vamos a realizar utilizando el modelo desarrollado por Esser et al. \cite{esser2021taming}, descrito en la revisión del estado del arte de este TFG \label{st:taming-transformers}. El código en el que se realizan los experimentos con el generador se encuentra en los siguientes archivos:
+La generación de imágenes se va a realizar utilizando el modelo desarrollado por Esser et al. \cite{esser2021taming}, descrito en la Sección \label{st:taming-transformers}. El código en el que se realizan los experimentos con el generador se encuentra en los siguientes archivos:
 
 \vspace{0.2cm}
 \dirtree{%
@@ -170,9 +173,9 @@ La generación de imágenes la vamos a realizar utilizando el modelo desarrollad
 
 \noindent El subdirectorio \textit{taming-transformers/} contiene la implementación del modelo generativo proporcionada por sus autores \cite{taming-transformers-github}. 
 
-\noindent \textit{sampling\_experiment.ipynb} es un cuaderno que, una vez entrenados los modelos, permite cargarlos y generar imágenes sintéticas a partir de otra imagen de entrada. Se utiliza para comprobar a partir de que \textit{dataset} se generan mejores resultados y con qué número de épocas. Es importante saber que este modelo generativo necesita de una imagen condicionante para generar una imagen sintética: probaremos con distintos tipos, entre ellas ruido, para comprobar con cuáles se obtienen mejores resultados.
+\noindent \textit{sampling\_experiment.ipynb} es un cuaderno que, una vez entrenados los modelos, permite cargarlos y generar imágenes sintéticas a partir de otra imagen de entrada. Se utiliza para comprobar a partir de que \textit{dataset} se generan mejores resultados y con qué número de épocas. Es importante saber que este modelo generativo necesita de una imagen condicionante para generar una imagen sintética: se realizarán pruebas con distintos tipos, entre ellas ruido, para comprobar con cuáles se obtienen mejores resultados.
 
-\noindent \textit{sample\_and\_clean\_molecules.ipynb} nos permite generar un lote de imágenes sintéticas indicando el modelo que queremos utilizar y las propiedades del ruido, en concreto de ruido Perlín, ruido que explicaremos en los experimentos. También creará el \textit{dataset} final que contiene \textit{hard negatives}.
+\noindent \textit{sample\_and\_clean\_molecules.ipynb}  permite generar un lote de imágenes sintéticas indicando el modelo que queremos utilizar y las propiedades del ruido, en concreto de ruido Perlín, ruido que explicaremos en los experimentos. También creará el \textit{dataset} final que contiene \textit{hard negatives}.
 
 \noindent \textit{functions.py} declara funciones utilizadas por todos estos cuadernos.
 
@@ -183,7 +186,7 @@ Se puede observar como la versión sin \textit{data augmentation} no funciona bi
 
 Es en \textit{data augmentation} 2 cuando ya se empiezan a ver mayores diferencias. El uso de transformaciones más fuertes crea un conjunto heterogéneo de imágenes y el modelo puede aprender más características de estas. Los resultados son aceptables, aunque el cambio de color que las transformaciones producían en algunas imágenes de entrenamiento ha dado lugar a fondos grisáceos en sus homólogas sintéticas. 
 
-Con el tercer \textit{data augmentation} estos fondos grisáceos son mucho más marcados. Recordamos que estas transformaciones eran mucho más fuertes, por lo que se traslada a las imágenes sintéticas.
+Con el tercer \textit{data augmentation} estos fondos grisáceos son mucho más marcados. Recordar que estas transformaciones eran mucho más fuertes, por lo que se traslada a las imágenes sintéticas.
 
 
 \begin{figure}[H]
@@ -238,25 +241,27 @@ Con el tercer \textit{data augmentation} estos fondos grisáceos son mucho más 
     \fbox{\includegraphics[scale=0.2]{imagenes/image_generation/256/aug3_2.jpg}}  
 \end{figure}
 
-¿Qué tipo de datos de entrada se ha utilizado para generar las imágenes sintéticas? En un primer momento probamos a utilizar imágenes de moléculas reales y de objetos que, sin ser moléculas, lo parecen. En el primer caso, la salida es similar a la entrada, con la diferencia de que la imagen sintética pierde información: detalles como letras o números se alteran. En el segundo caso ocurre algo similar, con la particularidad de que objetos circulares son transformados en formas que parecen hexágonos propios de las moléculas. Además, incluso se añaden átomos.
+¿Qué tipo de datos de entrada se han utilizado para generar las imágenes sintéticas? En un primer momento se ha probado a utilizar imágenes de moléculas reales y de objetos que, sin ser moléculas, lo parecen. En el primer caso, la salida es similar a la entrada, con la diferencia de que la imagen sintética pierde información: detalles como letras o números se alteran. En el segundo caso ocurre algo similar, con la particularidad de que objetos circulares son transformados en formas que parecen hexágonos propios de las moléculas. Además, incluso se añaden átomos (Figura \ref{fig:circle-hex}).
 
 \begin{figure}[H]
 \centering
     \fbox{\includegraphics[scale=0.3]{imagenes/image_generation/256/circle_to_hex.jpg}}
     \caption{El modelo tiene la capacidad de modificar la imagen para que se parezca a una molécula.}
+    \label{fig:circle-hex}
 \end{figure}
 
-Pero queremos generar tantas imágenes como queramos, así que deberíamos poder partir de una imagen de entrada generada aleatoriamente. En un primer momento se utilizó ruido uniforme, pero no funcionó bien en ningún caso. Este tipo de ruido no sigue ninguna estructura, y nuestro modelo necesita una entrada que tenga cierta continuidad. Por ello pruebo con una cuadrícula de ajedrez: ocurre lo mismo, ya que aunque existe un patrón que se repite, los elementos de este no están conectados entre sí.
+Pero se quiere poder generar tantas imágenes como sean necesarias, así que se debería poder partir de una imagen de entrada generada aleatoriamente. En un primer momento se utilizó ruido uniforme, pero no funcionó bien en ningún caso. Este tipo de ruido no sigue ninguna estructura, y nuestro modelo necesita una entrada que tenga cierta continuidad. Por ello pruebo con una cuadrícula de ajedrez: ocurre lo mismo, ya que aunque existe un patrón que se repite, los elementos de este no están conectados entre sí.
 
 \subsection{Ruido Perlín}
 Se trata de un ruido inventado por Ken Perlín en 1982 que revolucionó el ámbito de la Informática Gráfica. En esta rama de las Ciencias de la Computación, la creación de texturas que imitan materiales de la naturaleza como la madera o el mármol es una tarea importante. Generar estas texturas de una forma manual o mediante un escáner no es una opción escalable.
 
-Este ruido permite simular fenómenos que requieran aleatoriedad a la vez que continuidad. Para ello, genera una serie de gradientes en un \textit{grid} (en nuestro caso 2D). A continuación, interpola el valor de esos gradientes mediante interpolación polinómica de Hermite. La ventaja de este ruido frente a otros que también se generan mediante interpolación es su eficiencia, para calcular la interpolación en un punto solo intervienen los $2^n$ gradientes más cercanos, donde $n$ es el número de dimensiones. \cite{computer-graphics-epfl}
+Este ruido permite simular fenómenos que requieran aleatoriedad a la vez que continuidad. Para ello, genera una serie de gradientes en un \textit{grid} (en nuestro caso 2D). A continuación, interpola el valor de esos gradientes mediante interpolación polinómica de Hermite (Figura \ref{fig:interpolacion}). La ventaja de este ruido frente a otros que también se generan mediante interpolación es su eficiencia, para calcular la interpolación en un punto solo intervienen los $2^n$ gradientes más cercanos, donde $n$ es el número de dimensiones. \cite{computer-graphics-epfl}
 
 \begin{figure}[H]
 \centering
     \fbox{\includegraphics[scale=0.3]{imagenes/image_generation/perlin_interpolation.png}}
     \caption{Interpolación de gradientes en el Ruido Perlín 1D. \cite{computer-graphics-epfl}}
+    \label{fig:interpolacion}
 \end{figure}
 
 El Ruido Perlín se puede modificar cambiando la amplitud y frecuencia de este. A mayor amplitud, los cambios entre zonas del ruido serán más bruscos, a menor amplitud el ruido será más homogéneo y suave. La frecuencia cambia la granularidad del ruido, a mayor frecuencia encontramos un grano más fino. 
@@ -292,7 +297,7 @@ El Ruido Perlín se puede modificar cambiando la amplitud y frecuencia de este. 
 
 Como se observa en las figuras \ref{fig:synthetic_molecules}, \ref{fig:synthetic_molecules_aug1}, \ref{fig:synthetic_molecules_aug2} y \ref{fig:synthetic_molecules_aug3}, al contrario que con el ruido uniforme, este tipo de ruido es capaz de generar imágenes que parecen moléculas. Su continuidad permite que el modelo tenga una estructura en la que basarse para realizar la generación. 
 
-Tras realizar estos experimentos, se los mostramos al equipo para conocer su opinión: está conforme con la versión \textit{data augmentation} 2 entrenada durante 70 épocas en aquellos casos en los que se utiliza Ruido Perlín como entrada (figural \ref{fig:synthetic_molecules_aug2}, segunda columna). De todas formas, como se obtienen buenos resultados entre 70 y 90 épocas, vamos a entrenar con \textit{data augmentation} 2 durante 70, 75, 80, 85 y 90 épocas y a comparar los resultados.
+Tras realizar estos experimentos, se los mostré al equipo para conocer su opinión: está conforme con la versión \textit{data augmentation} 2 entrenada durante 70 épocas en aquellos casos en los que se utiliza Ruido Perlín como entrada (figural \ref{fig:synthetic_molecules_aug2}, segunda columna). De todas formas, como se obtienen buenos resultados entre 70 y 90 épocas, voy a entrenar con \textit{data augmentation} 2 durante 70, 75, 80, 85 y 90 épocas y a comparar los resultados.
 
 \begin{figure}[H]
 \centering
@@ -306,9 +311,9 @@ Tras realizar estos experimentos, se los mostramos al equipo para conocer su opi
     \fbox{\includegraphics[scale=0.23]{imagenes/image_generation/256/aug2_extraepochs_2.jpg}}  
 \end{figure}
 
-En diferentes números de épocas/tipos de ruido Perlín se obtienen buenos resultados, por lo que no vamos a utilizar una única configuración para generar los \textit{hard negatives}, utilizaremos varias hasta alcanzar los 400 que queremos generar. 
+En diferente número de épocas/tipos de ruido Perlín se obtienen buenos resultados, por lo que no voy a utilizar una única configuración para generar los \textit{hard negatives}, se utilizarán varias hasta alcanzar los 400 que quiero generar. 
 
-En concreto, vamos a obtener 50 imágenes a partir de cada una de estas configuraciones (todas ellas obtenidas tras entrenar sobre \textit{data augmentation} 2):
+En concreto, voy a obtener 50 imágenes a partir de cada una de estas configuraciones (todas ellas obtenidas tras entrenar sobre \textit{data augmentation} 2):
 
 \begin{itemize}
     \item Modelo entrenado durante 70 épocas al que se le introduce ruido Perlín con amplitud 1 y frecuencia 2 (fila 2 columna 2 de la figura \ref{fig:synthetic_molecules_aug2_extra}).
@@ -321,7 +326,7 @@ En concreto, vamos a obtener 50 imágenes a partir de cada una de estas configur
     \item Modelo entrenado durante 85 épocas al que se le introduce ruido Perlín con amplitud 7 y frecuencia 2 (fila 11 columna 5 de la figura \ref{fig:synthetic_molecules_aug2_extra}).
 \end{itemize}
 
-En total, 400 \textit{hard negatives}. Antes de unificarlos con 400 ejemplos negativos del \textit{dataset} original, los tratamos de forma que se reduce el color grisáceo de fondo que presentan tras ser producidos por los modelos generadores. Para ello, de forma independiente en cada una de las configuraciones, fijamos un umbral de color que, si no es superado por un pixel, este es transformado en color blanco. De esta forma, solo los píxeles con un color intenso se mantienen en la imagen, o sea, solo se mantiene la estructura molecular. Antes de eso, aplicamos un aumento de contraste a la imagen y un filtro de apertura (\textit{opening}) que elimina ruido.
+En total, 400 \textit{hard negatives}. Antes de unificarlos con 400 ejemplos negativos del \textit{dataset} original, los trato de forma que se reduce el color grisáceo de fondo que presentan tras ser producidos por los modelos generadores. Para ello, de forma independiente en cada una de las configuraciones, fijo un umbral de color que, si no es superado por un pixel, este es transformado en color blanco. De esta forma, solo los píxeles con un color intenso se mantienen en la imagen, o sea, solo se mantiene la estructura molecular. Antes de eso, aplico un aumento de contraste a la imagen y un filtro de apertura (\textit{opening}) que elimina ruido. Algunos ejemplos resultantes se pueden observar en la Figura \ref{fig:hard-negatives}.
 
 \begin{figure}[H]
 \centering
@@ -346,22 +351,24 @@ En total, 400 \textit{hard negatives}. Antes de unificarlos con 400 ejemplos neg
     \end{subfigure}
 
     \caption{\textit{Hard negatives} finales tras ser post-procesados.}
+    \label{fig:hard-negatives}
 \end{figure}
 
-Ya puedo crear los dos \textit{datasets} finales para entrenar el clasificador, tal y como se expone en la figura \ref{fig:two_final_datasets} del capítulo anterior.
+Ya puedo crear los dos \textit{datasets} finales para entrenar el clasificador, tal y como se expone en la Figura \ref{fig:two_final_datasets} del capítulo anterior.
 
 \newpage
-Otra prueba que se hizo y fue descartada consistió en entrenar el modelo generador a partir de ejemplos negativos. Si, en vez de entrenar sobre ejemplos positivos como estábamos haciendo hasta ahora, hacerlo sobre negativos. ¿Qué ocurrió? Como se puede observar en la imagen siguiente, los resultados no fueron buenos:
+Otra prueba que se hizo y fue descartada consistió en entrenar el modelo generador a partir de ejemplos negativos. Si, en vez de entrenar sobre ejemplos positivos como estaba haciendo hasta ahora, hacerlo sobre negativos. ¿Qué ocurrió? Como se puede observar en la Figura \ref{fig:extraepochs}, los resultados no fueron buenos.
 
 \begin{figure}[H]
 \centering
     \caption{Resultados de entrenar con ejemplos negativos. La primera columna representa la imagen de entrada, el resto los diferentes modelos entrenados desde las 70 hasta las 170 épocas tomadas de 20 en 20.}
     \fbox{\includegraphics[scale=0.2]{imagenes/image_generation/negative256/negative256.jpg}}
+    \label{fig:extraepochs}
 \end{figure}
 
 Esto puede deberse a la alta diversidad que presentan los ejemplos negativos del \textit{dataset}. Esta diversidad hace que el modelo generativo no pueda aprender, ya que las imágenes no tienen apenas características en común.
 
-Por tanto, tenemos dos datasets finales con los que se entrenará cada una de las versiones del clasificador:
+Por tanto, existen dos datasets finales con los que se entrenará cada una de las versiones del clasificador (Ver Figura \ref{fig:two_final_datasets}).
 \begin{figure}[H]
 \centering
     \fbox{\includegraphics[scale=0.42]{imagenes/metodologia/two_datasets_aug2.png}}  
@@ -372,7 +379,7 @@ Por tanto, tenemos dos datasets finales con los que se entrenará cada una de la
 \newpage
 \section{Clasificación de imágenes}
 
-Con los dos \textit{datasets} preparados \ref{fig:two_final_datasets}, paso a construir los clasificadores. Como mencionamos en el capítulo anterior, realizaré una \textit{grid search} para comprobar que arquitecturas e hiperparámetros funcionan mejor.
+Con los dos \textit{datasets} preparados \ref{fig:two_final_datasets}, paso a construir los clasificadores. Como se mencionó en el capítulo anterior, llevaré a cabo una \textit{grid search} para comprobar que arquitecturas e hiperparámetros funcionan mejor.
 
 El código en el que se realizan los experimentos con el clasificador se encuentra en los siguientes archivos:
 
@@ -389,7 +396,7 @@ El código en el que se realizan los experimentos con el clasificador se encuent
 
 \noindent \textit{datasets.py} declara la clase CompoundDataset, una clase que hereda la clase Dataset de Pytorch. Este objeto facilita la carga de las imágenes y su uso por las funciones y sentencias incluidas en PyTorch.
 
-\noindent \textit{models.py} implementa cada una de las arquitecturas con las que vamos a trabajar (LeNet5, AlexNet y VGG16). Se declaran cada una de sus capas, funciones de activación y el orden en el que la información fluye por estas.
+\noindent \textit{models.py} implementa cada una de las arquitecturas con las que voy a trabajar (LeNet5, AlexNet y VGG16). Se declaran cada una de sus capas, funciones de activación y el orden en el que la información fluye por estas.
 
 \noindent \textit{grid\_search.py} implementa la \textit{grid\_search}, mediante un parámetro podemos indicar si queremos realizarla entrenando los modelos sobre el \textit{dataset} con \textit{hard negatives} o sin ellos.
 
@@ -399,7 +406,7 @@ El código en el que se realizan los experimentos con el clasificador se encuent
 
 \newpage
 \subsection{Clasificador sobre el \textit{dataset} sin \textit{hard negatives}}
-Tras ejecutar la \textit{grid search}, obtenemos los siguientes resultados:
+Tras ejecutar la \textit{grid search}, se obtienen los siguientes resultados:
 
 \begin{table}[H]
     \footnotesize
@@ -815,17 +822,18 @@ Tras ejecutar la \textit{grid search}, obtenemos los siguientes resultados:
 \label{table:vggsinhard}
 \end{table}
 
-Es curioso observar que, mientras en AlexNet \ref{table:alexnetsinhard} y VGG16 \ref{table:vggsinhard} se reduce el error a menos del 5\% con ciertas combinaciones de hiperparámetros, en LeNet5 \ref{table:lenetsinhard} no ocurre esto. En concreto, uno de los mejores resultados que obtiene esta arquitectura es un 27.96\% de error con una desviación media del 14.73\% entre las 5 iteraciones de la validación cruzada. Tras revisar la implementación, no creemos que haya ningún error. ¿A qué puede deberse? ¿Puede ser que el modelo, por su pequeño tamaño, no tenga la capacidad suficiente para aprender este tipo de imágenes?
+Es curioso observar que, mientras en AlexNet \ref{table:alexnetsinhard} y VGG16 \ref{table:vggsinhard} se reduce el error a menos del 5\% con ciertas combinaciones de hiperparámetros, en LeNet5 \ref{table:lenetsinhard} no ocurre esto. En concreto, uno de los mejores resultados que obtiene esta arquitectura es un 27.96\% de error con una desviación media del 14.73\% entre las 5 iteraciones de la validación cruzada. Tras revisar la implementación, no creo que exista ningún error. ¿A qué puede deberse? ¿Puede ser que el modelo, por su pequeño tamaño, no tenga la capacidad suficiente para aprender este tipo de imágenes?
 
 \begin{figure}[H]
 \centering
     \includegraphics[scale=0.65]{imagenes/image_classification/original_dataset/loss1.png}
     \caption{Variación del error durante el entrenamiento utilizando la configuración LeNet5-Xavier-0.05-SGD. Las iteraciones se corresponden con las producidas durante la validación cruzada.}
+    \label{fig:te-LeNet5-Xavier-0.05-SGD}
 \end{figure}
 
-Esta gráfica muestra la disminución del error durante el entrenamiento del modelo con la configuración de la que hablamos en el párrafo anterior. Se puede observar como decrece solo en 3 de las 5 iteraciones. Seguramente esta sea la causa de que exista una alta desviación de error entre iteraciones (14.73\%), ya que en algunas el algoritmo tiende a converger pero en otras no. %TODO: Observando estos resultados podríamos decir que en esta configuración el modelo tiene una alta varianza, ya que según que particiones se utilizan para entrenar el error varía en gran medida. \cite{bias-variance}
+La Figura \ref{fig:te-LeNet5-Xavier-0.05-SGD} muestra la disminución del error durante el entrenamiento del modelo con la configuración de la que hablo en el párrafo anterior. Se puede observar como decrece solo en 3 de las 5 iteraciones. Seguramente esta sea la causa de que exista una alta desviación de error entre iteraciones (14.73\%), ya que en algunas el algoritmo tiende a converger pero en otras no.
 
-En la mayoría de configuraciones se observa o bien que el error no decrece o bien una gran diferencia entre iteraciones:
+En la Figura \ref{te-lenet} se puede comprobar como en la mayoría de configuraciones el error o bien no decrece o bien existe una gran diferencia en el valor que toma entre iteraciones.
 
 \begin{figure}[H]
 \centering
@@ -854,6 +862,7 @@ En la mayoría de configuraciones se observa o bien que el error no decrece o bi
     \end{subfigure}
 
     \caption{Más ejemplos de cómo varía el error durante el entrenamiento utilizando diferentes configuraciones sobre LeNet5.}
+    \label{te-lenet}
 \end{figure}
 
 Es probable que la arquitectura LeNet5 no tenga capacidad para modelar el problema debido a su pequeño tamaño. Vamos a realizar otro experimento, entrenar un modelo LeNet5 con un \textit{dataset} reducido para ver si el error de entrenamiento decrece con mayor facilidad. Este será una muestra aleatoria del original.
@@ -862,16 +871,18 @@ Es probable que la arquitectura LeNet5 no tenga capacidad para modelar el proble
 \centering
     \includegraphics[scale=0.64]{imagenes/image_classification/original_dataset/loss_smalldataset.png}
     \caption{Modelos entrenados con la configuración LeNet5-He-Adam-0.00005, utilizando \textit{datasets} de diferente tamaño (desde 25 hasta 700 imágenes).}
+    \label{fig:loss-smalldataset}
 \end{figure}
 
-Se observa como utilizando conjuntos de datos de entrenamiento de menor tamaño se consigue que el error decrezca con mayor facilidad. Hasta un \textit{dataset} de tamaño 400, el error reduce de forma continua durante todo el entrenamiento, pero a partir de 600 el error se estanca. Introducir un mayor número de imágenes de entrenamiento genera mayor diversidad, que tiene que ser capturada por el modelo. Si el modelo es demasiado pequeño no será capaz de capturarla y por tanto el error no se reducirá mientras se entrena.
+En la Figura \ref{fig:loss-smalldataset} se observa como utilizando conjuntos de datos de entrenamiento de menor tamaño se consigue que el error decrezca con mayor facilidad. Hasta un \textit{dataset} de tamaño 400, el error reduce de forma continua durante todo el entrenamiento, pero a partir de 600 el error se estanca. Introducir un mayor número de imágenes de entrenamiento genera mayor diversidad, que tiene que ser capturada por el modelo. Si el modelo es demasiado pequeño no será capaz de capturarla y por tanto el error no se reducirá mientras se entrena.
 
-Por ello AlexNet y VGG16 serán las arquitecturas que tengamos en cuenta a la hora de elegir la configuración del modelo final. Entre ellas, el mejor resultado viene dado por VGG16, con la configuración VGG16-Xavier-Adam-0.00005. Se obtiene un error del 3.252\%, con una desviación entre iteraciones de la validación cruzada del 1.113\%. Vamos a graficar el error de entrenamiento en cada iteración:
+Por ello AlexNet y VGG16 serán las arquitecturas que se tengan en cuenta a la hora de elegir la configuración del modelo final. Entre ellas, el mejor resultado viene dado por VGG16, con la configuración VGG16-Xavier-Adam-0.00005. Se obtiene un error del 3.252\%, con una desviación entre iteraciones de la validación cruzada del 1.113\%. Vamos a graficar el error de entrenamiento en cada iteración en la Figura \ref{fig:loss_vgg16_xavier_adam_00005}
 
 \begin{figure}[H]
 \centering
-    \includegraphics[scale=0.67]{imagenes/image_classification/original_dataset/loss_vgg16_xavier_adam_00005.png}
+    \includegraphics[scale=0.6]{imagenes/image_classification/original_dataset/loss_vgg16_xavier_adam_00005.png}
     \caption{Evolución del error de \textit{training} durante el entrenamiento de un modelo con configuración VGG16-Xavier-Adam-0.00005 sobre un \textit{dataset} sin \textit{hard negatives}.}
+    \label{fig:loss_vgg16_xavier_adam_00005}
 \end{figure}
 
 Se observan muchos picos, en algunos casos ascendiendo al valor de error inicial. Esto puede deberse a diversos factores, como son la explosión del gradiente (producida por el valor que toma la tasa de aprendizaje o por su inadecuada actualización en el algoritmo de optimización) o el un tamaño de minilote demasiado pequeño y que sea culpable de que el gradiente oscile. ¿Qué ocurre en otras configuraciones que también devuelven porcentajes de error razonables en las tablas \ref{table:alexnet-sin-hard} y \ref{table:vgg16-sin-hard}?
@@ -905,7 +916,7 @@ Se observan muchos picos, en algunos casos ascendiendo al valor de error inicial
     \caption{Más ejemplos de cómo varía el error durante el entrenamiento de diferentes modelos utilizando configuraciones basadas en LeNet5, sobre un \textit{dataset} sin \textit{hard negatives}.}
 \end{figure}
 
-Se observa como en los modelos basados en VGG16 existe una mayor oscilación del error. Se podría probar a utilizar un tamaño de minilote mayor (64, 128 o 256). Por otro lado, en los basados en AlexNet se observa una curva más suave. Por ello, ya que la diferencia de error es mínima entre todos estos modelos, vamos a utilizar como configuración para entrenar el modelo final AlexNet-Xavier-Adam-0.00005, cuya curva de error es muy suave.
+Se observa como en los modelos basados en VGG16 existe una mayor oscilación del error. Se podría probar a utilizar un tamaño de minilote mayor (64, 128 o 256). Por otro lado, en los basados en AlexNet se observa una curva más suave. Por ello, ya que la diferencia de error es mínima entre todos estos modelos, se va a utilizar como configuración para entrenar el modelo final AlexNet-Xavier-Adam-0.00005, cuya curva de error es muy suave.
 
 El modelo final se entrenará sobre la partición \textit{train} (de 1230 elementos, 85\% del dataset) y se dará una evaluación final sobre la \textit{test} (de 218 elementos, 15\% del dataset), tal y como se representa en la figura \ref{fig:train-test}.
 
@@ -920,12 +931,13 @@ AlexNet-Xavier-Adam-0.00005 & 2.752\%                                           
 \end{tabular}
 \end{table}
 
-Se mostró este resultado a los científicos israelíes y quedaron conformes. Durante el entrenamiento el error decreció de la siguiente forma:
+Se mostró este resultado a los científicos israelíes y quedaron conformes. Durante el entrenamiento el error decreció como se puede observar en la Figura \ref{fig:original-loss-final-model}.
 
 \begin{figure}[H]
 \centering
     \includegraphics[scale=0.67]{imagenes/image_classification/original_dataset/loss_final_model.png}
     \caption{Evolución del error de \textit{training} durante el entrenamiento del modelo final sobre el \textit{dataset} sin \textit{hard negatives}.}
+    \label{fig:original-loss-final-model}
 \end{figure}
 
 
@@ -1065,6 +1077,7 @@ Se realiza el mismo proceso que he seguido en la sección anterior, ahora utiliz
     48.130 &
     6.308 \\ \hline
 \end{tabular}
+\label{table:lenetconhard}
 \end{table}
 
 
@@ -1098,6 +1111,7 @@ Se realiza el mismo proceso que he seguido en la sección anterior, ahora utiliz
 \multicolumn{1}{|c|}{}                        & 0.000005  & 43.089 & \multicolumn{1}{r|}{3.265} & 2.927  & \multicolumn{1}{r|}{0.971} & 42.602         & 3.513        \\
 \multicolumn{1}{|c|}{}                        & 0.0000005 & 47.561 & \multicolumn{1}{r|}{6.630} & 4.228  & \multicolumn{1}{l|}{1.305} & 47.805         & 6.540        \\ \hline
 \end{tabular}
+\label{table:alexnetconhard}
 \end{table}
 
 
@@ -1233,19 +1247,21 @@ Se realiza el mismo proceso que he seguido en la sección anterior, ahora utiliz
     50.325 &
     \multicolumn{1}{r|}{4.267} \\ \hline
 \end{tabular}
+\label{table:vggconhard}
 \end{table}
 
 % Modelo AlexNet-Xavier-Adam-0.00005
-Como se puede observar, los resultados son similares a lo que ocurre al no utilizar \textit{hard negatives}. La arquitectura LeNet5 no tiene capacidad para modelar el problema de clasificación binaria, obteniendo unos porcentajes de error en torno al 40\%-50\%. AlexNet y VGG16 son modelos más modernos y con mayor profundidad, lo que les permite descubrir y modelar relaciones más complejas en las imágenes, y tomar decisiones de clasificación a partir de estas. 
+Como se puede observar, los resultados son similares a lo que ocurre al no utilizar \textit{hard negatives}. La arquitectura LeNet5 \ref{table:lenetconhard} no tiene capacidad para modelar el problema de clasificación binaria, obteniendo unos porcentajes de error en torno al 40\%-50\%. AlexNet \ref{table:alexnetconhard} y VGG16 \ref{table:vggconhard} son modelos más modernos y con mayor profundidad, lo que les permite descubrir y modelar relaciones más complejas en las imágenes, y tomar decisiones de clasificación a partir de estas. 
 
-Recordar que estos resultados se obtienen a partir de aplicar validación cruzada (ver figura \ref{fig:train-test}), de forma que el error medio se calcula como la media de error de las 5 iteraciones que la componen y la desviación es la existente entre iteraciones.
+Recordar que estos resultados se obtienen a partir de aplicar validación cruzada (ver Figura \ref{fig:train-test}), de forma que el error medio se calcula como la media de error de las 5 iteraciones que la componen y la desviación es la existente entre iteraciones.
 
-Entrenando sobre este \textit{dataset}, la configuración AlexNet-Xavier-Adam-0.00005 es la que mejores resultados consigue, un 2.683\% de error con una desviación típica del 0.936\% entre iteraciones de la validación cruzada. Si graficamos cómo varía el error de \textit{training} durante el entrenamiento del modelo obtenemos lo siguiente:
+Entrenando sobre este \textit{dataset}, la configuración AlexNet-Xavier-Adam-0.00005 es la que mejores resultados consigue, un 2.683\% de error con una desviación típica del 0.936\% entre iteraciones de la validación cruzada. Si grafico cómo varía el error de \textit{training} durante el entrenamiento del modelo se obtiene la Figura \ref{fig:synthetic-loss_alexnet_xavier_adam_00005}.
 
 \begin{figure}[H]
 \centering
     \includegraphics[scale=0.67]{imagenes/image_classification/synthetic_dataset/loss_alexnet_xavier_adam_00005.png}
     \caption{Evolución del error de \textit{training} durante el entrenamiento de un modelo con configuración AlexNet-Xavier-Adam-0.00005 sobre un \textit{dataset} con \textit{hard negatives}.}
+    \label{fig:synthetic-loss_alexnet_xavier_adam_00005}
 \end{figure}
 
 Se observa como el error decrece suavemente. Elijo esta configuración y se procede a entrenar el modelo final, obteniendo los siguientes resultados:

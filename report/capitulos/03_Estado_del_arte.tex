@@ -1,18 +1,19 @@
 \chapter{Estado del arte}
-Para poder organizar este proyecto debemos conocer el estado del arte en su ámbito. Hablaremos del estado de arte en cheminformatics, en Deep Learning y sobre las herramientas que se han creado en estas áreas del conocimiento y que nos van a facilitar desarrollar este TFG.
+Para poder organizar este proyecto debemos conocer el estado del arte en su ámbito. Hablaré sobre el estado de arte en cheminformatics, en Deep Learning y sobre las herramientas que se han creado en estas áreas del conocimiento y que  van a facilitar el desarrollo de este TFG.
 
 \section{Cheminformatics}
-Como comentamos en el capítulo \ref{intro} (Introducción), cheminformatics es un tema muy amplio y engloba subtópicos diferentes. Muchos de ellos surgieron en la década de 1960 y principios de 1970, y desde esa época muchos grupos de investigación siguen trabajando en ellos y nuevos grupos han surgido para aplicar nuevas tecnologías en nuevos ámbitos. A continuación discutimos algunos de los temas que históricamente han sido de interés para esta ciencia. \cite{doi:10.1021/ci600234z}
+Como comenté en el Capítulo \ref{intro}, cheminformatics es un tema muy amplio y engloba subtópicos diferentes. Muchos de ellos surgieron en la década de 1960 y principios de 1970, y desde esa época muchos grupos de investigación siguen trabajando en ellos y nuevos grupos han surgido para aplicar nuevas tecnologías en nuevos ámbitos. A continuación, se discuten algunos de los temas que históricamente han sido de interés para esta ciencia. \cite{doi:10.1021/ci600234z}
 
 \subsection{Compuestos orgánicos y su representación}
-Un compuesto orgánico es un compuesto químico que contiene átomos de carbono, formando enlaces carbono-carbono y carbono-hidrógeno \cite{comporganico}. En el conjunto de datos sobre el que trabajamos, los ejemplos positivos son concretamente compuestos químicos organometálicos, en los que átomos de carbono forman enlaces covalentes con átomos metálicos \cite{comporganometalico}.
+Un compuesto orgánico es un compuesto químico que contiene átomos de carbono, formando enlaces carbono-carbono y carbono-hidrógeno \cite{comporganico}. En el conjunto de datos sobre el que trabajo, los ejemplos positivos son concretamente compuestos químicos organometálicos, en los que átomos de carbono forman enlaces covalentes con átomos metálicos \cite{comporganometalico}.
 
-En las publicaciones de química encontramos numerosas representaciones gráficas de estos compuestos, lo que se conocen como fórmulas estructurales. Éstas muestran la disposición en el espacio de los átomos que forman el compuesto. Un ejemplo es la siguiente figura:
+En las publicaciones de química encontramos numerosas representaciones gráficas de estos compuestos, lo que se conocen como fórmulas estructurales. Estas muestran la disposición en el espacio de los átomos que forman el compuesto. Un ejemplo es la siguiente figura:
 
 \begin{figure}[H]
 \centering
     \fbox{\includegraphics[scale=0.7]{imagenes/caffeine.png}}  
-    \caption{Estructura de la cafeína}
+    \caption{Estructura de la cafeína. \cite{decimer}}
+    \label{fig:caffeine}
 \end{figure}
 
 \noindent En ellas pueden aparecer multitud de elementos, apareciendo siempre:
@@ -21,14 +22,16 @@ En las publicaciones de química encontramos numerosas representaciones gráfica
     \item \textbf{Enlaces:} Unen dos átomos entre sí. 
 \end{itemize}
 
- En algunas ocasiones, sobre los átomos pueden mostrarse cargas positivas o negativas representando iones. Aparte, puede mostrarse lo que se conoce como información estereoquímica, que indica la disposición de los átomos en el espacio. Ésta es importante ya que afecta a las propiedades y reactividad de las moléculas \cite{estereoquimica,structrep}.
+En algunas ocasiones, sobre los átomos pueden mostrarse cargas positivas o negativas representando iones. Aparte, puede mostrarse lo que se conoce como información estereoquímica, que indica la disposición de los átomos en el espacio. Ésta es importante ya que afecta a las propiedades y reactividad de las moléculas \cite{estereoquimica,structrep}.
 
- \begin{figure}[H]
+\begin{figure}[H]
 \centering
     \fbox{\includegraphics[scale=0.5]{imagenes/methane.jpg}}  
-    \caption{Estructura del metano} 
+    \caption{Estructura del metano. \cite{structrep}} 
+    \label{fig:metano}
 \end{figure}
 
+En la Figura \ref{fig:metano}:
 \begin{itemize}
     \item Las líneas sólidas representan enlaces en el plano.
     \item Las discontinuas representan enlaces que están más alejados.
@@ -38,44 +41,48 @@ En las publicaciones de química encontramos numerosas representaciones gráfica
 Además, un mismo compuesto se puede representar de distintas formas:
 \begin{figure}[H]
 \centering
-    \fbox{\includegraphics[scale=0.3]{imagenes/skeletal.png}}  
-    \caption{Dos formas de representar el butano} 
+    \fbox{\includegraphics[scale=0.3]{imagenes/skeletal.png}}
+    \caption{Dos formas de representar el butano. \cite{structrep}}
+    \label{fig:butano}
 \end{figure}
 
-En a) se detalla la definición de todos los átomos, en cambio en b) encontramos lo que se conoce como fórmula de esqueleto, donde se omiten los átomos de carbono e hidrógeno. Se sabe que hay un átomo de carbono en los vértices que quedan libres en la intersección de dos enlaces o en las terminaciones donde no aparece ningún otro elemento. Se supone a la vez que cada átomo de carbono tiene cuatro enlaces, por tanto el número de enlaces que faltan por indicar explícitamente se corresponden con enlaces a moléculas de hidrógeno \cite{formestructural,structrep}.
+En la Figura \ref{fig:butano}, en a) se detalla la definición de todos los átomos, en cambio en b) encontramos lo que se conoce como fórmula de esqueleto, donde se omiten los átomos de carbono e hidrógeno. Se sabe que hay un átomo de carbono en los vértices que quedan libres en la intersección de dos enlaces o en las terminaciones donde no aparece ningún otro elemento. Se supone a la vez que cada átomo de carbono tiene cuatro enlaces, por tanto el número de enlaces que faltan por indicar explícitamente se corresponden con enlaces a moléculas de hidrógeno \cite{formestructural,structrep}.
 
 
 \subsection{Representación en el ordenador}
-El poder almacenar representaciones de compuestos químicos de manera eficiente en un ordenador requiere de la creación de métodos y formatos específicos para ello. Además, hay que tener en cuenta qué datos vamos a codificar, si solo la estructura básica del compuesto, si también queremos guardar información estereoquímica o si queremos añadir notas auxiliares sobre los compuestos. Es importante tener esto claro, ya que la complejidad de la representación influirá en la cantidad de almacenamiento que ocupe en disco y en los recursos necesarios para procesarla.
+El poder almacenar representaciones de compuestos químicos de manera eficiente en un ordenador requiere de la creación de métodos y formatos específicos para ello. Además, hay que tener en cuenta qué datos vamos a codificar, si solo la estructura básica del compuesto, si también se quiere guardar información estereoquímica o si queremos añadir notas auxiliares sobre los compuestos. Es importante tener esto claro, ya que la complejidad de la representación influirá en la cantidad de almacenamiento que ocupe en disco y en los recursos necesarios para procesarla.
 
 Utilizando notación lineal, se representa la estructura del compuesto como una secuencia lineal de caracteres y números. Esta es una codificación adecuada para las computadoras, ya que la pueden procesar con facilidad. Algunos formatos que utilizan esta notación son WLN (Wiswesser Line Notation), ROSDAL (Rp) o SMILES (Simplified Molecular Input Line Entry Specification). Aunque WLN y ROSDAL han quedado obsoletos, SMILES se sigue utilizando con mucha frecuencia en la actualidad. \cite{doi:10.1021/ci600234z}
 
 \begin{figure}[H]
 \centering
     \fbox{\includegraphics[scale=0.25]{imagenes/smiles_melatonina.png}}  
-    \caption{Dos posibles codificaciones de la melatonina en SMILES \cite{smiles_wikipedia}}
+    \caption{Dos posibles codificaciones de la melatonina en SMILES. \cite{smiles_wikipedia}}
+    \label{fig:ciclos-smiles}
 \end{figure}
 
-Aunque no vamos a entrar en detalle de cómo funciona ya que para ello hay que tener nociones avanzadas de química, diremos que utiliza las siglas de cada elemento de la tabla periódica para representar los átomos. La primera letra del elemento se escribe en mayúscula, a no ser que se trate de un átomo perteneciente a un anillo aromático\footnote{La aromaticidad es una propiedad presente en enlaces dobles de moléculas cíclicas, donde sus electrones pueden circular libremente. Esto mejora la estabilidad del compuesto. \cite{aromaticidad, aromaticidad_wikipedia}}, ya que en ese caso se escribe en minúscula. Si el elemento tiene dos caracteres, el segundo se escribe siempre en minúscula. Además, se pueden representar cargas.
+Aunque no voy a entrar en detalle de cómo funciona ya que para ello hay que tener nociones avanzadas de química, diremos que utiliza las siglas de cada elemento de la tabla periódica para representar los átomos. La primera letra del elemento se escribe en mayúscula, a no ser que se trate de un átomo perteneciente a un anillo aromático\footnote{La aromaticidad es una propiedad presente en enlaces dobles de moléculas cíclicas, donde sus electrones pueden circular libremente. Esto mejora la estabilidad del compuesto. \cite{aromaticidad, aromaticidad_wikipedia}}, ya que en ese caso se escribe en minúscula. Si el elemento tiene dos caracteres, el segundo se escribe siempre en minúscula. Además, se pueden representar cargas.
 
-Los enlaces se representan con -, =, \# y :, según el tipo. Bajo algunas circunstancias, se pueden omitir estos símbolos, ya que por su contexto se deducen. También se pueden codificar ramas, situando elementos entre paréntesis, y ciclos, utilizando un número para indicar el inicio y el fin del ciclo en la cadena de texto. \cite{weininger1988smiles}
+Los enlaces se representan con -, =, \# y :, según el tipo. Bajo algunas circunstancias, se pueden omitir estos símbolos, ya que por su contexto se deducen. También se pueden codificar ramas, situando elementos entre paréntesis, y ciclos, utilizando un número para indicar el inicio y el fin del ciclo en la cadena de texto, como se observa en la Figura \ref{fig:ciclos-smiles}. \cite{weininger1988smiles}
 
 \begin{figure}[H]
 \centering
     \fbox{\includegraphics[scale=0.35]{imagenes/smiles_cycle.png}}  
-    \caption{Ciclos en SMILES} 
+    \caption{Ciclos en SMILES. \cite{weininger1988smiles}} 
+    \label{fig:ciclos-smiles}
 \end{figure}
 
-Otras características como la aromaticidad o estructuras inconectas también pueden ser representadas. Entre las ventajas de esta codificación, destaca su facilidad de comprensión por los humanos. Cualquier químico puede aprender sus reglas de codificación fácilmente y diseñar sus propios compuestos. Un problema que tiene SMILES es que un mismo elemento se puede representar de diferentes formas. Pero sobre todo, el mayor problema es que un porcentaje significativo de las cadenas no se corresponden con moléculas válidas, ya sea porque son sintácticamente inválidas, no se corresponden con un grafo molecular o no cumplen reglas químicas básicas. \cite{weininger1988smiles}
+Otras características como la aromaticidad o estructuras inconectas también pueden ser representadas. Entre las ventajas de esta codificación, destaca su facilidad de comprensión por los humanos. Cualquier químico puede aprender sus reglas de codificación fácilmente y diseñar sus propios compuestos. Un problema que tiene SMILES es que un mismo elemento se puede representar de diferentes formas (Figura \ref{fig:ciclos-smiles}). Pero sobre todo, el mayor problema es que un porcentaje significativo de las cadenas no se corresponden con moléculas válidas, ya sea porque son sintácticamente inválidas, no se corresponden con un grafo molecular o no cumplen reglas químicas básicas. \cite{weininger1988smiles}
 
 Uno de los principales objetivos de la química computacional es el diseño de nuevas moléculas. Para ello, la utilización de modelos generativos puede ayudar a los investigadores, pero si el espacio de estados de SMILES no es completamente válido se dificulta la tarea. Para ello han surgido otras codificaciones como SELFIES con un espacio 100\% robusto. \cite{Krenn_2020}
 
-Además de estos formatos de notación lineal, es necesario mencionar otros. El lanzamiento en 1982 de MDL MOLfile llevó a su aceptación como principal formato para codificar compuestos químicos. Se han realizado distintas adaptaciones de este para añadir información extra a las moléculas, dando lugar a SDfile (puede agrupar más de un MOLfile y almacenar información estructural), RXNfile (anota los reactivos y productos de una única reacción química), etc \cite{doi:10.1021/ci00007a012}. El formato PDB se utiliza principalmente para almacenar información 3D de macromoléculas biológicas, como son las proteínas o los polinucleótidos. CIF también es un formato para almacenar información 3D. En espectroscopia encontramos JCAMP. Finalmente, CML (chemical markup language), una extensión de XML, es una propuesta que intenta aglutinar toda la información disponible. Es compatible con moléculas, reacciones, espectroscopia y otra información. \cite{doi:10.1021/ci600234z}
+Además de estos formatos de notación lineal, es necesario mencionar otros. El lanzamiento en 1982 de MDL MOLfile llevó a su aceptación como principal formato para codificar compuestos químicos. La estructura que siguen estos archivos se muestra en la figura \ref{fig:molfile}. Se han realizado distintas adaptaciones de este para añadir información extra a las moléculas, dando lugar a SDfile (puede agrupar más de un MOLfile y almacenar información estructural), RXNfile (anota los reactivos y productos de una única reacción química), etc \cite{doi:10.1021/ci00007a012}. El formato PDB se utiliza principalmente para almacenar información 3D de macromoléculas biológicas, como son las proteínas o los polinucleótidos. CIF también es un formato para almacenar información 3D. En espectroscopia se encuentra JCAMP. Finalmente, CML (chemical markup language), una extensión de XML, es una propuesta que intenta aglutinar toda la información disponible. Es compatible con moléculas, reacciones, espectroscopia y otra información. \cite{doi:10.1021/ci600234z}
 
 \begin{figure}[H]
 \centering
-    \fbox{\includegraphics[scale=0.3]{imagenes/molfile.png}}  
-    \caption{Contenido de un archivo MOL \cite{molfile_example}} 
+    \fbox{\includegraphics[scale=0.32]{imagenes/molfile.png}}  
+    \caption{Contenido de un archivo MOL. \cite{molfile_example}} 
+    \label{fig:molfile}
 \end{figure}
 
 
@@ -91,7 +98,7 @@ Aunque es complicado clasificarlas, vamos a separarlas en tres grandes grupos se
     \item \textbf{Bases de datos de biología molecular:} Contienen secuencias de aminoácidos y nucleótidos.
 \end{itemize}
 
-Pero, ¿cómo podemos rellenarlas con datos? ¿De dónde podemos extraerlos? Durante décadas se han publicado un gran número de artículos. Se podrían utilizar como una fuente muy amplia de información, ya que contienen todo el progreso científico. Específicamente para extraer datos relativos a estructuras entran en juego utilidades conocidas como OCSR (Optical Chemical Structure Recognition).
+Pero, ¿cómo se pueden rellenar con datos? ¿De dónde se pueden extraer? Durante décadas se han publicado un gran número de artículos. Se podrían utilizar como una fuente muy amplia de información, ya que contienen todo el progreso científico. Específicamente para extraer datos relativos a estructuras entran en juego utilidades conocidas como OCSR (Optical Chemical Structure Recognition).
 
 Son capaces de transformar una imagen en un formato compatible con la máquina, como podría ser SMILES. En muchos casos incluso es posible introducirles una publicación completa y ellas mismas localizan las imágenes de moléculas. Con el paso del tiempo se han ido perfeccionando, y algunas son capaces de detectar información estereoquímica o de relacionar el compuesto con el texto de la publicación. ChemEx \cite{tharatipyakul2012chemex}, ChemGrapher \cite{oldenhof2020chemgrapher} y DECIMER \cite{rajan2020decimer} son ejemplos de sistemas OCSR publicados en la última década.
 
@@ -107,7 +114,7 @@ En química, grandes cantidades de datos son producidas. Una vez que hemos conse
 
 El análisis de datos no solo se enfrenta a la extracción de la información principal, sino que también intenta generar nueva información secundaria. \cite{doi:10.1021/ci600234z}
 
-Este TFG se desarrolla dentro de este ámbito, ya que, como describiré más adelante, entreno un modelo capaz de detectar que imágenes contienen moléculas.
+Este TFG se desarrolla dentro de este ámbito ya que, como describiré más adelante, entreno un modelo capaz de detectar que imágenes contienen moléculas.
 
 \newpage
 \section{Deep learning}
@@ -115,7 +122,7 @@ En las últimas décadas, la Inteligencia Artificial (I.A.) ha vivido un periodo
 
 El aprendizaje automático es un subconjunto dentro de la Inteligencia Artificial. Aglutina aquellas técnicas que permiten a un ordenador construir modelos a partir de conjuntos de datos, aprendiendo con la experiencia. No hace falta definir reglas de forma explícita. Pero tiene un inconveniente, y es que en muchos casos un especialista humano tiene que elegir manualmente que características de los datos son relevantes en el problema.
 
-El aprendizaje profundo o deep learning va un paso más allá. Es un subconjunto del aprendizaje automático, pero en las técnicas que engloba no es necesario indicar al modelo  las características útiles, ya que él mismo las descubre automáticamente. Y no se queda ahí, va un aún más allá, puede generar nuevas características a partir de las existentes.
+El aprendizaje profundo o deep learning va un paso más allá. Es un subconjunto del aprendizaje automático, pero en las técnicas que engloba no es necesario indicar al modelo las características útiles, ya que él mismo las descubre automáticamente. Y no se queda ahí, puede incluso generar nuevas características a partir de las existentes.
 
 El desarrollo temporal de estas técnicas coincide con el orden en el que las menciono. Como se puede apreciar, el proceso de aprendizaje consta de diferentes fases, de las que cada vez se encuentra automatizado un mayor número. \cite{berzal2018redes}
 
@@ -133,12 +140,13 @@ Siendo esta la estrategia que se utiliza en otras muchas técnicas de aprendizaj
 \subsection{Redes neuronales multicapa}
 Nuestro cerebro contiene un tipo especial de células llamadas neuronas. Estas reciben impulsos eléctricos que son capaces de atenuar o amplificar para posteriormente enviarlos a otras neuronas. La unión de millones de estas crea una estructura neuronal que es la que nos permite pensar y actuar como seres inteligentes.
 
-En la informática se ha intentado emular este comportamiento, creando lo que se conoce como redes neuronales artificiales. Las neuronas artificiales omiten muchas características que definen a las biológicas, como su localización espacial, los retardos en la propagación de señales o los mecanismos químicos de sodio y potasio que permiten la transmisión de potenciales eléctricos. Al final, un modelo es una representación de la realidad, y por tanto contiene información más limitada que esta. El modelo de integración y disparo define la base de la neurona que se utiliza habitualmente en Inteligencia Artificial:
+En la informática se ha intentado emular este comportamiento, creando lo que se conoce como redes neuronales artificiales. Las neuronas artificiales omiten muchas características que definen a las biológicas, como su localización espacial, los retardos en la propagación de señales o los mecanismos químicos de sodio y potasio que permiten la transmisión de potenciales eléctricos. Al final, un modelo es una representación de la realidad, y por tanto contiene información más limitada que esta. El modelo de integración y disparo define la base de la neurona que se utiliza habitualmente en Inteligencia Artificial, representado en la Figura \ref{fig:integracion-disparo}.
 
 \begin{figure}[H]
 \centering
     \fbox{\includegraphics[scale=0.4]{imagenes/integracion_disparo.png}}  
-    \caption{Modelo de integración y disparo en las neuronas artificiales \cite{berzal2018redes}} 
+    \caption{Modelo de integración y disparo en las neuronas artificiales \cite{berzal2018redes}}
+    \label{fig:integracion-disparo}
 \end{figure}
 
 En la fase de integración se unifican todas las señales $x_i$ entrantes a la neurona $j$, cada una influyendo en mayor o menor medida según el peso $w_{ij}$, peso de la conexión de la neurona $i$ hasta la neurona $j$:
@@ -170,12 +178,13 @@ En estas redes, las capas realizan la operación de convolución en vez de la mu
     S(i,j) = (I*K)(i,j) = \sum_m \sum_n I(m,n)K(i-m,j-n)
 \end{equation}
 
-Donde $I$ representa una imagen y $K$ un kernel de dos dimensiones \cite{Goodfellow-et-al-2016}. El tipo de convolución que describimos aquí es la discreta y por ello en la fórmula aparecen sumatorias, en vez de las integrales típicas de dominios continuos. En la siguiente figura se puede observar un ejemplo de convolución:
+Donde $I$ representa una imagen y $K$ un kernel de dos dimensiones \cite{Goodfellow-et-al-2016}. El tipo de convolución que describimos aquí es la discreta y por ello en la fórmula aparecen sumatorias, en vez de las integrales típicas de dominios continuos. En la Figura \ref{fig:ejemplo-convolucion} se puede observar un ejemplo de convolución.
 
 \begin{figure}[H]
 \centering
     \fbox{\includegraphics[scale=0.4]{imagenes/convolution.png}}  
     \caption{Resultado de convolucionar la entrada I con el kernel K \cite{Goodfellow-et-al-2016}}
+    \label{fig:ejemplo-convolucion}
 \end{figure}
 
 El kernel se va desplazando por la imagen, solapándose sobre cierta área de esta. En cada una de las posiciones que toma genera un valor de salida, fruto de la multiplicación del valor de los píxeles de la imagen sobre los que se encuentra por los pesos del kernel. Todos estos valores de salida forman el resultado final, que mantiene la misma estructura 2D (aunque normalmente con un menor tamaño). 
@@ -193,26 +202,28 @@ Para comprenderlos correctamente, definamos primero lo que es una representació
 
 Existe un algoritmo conocido como análisis de componentes principales (\textit{Principal Component Analysis}, PCA) que encuentra una transformación de la representación original a otra latente. Pero tiene un problema, y es que como su transformación es lineal. \cite{vqvae}
 
-Los autocodificadores realizan esta tarea pero encontrando una transformación no lineal, por lo que pueden trabajar con datos más complejos. Para ello constan de dos partes, el codificador y el decodificador:
+Los autocodificadores realizan esta tarea pero encontrando una transformación no lineal, por lo que pueden trabajar con datos más complejos. Para ello constan de dos partes, el codificador y el decodificador (Figura \ref{fig:autocodificador}).
 
 \begin{figure}[H]
 \centering
-    \fbox{\includegraphics[scale=0.18]{imagenes/autoencoder.png}}  
+    \fbox{\includegraphics[scale=0.18]{imagenes/autoencoder.png}}
     \caption{Secciones en las que se divide un autocodificador \cite{vqvae}}
+    \label{fig:autocodificador}
 \end{figure}
 
 El objetivo tras el entrenamiento del modelo es que los datos reconstruidos por el decodificador sean lo más parecidos posible a los de entrada.
 
-Un tipo especial de autocodificador es el autocodificador variacional (Variational Autoencoder, VAE). La principal diferencia viene dada por la estructura que sigue la representación latente, donde se fuerza al autocodificador a organizarla de forma que puntos de datos similares se encuentren cerca y puntos diferentes se encuentren separados. En un autocodificador regular esto no se exige, por lo que no podríamos desplazarnos por el espacio latente y observar cambios graduales que se corresponden con cambios graduales en la representación original. \cite{vqvae}
+Un tipo especial de autocodificador es el autocodificador variacional (Variational Autoencoder, VAE). La principal diferencia viene dada por la estructura que sigue la representación latente, donde se fuerza al autocodificador a organizarla de forma que puntos de datos similares se encuentren cerca y puntos diferentes se encuentren separados, como se aprecia en la figura \ref{fig:vae}. En un autocodificador regular esto no se exige, por lo que no podríamos desplazarnos por el espacio latente y observar cambios graduales que se corresponden con cambios graduales en la representación original. \cite{vqvae}
 
 \begin{figure}[H]
 \centering
     \fbox{\includegraphics[scale=0.23]{imagenes/vae.png}}  
     \caption{Espacio latente en un autocodificador regular vs en VAE \cite{vqvae}}
+    \label{fig:vae}
 \end{figure}
 
 \subsubsection{Vector Quantized Variational Autoencoder}
-La representación latente por defecto en los VAE es continua. Pero existe una variante en la que se discretiza esta representación. Esto es útil cuando trabajamos con datos como imágenes: podría utilizarse una variable discreta para el color, otra para el tipo de objeto, su tamaño, etc. Muchos otros elementos del mundo real son susceptibles de representarse de forma discreta. Hay modelos como los transformers, que vamos a estudiar más adelante, que están diseñados para trabajar sobre datos con esta codificación. \cite{vqvae}
+La representación latente por defecto en los VAE es continua. Pero existe una variante en la que se discretiza esta representación. Esto es útil cuando trabajamos con datos como imágenes: podría utilizarse una variable discreta para el color, otra para el tipo de objeto, su tamaño, etc. Muchos otros elementos del mundo real son susceptibles de representarse de forma discreta. Hay modelos como los transformers, que voy a presentar más adelante, que están diseñados para trabajar sobre datos con esta codificación. \cite{vqvae}
 
 Los Vector Quantized Variational Autoencoders (VQVAE) utilizan este tipo de codificación, donde la representación latente consiste en lo que se conoce como libro de código (codebook). Este codebook no deja de ser un conjunto de vectores discretos asociados a un índice.
 
@@ -238,17 +249,18 @@ En los últimos años, se han desarrollado diferentes estrategias que permiten e
 
 Para resolver este problema, los investigadores han creado lo que se conoce como mecanismos de atención. En ellos, el modelo es capaz de comprender qué datos de la secuencia son importantes para la tarea que estamos desarrollando. Estos datos son los que memoriza, descartando el resto. Funcionan de forma similar a nuestro cerebro: cuando vemos una imagen, aunque parece que estamos contemplando todos sus detalles, solo estamos prestando atención a fragmentos concretos de esta y obviando los detalles en el resto de áreas. Algunos autores aplicaron esta técnica a arquitecturas ya existentes. 
 
-Pero en 2017, Vaswani et al. \cite{vaswani2017attention} propone un modelo basado únicamente en mecanismos de atención, prescindiendo de técnicas como la recurrencia o las convoluciones: a esta arquitectura la llamó el transformer. El modelo está formado por 6 codificadores y 6 decodificadores:
+Pero en 2017, Vaswani et al. \cite{vaswani2017attention} propone un modelo basado únicamente en mecanismos de atención, prescindiendo de técnicas como la recurrencia o las convoluciones: a esta arquitectura la llamó el transformer. El modelo está formado por 6 codificadores y 6 decodificadores, como se observa en la Figura \ref{fig:transformer}
 
 \begin{figure}[H]
 \centering
     \fbox{\includegraphics[scale=0.25]{imagenes/transformer.png}}  
     \caption{Transformer aplicado a la generación de texto \cite{transformers}}
+    \label{fig:transformer}
 \end{figure}
 
-En cada codificador, las características de entrada primero pasan por una capa de auto-atención, en la que interactúan entre sí y se descubre a cuáles hay que prestar mayor atención. La salida de esta primera capa serán los datos agregados resultantes de esas interacciones y las puntuaciones de atención. A continuación, se introduce esta salida en una red neuronal completamente conectada. \cite{self-attention}
+En cada codificador (Figura \ref{fig:encoder}), las características de entrada primero pasan por una capa de auto-atención, en la que interactúan entre sí y se descubre a cuáles hay que prestar mayor atención. La salida de esta primera capa serán los datos agregados resultantes de esas interacciones y las puntuaciones de atención. A continuación, se introduce esta salida en una red neuronal completamente conectada. \cite{self-attention}
 
-Los decodificadores también poseen estas dos capas, pero entre ambas existe otra capa de atención que ayuda al decodificador a concentrarse en las características importantes de la entrada.
+Los decodificadores (Figura \ref{fig:decoder}) también poseen estas dos capas, pero entre ambas existe otra capa de atención que ayuda al decodificador a concentrarse en las características importantes de la entrada.
 
 \begin{figure}[H]
 \centering
@@ -256,7 +268,7 @@ Los decodificadores también poseen estas dos capas, pero entre ambas existe otr
         \centering
         \includegraphics[width=1\linewidth]{imagenes/transformer_encoder.png}
         \caption{Estructura interior del codificador}
-        \label{fig:sub1}
+        \label{fig:encoder}
     \end{subfigure}%
 
     \bigskip
@@ -265,6 +277,7 @@ Los decodificadores también poseen estas dos capas, pero entre ambas existe otr
         \centering
         \includegraphics[width=1\linewidth]{imagenes/transformer_decoder.png}
         \caption{Estructura exterior del decodificador}
+        \label{fig:decoder}
     \end{subfigure}
 
     \caption{Los dos tipos de capas que forman el Transformer \cite{transformers}}
@@ -277,29 +290,31 @@ Los transformer son actualmente los modelos más efectivos en tareas como la gen
 
 \newpage
 \section{Bibliotecas y paquetes}
-Existen productos desarrollados por investigadores que nos van a facilitar cumplir nuestro objetivo. 
+Existen productos desarrollados por investigadores que nos van a facilitar cumplir el objetivo del proyecto. 
 
 \subsection{Taming Transformers for High-Resolution Image Synthesis} \label{taming-transformers}
 Científicos de la Universidad de Heidelberg (Alemania) publicaron a finales de 2020 un modelo capaz de generar imágenes sintéticas de alta resolución utilizando transformers. En publicaciones previas ya se habían expuesto modelos generativos basados en transformers \cite{chen2020generative}, pero estos solo podían funcionar con imágenes de pequeño tamaño. El coste computacional de un transformer aplicado directamente en imágenes crece cuadráticamente con el tamaño de esta, así que no es viable utilizarlos en imágenes de más de 100x100 píxeles, y mucho menos en aquellas del orden del megapixel.
 
-P. Esser et al. \cite{esser2021taming} desarrolla un método capaz de combinar la potencia generativa de los transformers con la eficiencia que aportan las redes convolutivas. 
+P. Esser et al. \cite{esser2021taming} desarrolla un método capaz de combinar la potencia generativa de los transformers con la eficiencia que aportan las redes convolutivas, detallado en la Figura \ref{fig:taming-transformers}. 
 
 \begin{figure}[H]
 \centering
     \fbox{\includegraphics[scale=0.5]{imagenes/taming.png}}  
     \caption{Modelo propuesto por P. Esser et al. \cite{esser2021taming}}
+    \label{fig:taming-transformers}
 \end{figure}
 
-La arquitectura convolutiva de la que hablamos es un Vector Quantized Generative Adversarial Network (VQGAN), una variante de VQVAE propuesta por los autores de la publicación donde la estructura codificador-decodificador del VAE se entrena mediante un procedimiento adversarial, utilizando un discriminador.
+La arquitectura convolutiva de la que hablo es un Vector Quantized Generative Adversarial Network (VQGAN), una variante de VQVAE propuesta por los autores de la publicación donde la estructura codificador-decodificador del VAE se entrena mediante un procedimiento adversarial, utilizando un discriminador.
 
-Tras entrenar el modelo, se habrá generado un codebook que comprime la información de las imágenes. Será sobre este codebook sobre el que se entrene el transformer que posteriormente nos permitirá generar imágenes sintéticas. Ahora tendremos un modelo que es capaz de aprovechar la gran capacidad generativa de los transformers, manteniendo tiempos de entrenamiento razonables gracias a VQGAN.
+Tras entrenar el modelo, se habrá generado un codebook que comprime la información de las imágenes. Será sobre este codebook sobre el que se entrene el transformer que posteriormente permitirá generar imágenes sintéticas. Ahora tendremos un modelo que es capaz de aprovechar la gran capacidad generativa de los transformers, manteniendo tiempos de entrenamiento razonables gracias a VQGAN.
 
-En la publicación original los autores muestran ejemplos de los resultados que se pueden obtener dada una imagen condicional de entrada:
+La Figura \ref{fig:taming-examples} muestra los resultados que se pueden producir dada una imagen condicional de entrada.
 
 \begin{figure}[H]
 \centering
     \fbox{\includegraphics[scale=0.9]{imagenes/taming_examples.png}}  
     \caption{Ejemplos generados utilizando el modelo basado en transformer \cite{esser2021taming}}
+    \label{fig:taming-examples}
 \end{figure}
 
 Se observa que funciona correctamente en diversas situaciones, por lo que puede ser una buena opción para nuestra la de síntesis de imágenes.
@@ -326,7 +341,7 @@ $torch.utils.data.Dataset$ es una clase heredada por una clase hija en la que se
 
 El constructor de un objeto de tipo $torch.utils.data.DataLoader$ recibe como principal argumento un objeto $torch.utils.data.Dataset$. También recibe otros parámetros, como el tamaño del batch o si queremos que los datos sean devueltos en un orden aleatorio. Devuelve un iterable que cumple estas características, lo que facilita en gran medida el entrenamiento de modelos. 
 
-Utilizando estos módulos separamos los datos del código de entrenamiento, obteniendo una mayor modularidad y un código más fácil de leer. \cite{pytorch-doc}
+Utilizando estos módulos se separan los datos del código de entrenamiento, obteniendo una mayor modularidad y un código más fácil de leer. \cite{pytorch-doc}
 
 \subsubsection{Módulos $torch.nn$ y $torch.optim$}
 El primero contiene los principales componentes utilizados en la construcción de redes neuronales y otras arquitecturas de aprendizaje profundo. Algunos de estos son:
@@ -342,6 +357,6 @@ Por otro lado, $torch.optim$ contiene optimizadores como son SGD o Adam, encarga
 \subsubsection{Autograd}
 Al entrenar redes neuronales, el método más utilizado para actualizar los parámetros del modelo es la propagación hacia atrás o \textit{back propagation}. Estos se ajustan de acuerdo al gradiente de la función de error con respecto al parámetro dado.
 
-PyTorch facilita la aplicación de la propagación hacia atrás a través del módulo $torch.autograd$. Cuando implementamos un modelo, solo es necesario declarar el método $forward()$, ya que PyTorch crea sobre la marcha el grafo de las operaciones necesarias para calcular el gradiente. Durante el entrenamiento del modelo, al llamar a $loss.backward()$ se calculará el gradiente utilizando este grafo. \cite{pytorch-doc}
+PyTorch facilita la aplicación de la propagación hacia atrás a través del módulo $torch.autograd$. Cuando se implementa un modelo, solo es necesario declarar el método $forward()$, ya que PyTorch crea sobre la marcha el grafo de las operaciones necesarias para calcular el gradiente. Durante el entrenamiento del modelo, al llamar a $loss.backward()$ se calculará el gradiente utilizando este grafo. \cite{pytorch-doc}
 
 Como conclusión, PyTorch aporta una gran flexibilidad para crear modelos de aprendizaje profundo, su sintaxis y paradigma de programación son relativamente fáciles de aprender y contiene un gran número de módulos que permiten crear modelos complejos. Aparte, es compatible con el entrenamiento en GPU y permite guardar los modelos entrenados. Por todas estas razones puede resultar una librería adecuada para implementar el clasificador de imágenes.

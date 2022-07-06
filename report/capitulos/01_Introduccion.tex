@@ -6,20 +6,25 @@
 
 % La química es una de las ciencias que se ha impregnado de este desarrollo tecnológico y de esta combinación ha surgido lo que se conoce como cheminformatics o chemoinformatics. En este capítulo definiremos esta rama científica y describiremos sus principales actuaciones. A continuación, explicaremos distintos conceptos y tecnologías existentes relacionados con el proyecto.
 
-(Aún por actualizar)
+La Inteligencia Artificial es una de las ramas de la ciencia que más está cambiando y va a cambiar nuestra forma de vida. Formalmente bautizada como tal en la década de los 50, ha vivido diferentes periodos de esplendor y oscuridad hasta nuestros días. Fue en los 90, mientras en la industria proliferaban los sistemas expertos, cuando se empiezan a considerar las redes neuronales como modelos útiles para trabajar con datos.
+
+Desde ese momento la tecnología ha avanzado en gran medida, permitiendo crear componentes hardware y equipos cada vez más rápidos. El entrenamiento de modelos de aprendizaje profundo sobre unas cada vez más potentes GPUs, ha permitido el escalado de estas técnicas a niveles impensables hasta hace algunos años, permitiendo el trabajo sobre grandes conjuntos de datos con modelos cada vez más complejos.
+
+Hoy en día muchas empresas cuentan con una infraestructura que les permite extraer, procesar y almacenar gran cantidad de datos. No solo se limitan a almacenarlos, sino que extraen información y patrones de estos de forma que sus directivos pueden tomar mejores decisiones y crear productos más personalizados para el cliente. 
+
+Pero la Inteligencia Artificial no ha desaparecido de la academia, al contrario, se encuentra en sus días dorados y miles de investigadores proponen cada día nuevos modelos y mejoras. Este desarrollo ha calado en todas las ramas de la ciencia, entre ellas la química, y en concreto en lo que se conoce como \textit{cheminformatics}.
 
 \section{Motivación del proyecto}
-Desde hace décadas, en el mundo de la química ha estado presente la necesidad de almacenar, gestionar y procesar la gran cantidad de información que se genera. Con el tiempo se fueron desarrollando técnicas de tratamiento de ésta, pero no fue hasta hace algunos años cuando se acuñó el nombre de cheminformatics o chemoinformatics. 
+Desde hace décadas, en el mundo de la química ha estado presente la necesidad de almacenar, gestionar y procesar la gran cantidad de información que se genera. Con el tiempo se fueron desarrollando técnicas de tratamiento de esta, pero no fue hasta hace algunos años cuando se acuñó el nombre de cheminformatics o chemoinformatics. 
 
 En la literatura existen diferentes definiciones para este término, discutidas en \cite{doi:10.1021/ci600234z}. ``Chem(o)informatics es un término genérico que encompasa el diseño, creación, gestión, recuperación, análisis, diseminación, visualización y el uso de información química'' es una de las definiciones recogidas. Otra más abierta es ``La aplicación de métodos informáticos para resolver problemas de química''. 
 
 % TODO: para qué necesitan los científicos de Negev un clasificador de imágenes?
 Desde la Universidad de Granada, la tutora de este TFG trabaja en este ámbito. Colabora con químicos de la Universidad de Negev y es consciente de los problemas que tienen para manejar la gran cantidad de datos que aparecen en publicaciones científicas. Un tipo de datos muy valioso son las imágenes, pero clasificarlas no es trivial: pueden ser sobre cualquier temática, algunas pueden referirse a esquemas explicando cómo funciona un modelo, otras pueden contener resultados de algún experimento, pueden ser representaciones de compuestos químicos, etc. Clasificarlas manualmente por un operario no es una opción viable, ya que se consumirían demasiados recursos en una tarea que actualmente se puede automatizar.
 
-Es por ello que en este Trabajo de Fin de Grado vamos a crear un modelo que permita clasificar imágenes. En concreto, aquellas que contienen representaciones de moléculas del resto. Este tipo de imágenes de moléculas en ocasiones son difíciles de clasificar, debido al parecido que presentan con otras estructuras. Por ello, también entrenaremos un clasificador con un conjunto de datos (\textit{dataset}) que contiene \textit{hard negatives}, ejemplos negativos que están en el límite de lo que es una imagen de una molécula química y lo que no. Crearemos estos \textit{hard negatives} a partir de un modelo generativo capaz de sintetizar imágenes.
+Es por ello que en este Trabajo de Fin de Grado voy a crear un modelo que permita clasificar imágenes. En concreto, aquellas que contienen representaciones de moléculas del resto. Este tipo de imágenes de moléculas en ocasiones son difíciles de clasificar, debido al parecido que presentan con otras estructuras. Por ello, también entrenaré un clasificador con un conjunto de datos (\textit{dataset}) que contiene \textit{hard negatives}, ejemplos negativos que están en el límite de lo que es una imagen de una molécula química y lo que no. Crearemos estos \textit{hard negatives} a partir de un modelo generativo capaz de sintetizar imágenes.
 
-
-Aunque existen diferentes opiniones sobre el alcance de las \textit{cheminformatics}, se puede considerar que este proyecto está dentro de sus fronteras, ya que vamos a crear una herramienta de clasificación de imágenes químicas, es decir, una herramienta que procesa y analiza este tipo de información.
+Aunque existen diferentes opiniones sobre el alcance de las \textit{cheminformatics}, se puede considerar que este proyecto está dentro de sus fronteras, ya que se va a crear una herramienta de clasificación de imágenes químicas, es decir, una herramienta que procesa y analiza este tipo de información.
 
 \section{Objetivos}
 El proyecto tiene como fin cumplir los siguientes objetivos:
