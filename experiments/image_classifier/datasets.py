@@ -7,14 +7,17 @@ from torchvision.io import read_image
 
 from functions import gen_metadata
 
-
+# clase que representa un dataset de imagenes quimicas y ejemplos negativos. utilizada para cargar
+# y manipular los datos en el resto de ficheros del proyecto
 class CompoundDataset(Dataset):
     def __init__(self, dir_pos, dir_neg, set_name, transform=None, target_transform=None):
         assert set_name in ["train", "test"]
 
+        # si no se ha realizado la division train-test previamente, se realiza
         if not os.path.exists(dir_pos+"/imclass_"+set_name+".txt"):
             gen_metadata(dir_pos)
 
+        # si no se ha realizado la division train-test previamente, se realiza
         if not os.path.exists(dir_neg+"/imclass_"+set_name+".txt"):
             gen_metadata(dir_neg)
 

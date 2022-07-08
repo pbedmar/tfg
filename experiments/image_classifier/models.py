@@ -2,9 +2,9 @@ import torch
 from torch import nn
 from torch.nn import functional as F
 
-# Based on K. Simonyan and A. Zisserman paper Very Deep Convolutional Networks for Large-Scale Image Recognition, 2014.
-# Implementation obtained from medium on 6/5/22: https://medium.com/@tioluwaniaremu/vgg-16-a-simple-implementation-using-pytorch-7850be4d14a1
-# and adapted for 256x256 images
+# Basado en el paper Very Deep Convolutional Networks for Large-Scale Image Recognition, 2014 presentado por K. Simonyan y A. Zisserman.
+# Implementacion obtenida de Medium el 6/5/22: https://medium.com/@tioluwaniaremu/vgg-16-a-simple-implementation-using-pytorch-7850be4d14a1
+# y adaptada para imagenes 256x256
 class VGG16(nn.Module):
     def __init__(self):
         super().__init__()
@@ -74,8 +74,8 @@ class VGG16(nn.Module):
         return x
 
 
-# Obtained from https://medium.com/analytics-vidhya/alexnet-a-simple-implementation-using-pytorch-30c14e8b6db2
-# and adapted for 256x256 images
+# Obtenido desde https://medium.com/analytics-vidhya/alexnet-a-simple-implementation-using-pytorch-30c14e8b6db2
+# y adaptado a imagenes 256x256
 class AlexNet(nn.Module):
     def __init__(self):
         super().__init__()
@@ -104,7 +104,7 @@ class AlexNet(nn.Module):
         x = self.fc3(x)
         return x
 
-
+# Implementacion del modelo LeNet5 propuesto por Yann LeCun http://yann.lecun.com/exdb/publis/pdf/lecun-01a.pdf
 class LeNet5(nn.Module):
     def __init__(self):
         super().__init__()

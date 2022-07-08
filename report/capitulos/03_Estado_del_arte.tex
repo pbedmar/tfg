@@ -5,7 +5,7 @@ Para poder organizar este proyecto debemos conocer el estado del arte en su ámb
 Como comenté en el Capítulo \ref{intro}, cheminformatics es un tema muy amplio y engloba subtópicos diferentes. Muchos de ellos surgieron en la década de 1960 y principios de 1970, y desde esa época muchos grupos de investigación siguen trabajando en ellos y nuevos grupos han surgido para aplicar nuevas tecnologías en nuevos ámbitos. A continuación, se discuten algunos de los temas que históricamente han sido de interés para esta ciencia. \cite{doi:10.1021/ci600234z}
 
 \subsection{Compuestos orgánicos y su representación}
-Un compuesto orgánico es un compuesto químico que contiene átomos de carbono, formando enlaces carbono-carbono y carbono-hidrógeno \cite{comporganico}. En el conjunto de datos sobre el que trabajo, los ejemplos positivos son concretamente compuestos químicos organometálicos, en los que átomos de carbono forman enlaces covalentes con átomos metálicos \cite{comporganometalico}.
+Un compuesto orgánico es un compuesto químico que contiene átomos de carbono \cite{mcmurry2008quimica}. En el conjunto de datos sobre el que trabajo, los ejemplos positivos son concretamente compuestos químicos organometálicos, en los que átomos de carbono forman enlaces covalentes con átomos metálicos \cite{mcmurry2008quimica}.
 
 En las publicaciones de química encontramos numerosas representaciones gráficas de estos compuestos, lo que se conocen como fórmulas estructurales. Estas muestran la disposición en el espacio de los átomos que forman el compuesto. Un ejemplo es la siguiente figura:
 
@@ -22,7 +22,7 @@ En las publicaciones de química encontramos numerosas representaciones gráfica
     \item \textbf{Enlaces:} Unen dos átomos entre sí. 
 \end{itemize}
 
-En algunas ocasiones, sobre los átomos pueden mostrarse cargas positivas o negativas representando iones. Aparte, puede mostrarse lo que se conoce como información estereoquímica, que indica la disposición de los átomos en el espacio. Ésta es importante ya que afecta a las propiedades y reactividad de las moléculas \cite{estereoquimica,structrep}.
+En algunas ocasiones, sobre los átomos pueden mostrarse cargas positivas o negativas representando iones. Aparte, puede mostrarse lo que se conoce como información estereoquímica, que indica la disposición de los átomos en el espacio. Ésta es importante ya que afecta a las propiedades y reactividad de las moléculas \cite{wade2004quimica,structrep}.
 
 \begin{figure}[H]
 \centering
@@ -46,7 +46,7 @@ Además, un mismo compuesto se puede representar de distintas formas:
     \label{fig:butano}
 \end{figure}
 
-En la Figura \ref{fig:butano}, en a) se detalla la definición de todos los átomos, en cambio en b) encontramos lo que se conoce como fórmula de esqueleto, donde se omiten los átomos de carbono e hidrógeno. Se sabe que hay un átomo de carbono en los vértices que quedan libres en la intersección de dos enlaces o en las terminaciones donde no aparece ningún otro elemento. Se supone a la vez que cada átomo de carbono tiene cuatro enlaces, por tanto el número de enlaces que faltan por indicar explícitamente se corresponden con enlaces a moléculas de hidrógeno \cite{formestructural,structrep}.
+En la Figura \ref{fig:butano}, en a) se detalla la definición de todos los átomos, en cambio en b) encontramos lo que se conoce como fórmula de esqueleto, donde se omiten los átomos de carbono e hidrógeno. Se sabe que hay un átomo de carbono en los vértices que quedan libres en la intersección de dos enlaces o en las terminaciones donde no aparece ningún otro elemento. Se supone a la vez que cada átomo de carbono tiene cuatro enlaces, por tanto el número de enlaces que faltan por indicar explícitamente se corresponden con enlaces a moléculas de hidrógeno \cite{wade2004quimica,structrep}.
 
 
 \subsection{Representación en el ordenador}
@@ -57,18 +57,18 @@ Utilizando notación lineal, se representa la estructura del compuesto como una 
 \begin{figure}[H]
 \centering
     \fbox{\includegraphics[scale=0.25]{imagenes/smiles_melatonina.png}}  
-    \caption{Dos posibles codificaciones de la melatonina en SMILES. \cite{smiles_wikipedia}}
+    \caption{Dos posibles codificaciones de la melatonina en SMILES. \cite{smiles_wikimedia}}
     \label{fig:ciclos-smiles}
 \end{figure}
 
-Aunque no voy a entrar en detalle de cómo funciona ya que para ello hay que tener nociones avanzadas de química, diremos que utiliza las siglas de cada elemento de la tabla periódica para representar los átomos. La primera letra del elemento se escribe en mayúscula, a no ser que se trate de un átomo perteneciente a un anillo aromático\footnote{La aromaticidad es una propiedad presente en enlaces dobles de moléculas cíclicas, donde sus electrones pueden circular libremente. Esto mejora la estabilidad del compuesto. \cite{aromaticidad, aromaticidad_wikipedia}}, ya que en ese caso se escribe en minúscula. Si el elemento tiene dos caracteres, el segundo se escribe siempre en minúscula. Además, se pueden representar cargas.
+Aunque no voy a entrar en detalle de cómo funciona ya que para ello hay que tener nociones avanzadas de química, diremos que utiliza las siglas de cada elemento de la tabla periódica para representar los átomos. La primera letra del elemento se escribe en mayúscula, a no ser que se trate de un átomo perteneciente a un anillo aromático\footnote{La aromaticidad es una propiedad presente en moléculas cíclicas que contienen anillos de seis elementos similares a los del benzeno con tres enlaces dobles. Esto mejora la estabilidad del compuesto. \cite{aromaticidad, mcmurry2008quimica}}, ya que en ese caso se escribe en minúscula. Si el elemento tiene dos caracteres, el segundo se escribe siempre en minúscula. Además, se pueden representar cargas.
 
 Los enlaces se representan con -, =, \# y :, según el tipo. Bajo algunas circunstancias, se pueden omitir estos símbolos, ya que por su contexto se deducen. También se pueden codificar ramas, situando elementos entre paréntesis, y ciclos, utilizando un número para indicar el inicio y el fin del ciclo en la cadena de texto, como se observa en la Figura \ref{fig:ciclos-smiles}. \cite{weininger1988smiles}
 
 \begin{figure}[H]
 \centering
     \fbox{\includegraphics[scale=0.35]{imagenes/smiles_cycle.png}}  
-    \caption{Ciclos en SMILES. \cite{weininger1988smiles}} 
+    \caption{Ciclos en SMILES. \cite{weininger1988smiles}}
     \label{fig:ciclos-smiles}
 \end{figure}
 

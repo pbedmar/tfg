@@ -182,11 +182,11 @@ La generación de imágenes se va a realizar utilizando el modelo desarrollado p
 \newpage
 En las páginas siguientes se muestran los resultados. Cada fila corresponde a una imagen de entrada al modelo. En las columnas, la primera muestra la imagen de entrada mientras que cada una de las siguientes corresponde con un modelo entrenado durante x épocas, desde 70 hasta 170 (70, 90, 110, 130, 150, 170).
 
-Se puede observar como la versión sin \textit{data augmentation} no funciona bien, produce imágenes sin apenas estructura. Esto se debe a que solo se utilizan 162 imágenes, cifra muy baja para una arquitectura de deep learning como es un \textit{transformer}. Con \textit{data augmentation} 1 tampoco se observan resultados de buena calidad, puede que algo mejores que en el caso anterior pero sin muchas diferencias.
+Se puede observar como la versión sin \textit{data augmentation} (Figura \ref{fig:synthetic_molecules}) no funciona bien, produce imágenes sin apenas estructura. Esto se debe a que solo se utilizan 162 imágenes, cifra muy baja para una arquitectura de deep learning como es un \textit{transformer}. Con \textit{data augmentation} (Figura \ref{fig:synthetic_molecules_aug1}) 1 tampoco se observan resultados de buena calidad, puede que algo mejores que en el caso anterior pero sin muchas diferencias.
 
-Es en \textit{data augmentation} 2 cuando ya se empiezan a ver mayores diferencias. El uso de transformaciones más fuertes crea un conjunto heterogéneo de imágenes y el modelo puede aprender más características de estas. Los resultados son aceptables, aunque el cambio de color que las transformaciones producían en algunas imágenes de entrenamiento ha dado lugar a fondos grisáceos en sus homólogas sintéticas. 
+Es en \textit{data augmentation} 2 (Figura \ref{fig:synthetic_molecules_aug2}) cuando ya se empiezan a ver mayores diferencias. El uso de transformaciones más fuertes crea un conjunto heterogéneo de imágenes y el modelo puede aprender más características de estas. Los resultados son aceptables, aunque el cambio de color que las transformaciones producían en algunas imágenes de entrenamiento ha dado lugar a fondos grisáceos en sus homólogas sintéticas. 
 
-Con el tercer \textit{data augmentation} estos fondos grisáceos son mucho más marcados. Recordar que estas transformaciones eran mucho más fuertes, por lo que se traslada a las imágenes sintéticas.
+Con el tercer \textit{data augmentation} (Figura \ref{fig:synthetic_molecules_aug3}) estos fondos grisáceos son mucho más marcados. Recordar que estas transformaciones eran mucho más fuertes, por lo que se traslada a las imágenes sintéticas.
 
 
 \begin{figure}[H]
@@ -381,7 +381,7 @@ Por tanto, existen dos datasets finales con los que se entrenará cada una de la
 
 Con los dos \textit{datasets} preparados \ref{fig:two_final_datasets}, paso a construir los clasificadores. Como se mencionó en el capítulo anterior, llevaré a cabo una \textit{grid search} para comprobar que arquitecturas e hiperparámetros funcionan mejor.
 
-El código en el que se realizan los experimentos con el clasificador se encuentra en los siguientes archivos:
+El código en el que se realizan los experimentos con el clasificador se encuentra principalmente en los siguientes archivos:
 
 \vspace{0.2cm}
 \dirtree{%
@@ -391,6 +391,7 @@ El código en el que se realizan los experimentos con el clasificador se encuent
     .3 models.py.
     .3 grid\_search.py.
     .3 train\_final\_models.py.
+    .3 train\_lenet.py
     .3 functions.py.
 }
 
@@ -401,6 +402,8 @@ El código en el que se realizan los experimentos con el clasificador se encuent
 \noindent \textit{grid\_search.py} implementa la \textit{grid\_search}, mediante un parámetro podemos indicar si queremos realizarla entrenando los modelos sobre el \textit{dataset} con \textit{hard negatives} o sin ellos.
 
 \noindent \textit{train\_final\_models.py} entrena los modelos finales con la configuración decidida tras realizar la \textit{grid\_search.py}.
+
+\noindent \textit{train\_lenet.py} entrena modelos con LeNet5 utilizando diferentes tamaños de dataset, para estudiar como estudia el tamaño de este al decrecimiento del error de entrenamiento.
 
 \noindent \textit{functions.py} declara funciones utilizadas por todos estos ficheros.
 

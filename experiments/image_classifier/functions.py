@@ -7,6 +7,8 @@ from torch.utils.data import DataLoader
 
 from sklearn.model_selection import train_test_split
 
+# dado un directorio de imagenes, genera dos ficheros train y test donde almacena el nombre de
+# aquellas que van a formar parte del conjunto de train y test respectivamente
 def gen_metadata(directory, seed=1):
     directory = directory+"/"
     filenames = glob.glob(directory+"*.jpg")
@@ -22,7 +24,9 @@ def gen_metadata(directory, seed=1):
             f.write(filename+"\n")
         f.write(test[-1])
 
-
+# funcion de entrenamiento de modelos. mediante los argumentos recibe la configuracion
+# necesaria, como son los datos de entrenamiento, el propio modelo a entrenar, la funcion
+# de error, el numero de epocas, el dispositivo donde se va a entrenar
 def train(dataloader, model, criterion, nb_epochs, device, optimizer):
     acc_losses_by_epoch = torch.zeros(nb_epochs)
 
@@ -44,7 +48,8 @@ def train(dataloader, model, criterion, nb_epochs, device, optimizer):
 
     return acc_losses_by_epoch
 
-
+# funcion que dados los datos de test y un modelo ya entrenado, comprueba el numero de
+# errores que produce el modelo sobre tal conjunto de datos.
 def test(dataset, model, device):
     nb_errors = 0
 
@@ -60,7 +65,8 @@ def test(dataset, model, device):
 
     return nb_errors
 
-
+# calcula la media y desviacion tipica de un dataset, para luego utilizarlas con
+# fines de normalizacion
 def dataset_mean_std(dataset):
     train_dataloader = DataLoader(dataset, batch_size=len(dataset), shuffle=False)
     data = next(iter(train_dataloader))[0]
@@ -69,7 +75,7 @@ def dataset_mean_std(dataset):
 
     return mean, std
 
-
+# inicializacion de pesos dado un tipo de inicializacion como parametro
 def init_weights(layer, initializer):
     if isinstance(layer, torch.nn.Linear) or isinstance(layer, torch.nn.Conv2d):
         if initializer == "Xavier":
