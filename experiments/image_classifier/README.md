@@ -25,7 +25,7 @@ estructuras de moléculas de aquellas que no. Para ello, se declaran los siguien
 
 - **train\_final\_models.py** entrena los modelos finales con la configuración decidida tras realizar la *grid search*.
 
-- **train\_lenet.py** entrena modelos con LeNet5 utilizando diferentes tamaños de *dataset*, para estudiar como estudia
+- **train\_lenet.py** entrena modelos con LeNet5 utilizando diferentes tamaños de *dataset*, para estudiar como afecta
   el tamaño de este al decrecimiento del error de entrenamiento.
 
 - **functions.py** declara funciones utilizadas por todos estos ficheros.
