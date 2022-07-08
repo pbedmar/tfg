@@ -16,14 +16,18 @@ import torchvision.transforms.functional as TF
 import cv2
 
 
-# functions used to load and preprocess models -- included with taming-transformers
+# Código obtenido del repositorio del paper Taming Transformers for High-Resolution Image Synthesis
+# (https://github.com/CompVis/taming-transformers)
+# ---- Inicio del código ----
+
+# carga una configuración del modelo generativo
 def load_config(config_path, display=False):
     config = OmegaConf.load(config_path)
     if display:
         print(yaml.dump(OmegaConf.to_container(config)))
     return config
 
-
+# carga el modelo generativo
 def load_vqgan(config, ckpt_path=None, is_gumbel=False):
     if is_gumbel:
         model = GumbelVQ(**config.model.params)
@@ -39,7 +43,7 @@ def preprocess_vqgan(x):
     x = 2. * x - 1.
     return x
 
-
+# transforma un tensor a PIL
 def custom_to_pil(x):
     x = x.detach().cpu()
     x = torch.clamp(x, -1., 1.)
@@ -51,7 +55,7 @@ def custom_to_pil(x):
         x = x.convert("RGB")
     return x
 
-
+# dada una imagen de entrada, se le pasa al modelo y se genera una imagen sintética
 def reconstruct_with_vqgan(x, model):
     # could also use model(x) for reconstruction but use explicit encoding and decoding here
     z, _, [_, _, indices] = model.encode(x)
@@ -59,15 +63,14 @@ def reconstruct_with_vqgan(x, model):
     xrec = model.decode(z)
     return xrec
 
-
-# auxiliary functions to sample images
 font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-BoldOblique.ttf", 12)
+# descarga una imagen desde una URL
 def download_image(url):
     resp = requests.get(url)
     resp.raise_for_status()
     return PIL.Image.open(io.BytesIO(resp.content))
 
-
+# preprocesa una imagen ajustandola al tamaño requerido para ser introducida modelo
 def preprocess(img, target_image_size=192, map_dalle=True):
     s = min(img.size)
 
@@ -82,7 +85,7 @@ def preprocess(img, target_image_size=192, map_dalle=True):
     print("Unsqueezed:", img.shape)
     return img
 
-
+# unifica una secuencia de imágenes en una única
 def stack_reconstructions(images, titles=[]):
     w, h = images[0].size[0], images[0].size[1]
     img = Image.new("RGB", (len(images) * w, h))
@@ -92,9 +95,11 @@ def stack_reconstructions(images, titles=[]):
     for i, title in enumerate(titles):
         ImageDraw.Draw(img).text((i * w, 0), f'{title}', (0, 0, 0), font=font)  # coordinates, text, color, font
     return img
+# ---- Fin del código ----
 
-
-# reconstruction pipelines to build grid of images
+# Código basado en el del repositorio del paper Taming Transformers for High-Resolution Image Synthesis
+# (https://github.com/CompVis/taming-transformers)
+# ---- Inicio del código ----
 DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 def reconstruction_pipeline_fixed_data(file, models, titles, origin_format=0, size=192):
     if origin_format == 0:
@@ -116,8 +121,11 @@ def reconstruction_pipeline_fixed_data(file, models, titles, origin_format=0, si
 
     img = stack_reconstructions(pils, titles)
     return img
+# ---- Fin del código ----
 
-
+# Código basado en el del repositorio del paper Taming Transformers for High-Resolution Image Synthesis
+# (https://github.com/CompVis/taming-transformers)
+# ---- Inicio del código ----
 def reconstruction_pipeline_fixed_model(model, files, title, size=192):
     pils = []
 
@@ -143,8 +151,11 @@ def reconstruction_pipeline_fixed_model(model, files, title, size=192):
     ImageDraw.Draw(img).text((0, 0), f'{title}', (0, 0, 0), font=font)  # coordinates, text, color, font
 
     return img
+# ---- Fin del código ----
 
-
+# Código basado en el del repositorio del paper Taming Transformers for High-Resolution Image Synthesis
+# (https://github.com/CompVis/taming-transformers)
+# ---- Inicio del código ----
 def reconstruction_pipeline(models, files, titles, size=192):
     img = Image.new("RGB", ((1 + len(models)) * size, len(files) * size))
 
@@ -171,9 +182,10 @@ def reconstruction_pipeline(models, files, titles, size=192):
                                          font=font)  # coordinates, text, color, font
 
     return img
+# ---- Fin del código ----
 
-
-# perlin noise generator - URL:https://stackoverflow.com/questions/42147776/producing-2d-perlin-noise-with-numpy - 25/3/22
+# Generador de ruido Perlín 2D obtenido de https://stackoverflow.com/questions/42147776/producing-2d-perlin-noise-with-numpy
+# ---- Inicio del código ----
 def perlin(x, y):
     # permutation table
     p = np.arange(256, dtype=int)
@@ -220,25 +232,29 @@ def gradient(h, x, y):
     vectors = np.array([[0, 1], [0, -1], [1, 0], [-1, 0]])
     g = vectors[h % 4]
     return g[:, :, 0] * x + g[:, :, 1] * y
+# ---- Fin del código ----
 
-
-# clean molecule image
+# limpia un hard negative para reducir su ruido de fondo y aumentar su contraste
 def clean_molecule(img, cutoff=210, contrast=2):
     mask = cv2.inRange(img, np.array([0, 0, 0]), np.array([cutoff, cutoff, cutoff]))
 
+    # aumenta el contraste de la imagen
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     img_pil = Image.fromarray(img)
     img_pil = ImageEnhance.Contrast(img_pil).enhance(contrast)
     img = np.asarray(img_pil)
 
+    # aplica un filtro que elimina los píxeles ruidosos
     kernel = np.ones((2, 2), np.uint8)
     mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)
 
     kernel = np.ones((3, 3), np.uint8)
     mask = cv2.dilate(mask, kernel, iterations=1)
 
+    # aplica desenfoque gaussiano
     mask = cv2.GaussianBlur(mask, (0, 0), sigmaX=2, sigmaY=2, borderType=cv2.BORDER_DEFAULT)
 
+    # colorea de blanco aquellos píxeles que superan cierto umbral de color
     mask_3ch = np.zeros_like(img)
     mask_3ch[:, :, 0] = mask
     mask_3ch[:, :, 1] = mask
@@ -248,7 +264,7 @@ def clean_molecule(img, cutoff=210, contrast=2):
 
     return img.astype("uint8")
 
-
+# genera un hard negative a partir de ruido uniforme y lo limpia.
 def sample_uniform_and_clean(config_name, directory, size, cutoff, n, output_path):
     config = load_config("logs/"+directory+config_name+"configs/"+directory+"-project.yaml", display=False)
     model = load_vqgan(config, ckpt_path="logs/"+directory+config_name+"/checkpoints/last.ckpt")
@@ -261,7 +277,16 @@ def sample_uniform_and_clean(config_name, directory, size, cutoff, n, output_pat
         clean_img = clean_molecule(np.asarray(gen_img), cutoff)
         cv2.imwrite(output_path+"uniform"+"_"+str(i)+".jpg",clean_img)
 
-
+# genera un hard negative a partir de ruido Perlín y lo limpia
+# - config_name es el nombre de la configuración del modelo generativo
+# - epochs es el número de épocas con las que está entrenado el modelo
+# - directory es la fecha de creacion del modelo, parte de la ruta donde se encuentra almacenado
+# - size es el tamaño de las imágenes a generar
+# - amp es la amplitud del ruido perlín
+# - freq es la frecuencia del ruido perlín
+# - cutoff es el valor a partir del cual un pixel se transforma el color blanco, con el objetivo de eliminar ruido
+# - n es el número de imágenes a generar con esta configuración
+# - output_path la ruta de la imagen generada
 def sample_perlin_and_clean(config_name, epochs, directory, size, amp, freq, cutoff, n, output_path):
     config = load_config("logs/"+directory+config_name+"configs/"+directory+"-project.yaml", display=False)
     model = load_vqgan(config, ckpt_path="logs/"+directory+config_name+"/checkpoints/last.ckpt")

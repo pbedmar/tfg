@@ -6,7 +6,7 @@ moléculas. Encontramos diferentes archivos y directorios, cada uno con una func
 
 - El subdirectorio **taming-transformers/** contiene la implementación del modelo generativo proporcionada por sus
   autores
-  *(Taming transformers for high-resolution image synthesis, Esser et al., 2021)*
+  *(Taming transformers for high-resolution image synthesis, Esser et al., 2021. https://github.com/CompVis/taming-transformers)*
 
 - El subdirectorio **synthetic_dataset/** contendrá los 400 *hard_negatives* que se generan tras ejecutar
   sample_and_clean_molecules.ipynb
@@ -28,6 +28,8 @@ moléculas. Encontramos diferentes archivos y directorios, cada uno con una func
 
 No existen ficheros ejecutables como tal (excepto los ficheros taming-transformers/train_ngpu.sh). Todos los archivos
 son Jupyter Notebooks, formados por celdas de texto y código que se pueden ejecutar de forma interativa.
+
+Los modelos generativos se deben añadir a taming-transformers/logs/, se pueden descargar en: https://drive.google.com/drive/folders/1exLhDxHM14v4gkRjnxu2Mza3u9S4VaXv?usp=sharing
 
 El modelo se entrena mediante los ficheros taming-transformers/train_ngpu.sh. Estos siguen la estructura de un fichero
 SLURM, ya que el trabajo será procesado por este sistema de colas en el clúster GPU, permitiendo un entrenamiento mucho

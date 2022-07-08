@@ -8,7 +8,7 @@ from torch.utils.data import DataLoader
 from sklearn.model_selection import train_test_split
 
 # dado un directorio de imagenes, genera dos ficheros train y test donde almacena el nombre de
-# aquellas que van a formar parte del conjunto de train y test respectivamente
+# aquellas imágenes que van a formar parte del conjunto de train y test respectivamente
 def gen_metadata(directory, seed=1):
     directory = directory+"/"
     filenames = glob.glob(directory+"*.jpg")
